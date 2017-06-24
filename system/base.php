@@ -27,7 +27,7 @@ define('IS_CGI',(0 === strpos(PHP_SAPI,'cgi') || false !== strpos(PHP_SAPI,'fcgi
 define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 define('EXT', '.class.php');
-
+define('FOOD_PATH','./system/plugin/food/template/static/');
 require CORE_PATH.'hd_core'.EXT;
 // require CORE_PATH.'hd_load'.EXT;
 require APP_PATH.'function/function.php';

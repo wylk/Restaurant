@@ -24,7 +24,7 @@ class index_control extends init_control {
 		define('PLUGIN_ID', $id);
 		define('PLUGIN_MODULE', $module);
 		$libfile = PLUGIN_PATH.$id.DIRECTORY_SEPARATOR.$module.'.inc.php';
-		echo $libfile;die;
+		// echo $libfile;die;
 		if (!file_exists($libfile)) die('访问模块不存在');
 		include $libfile;
 	}

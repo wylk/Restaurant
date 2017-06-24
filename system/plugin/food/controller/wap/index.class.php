@@ -6,21 +6,16 @@ class index extends init_control{
 		parent::_initialize();
     }
 
-    public function index()
+    public function test()
     {
-    	$limit = model('app')->select();
-        // var_dump($limit);
-        echo 'hello';
+        echo 'ok';
+        echo FOOD_PATH;
+    }
+
+    public function test1()
+    {
+        $limit = model('app')->select();
+
         include_once PLUGIN_PATH.PLUGIN_ID.'/template/wap/index.php';
-
-
-
-
-
-
-
-
-        die;
-
     }
 }
