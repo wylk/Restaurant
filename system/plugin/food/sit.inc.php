@@ -6,13 +6,7 @@ if (!defined('IN_PLUGIN')) { exit('Access Denied');}
     //echo $file_url;die;
     require_once $file_url;
     if (class_exists($b)) {
-
-        $obj =  new $b;
-
-        $obj->$c();
-        // echo 'hello';
-        // die;
-        // call_user_func_array(array(new $b, $c),array());
+         call_user_func_array(array(new $b, $c),array());
 
     }
 
