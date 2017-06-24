@@ -15,6 +15,7 @@ class index_control extends init_control {
 		list($id,$module,$c) = explode(':', $id);
 		if (empty($id)) showmessage('参数错误');
 		$plugins = model('admin/app','service')->get_plugins();
+		//var_dump($plugins);die;
 		$plugin = $plugins[$id];
 		$vars = $plugins[$id]['vars'];
 		if(!in_array($id, array_keys($plugins))) {
@@ -24,7 +25,10 @@ class index_control extends init_control {
 		define('PLUGIN_ID', $id);
 		define('PLUGIN_MODULE', $module);
 		$libfile = PLUGIN_PATH.$id.DIRECTORY_SEPARATOR.$module.'.inc.php';
+<<<<<<< HEAD
 		// echo $libfile;die;
+=======
+>>>>>>> 3301198981e310f5fac9d5d4796aa71ca9dfbab6
 		if (!file_exists($libfile)) die('访问模块不存在');
 		include $libfile;
 	}

@@ -18,4 +18,9 @@ class index extends init_control{
 
         include_once PLUGIN_PATH.PLUGIN_ID.'/template/wap/index.php';
     }
+
+    public function test()
+    {
+        echo 'ok';
+    }
 }
