@@ -23,4 +23,9 @@ class index extends init_control{
         die;
 
     }
+
+    public function test()
+    {
+        echo 'ok';
+    }
 }
