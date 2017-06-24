@@ -1,0 +1,82 @@
+<link type='text/css' rel='stylesheet' href='./system/plugin/compare/template/compare/static/compare.css'/>
+<script type='text/javascript' src='./system/plugin/compare/template/compare/static/compare.js'></script>
+<a data-id="<?php echo $_GET['sku_id']?>" class='button margin-big-left bg-sub padding-largest-btn join-comp-btn'>加入对比</a>
+
+<a class='comp-shrick button bg-sub hidden'>展开对比</a>
+<div class='compare'>
+    <ul class='tab compare-tab'>
+        <li class='list-item current'><a>对比栏</a></li>
+        <li class='list-item '><a>最近浏览</a></li>
+        <a class='comp-hiden fr padding-big-right text-sub'>隐藏</a>
+    </ul>
+    <div class='switch-panel'>
+        <div class='tab-switch clearfix'>
+            <ul class='compare-switch fl'>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>1</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>2</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>3</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>4</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>5</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+                <li class='list'>
+                    <div class='box-inline comp-num'>
+                        <span class='num fl'>6</span>
+                        <p class='text fl'>您还可以继续添加</p>
+                    </div>
+                </li>
+            </ul>
+            <div class='compare-btn'>
+                <!--跳转到对比页-->
+                <a href="plugin.php?id=compare:comparing&action=show&sku_id=<?php echo $_GET['sku_id']?>" class='button bg-sub padding-largest-btn'>对比</a>
+                <!--当对比数量小于1是灰色不可点-->
+                <!--<a class='button bg-sub padding-largest-btn disabled'>对比</a>-->
+                <p class='text-center'><a class='text-lh text-sub clear-comp' href='javascript:;'>清空对比栏</a></p>
+            </div>
+        </div>
+
+        <div class='tab-switch hidden'>
+            <div class='slider next-view'>
+                <a href='javascript:;' class='slider-control prev disabled'><i class='icon-slider icon-prev'></i></a>
+                <a href='javascript:;' class='slider-control next'><i class='icon-slider icon-next'></i></a>
+                <div class='slider-items'>
+                    <ul class='lh'>
+                        <?php foreach($histories as $k => $item){?>
+                        <li>
+                            <a href="<?php echo url('goods/index/detail',array('sku_id'=>$item['sku_id']))?>" class='fl img'><img src="<?php echo thumb($item['thumb'])?>"></a>
+                            <div class='padding-15-left text'>
+                                <a href="<?php echo url('goods/index/detail',array('sku_id'=>$item['sku_id']))?>" class='title'><?echo $item['sku_name']?></a>
+                                <p class='text-red'><?echo $item['shop_price']?></p>
+                            </div>
+                        </li>
+                        <?php }?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

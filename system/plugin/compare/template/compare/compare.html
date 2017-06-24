@@ -1,0 +1,310 @@
+<?php include template('toper','common');?>
+<?php include template('header','common');?>
+<link type="text/css" rel="stylesheet" href="./system/plugin/compare/template/compare/static/compare.css" />
+<script type="text/javascript" src="./system/plugin/compare/template/compare/static/compare.js" ></script>
+<script type="text/javascript" src="./template/default/statics/js/jquery.jqzoom.js" ></script>
+		<!--面包屑-->
+		<div class="container crumbs clearfix">
+			<p class="fl layout">
+				<i class="icon-crumbs"></i>
+                <?php echo catpos(get_cid($_GET['sku_id']));?>
+			</p>
+		</div>
+		<div class="container compare-detail">
+			<!--商品对比-->
+			<div class="border item-blue-top">
+				<div class="item-title padding-left padding-right clearfix">
+					<span>商品对比</span>
+					<div class="fr">
+						<label class="margin-big-right"><input class="margin-little-right" name="light_def" type="checkbox" checked="checked">高亮不同项</label>
+						<label><input class="margin-little-right" name="hide_same" type="checkbox">隐藏相同项</label>
+					</div>
+				</div>
+				<table cellpadding="0">
+					<tr>
+						<td class="small-width padding-large-left" valign="middle">商品</td>
+                        <?php foreach($list as $k => $v){?>
+                        <?php if($v){?>
+                        <td>
+                            <div class="preview">
+                                <div id="spec-n" class="padding-15">
+                                    <div class="jqzoom">
+                                        <img src="<?php echo $v['thumb']?>" width="150" height="150" alt="<?php echo $v['sku_name']?>">
+                                    </div>
+                                </div>
+                                <?php if($v['imgs']){?>
+                                <div class="slider" id="spec-list">
+                                    <a href="javascript:;" class="slider-control border prev disabled"><</a>
+                                    <a href="javascript:;" class="slider-control border next disable">></a>
+                                    <div class="slider-items">
+                                        <ul class="lh">
+                                            <?php foreach(json_decode($v['imgs'],true) as $k => $v2){?>
+                                            <li class="<?php if($k == 0) echo 'current';?>">
+                                                <img src="<?php echo $v2?>">
+                                            </li>
+                                            <?php }?>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <?php }?>
+                                <div>
+                                    <p><?php echo $v['sku_name']?></p>
+                                    <p class="text-red">¥<?php echo $v['shop_price']?></p>
+                                    <p class="margin-small-top">
+                                        <a href="<?php echo url('goods/index/detail',array('sku_id'=>$v['sku_id']))?>" class="button bg-sub margin-large-right">立即查看</a>
+                                        <a data-event="cart_add" data-skuids="<?php echo $v['sku_id']?>" class="button">加入购物车</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <?php }else{?>
+                        <td valign="middle" align="center">
+                            <a  href="<?php echo url('goods/index/lists',array('id'=>$cid))?>" class="add-similar"><em class="text-large add">+</em>添加同类商品</a>
+                        </td>
+                        <?php }?>
+                        <?php }?>
+						<!--<td>
+							<div class="preview">
+								<div id="spec-n" class="padding-15">
+									<div class="jqzoom"><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg" width="150" height="150" alt=""></div>
+								</div>
+								<div class="slider" id="spec-list">
+									<a href="javascript:;" class="slider-control border prev disabled"><</a>
+									<a href="javascript:;" class="slider-control border next disable">></a>
+									<div class="slider-items">
+										<ul class="lh">
+											<li class="current"><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/big_goods_1.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/big_goods_1.jpg"></li>
+										</ul>
+									</div>
+								</div>
+								<div>
+									<p>小米手机5 全网通标准版</p>
+									<p class="text-red">¥1999.00</p>
+									<p class="margin-small-top">
+										<a class="button bg-sub margin-large-right">立即查看</a>
+										<a class="button">加入购物车</a>
+									</p>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="preview">
+								<div id="spec-n" class="padding-15">
+									<div class="jqzoom"><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg" width="150" height="150" alt=""></div>
+								</div>
+								<div id="showDetails" style="display: none;">
+									<img src="{__ROOT__}template/default/statics/images/icon_phone.jpg" id="showImgBig" alt="" width="150" height="150">
+								</div>
+								<div class="slider" id="spec-list">
+									<a href="javascript:;" class="slider-control border prev disabled"><</a>
+									<a href="javascript:;" class="slider-control border next disable">></a>
+									<div class="slider-items">
+										<ul class="lh">
+											<li class="current"><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/icon_phone.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/big_goods_1.jpg"></li>
+											<li class=""><img src="{__ROOT__}template/default/statics/images/big_goods_1.jpg"></li>
+										</ul>
+									</div>
+								</div>
+								<div>
+									<p>小米手机5 全网通标准版</p>
+									<p class="text-red">¥1999.00</p>
+									<p class="margin-small-top">
+										<a class="button bg-sub margin-large-right">立即查看</a>
+										<a class="button">加入购物车</a>
+									</p>
+								</div>
+							</div>
+						</td>-->
+						<!--<td valign="middle" align="center">-->
+							<!--<a  href="#" class="add-similar"><em class="text-large add">+</em>添加同类商品</a>-->
+						<!--</td>-->
+						<!--<td valign="middle" align="center">-->
+							<!--<a href="#" class="add-similar"><em class="text-large add">+</em>添加同类商品</a>-->
+						<!--</td>-->
+					</tr>
+					<!--<tr>
+						<td class="small-width padding-large-left" valign="middle">评价</td>
+						<td class="table-text">
+							<p class="text-red text-large margin-little-bottom">80%</p>
+							<p>好评度</p>
+							<p>累计评价 2333条</p>
+						</td>
+						<td class="table-text">
+							<p class="text-red text-large margin-little-bottom">80%</p>
+							<p>好评度</p>
+							<p>累计评价 2333条</p>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>-->
+
+                    <?php foreach(json_decode($list[0]['spec'],true) as $i => $k){?>
+                    <tr>
+                    <td class="small-width padding-large-left" valign="middle"><?php echo $k['name'];?></td>
+                        <?php foreach($list as $k => $v){?>
+                        <?php $spec = json_decode($v['spec'],true);?>
+                        <td class="table-text">
+                            <span><?php echo $spec[$i]['value'];?></span>
+                        </td>
+                        <?php }?>
+                    </tr>
+                    <?php }?>
+
+					<!--<tr>
+						<td class="small-width padding-large-left" valign="middle">操作系统</td>
+						<td class="table-text">
+							<span>安卓（Android）</span>
+						</td>
+						<td class="table-text">
+							<span>安卓（Android）</span>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="light">
+						<td class="small-width padding-large-left" valign="middle">参数</td>
+						<td class="table-text">
+							<span>GTO233</span>
+						</td>
+						<td class="table-text">
+							<span>GTO233</span>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="light">
+						<td class="small-width padding-large-left" valign="middle">参数</td>
+						<td class="table-text">
+							<span>GTO233</span>
+						</td>
+						<td class="table-text">
+							<span>GTO233</span>
+						</td>
+						<td></td>
+						<td></td>
+					</tr>-->
+				</table>
+			</div>
+			
+			<!--同类商品推荐-->
+			<div class="border item-blue-top margin-large-top">
+				<div class="item-title padding-left padding-right clearfix">
+					<span>同类商品推荐</span>
+					<a href="<?php echo url('goods/index/lists',array('id'=>$cid))?>" class="text-sub fr">查看更多></a>
+				</div>
+				<ul class="comp-similar padding-big-top clearfix">
+                    <?php foreach($kind_list as $v){?>
+                    <li class="list">
+                        <img style="width: 120px" src="<?php echo $v['thumb']?>">
+                        <p class="text-ellipsis"><?php echo $v['sku_name']?></p>
+                        <p class="text-red"><?php echo $v['shop_price']?></p>
+                        <a href="plugin.php?id=compare:comparing&action=join_in&sku_id=<?php echo $_GET['sku_id']?>" class="button bg-sub padding-largest-btn margin-small-top">加入对比</a>
+                    </li>
+                    <?php }?>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<?php include template('toolbar','common');?>
+		<?php include template('footer','common');?>
+
+		<script type="text/javascript" src="./template/default/statics/js/jquery.lazyload.js" ></script>
+		<script>
+			$(function(){
+				//点击到指定页
+				$(".paging .button").click(function(){
+					jump_to_page(this);
+				});
+				//回车到指定页
+				$(".paging input[name=page]").live('keyup',function(e){
+					if(e.keyCode == 13){
+						jump_to_page(this);
+					} 
+				});
+
+				loadAfterAction();
+
+				//展示和隐藏更多属性
+				$(".item-type .more a").live('click',function(){
+					var _child = $(this).parent().prev(".type-name").children();
+					if(!$(this).hasClass("fold")){
+						$(this).html("收起").addClass("fold");
+						_child.removeClass("hidden");
+					}else{
+						$(this).html("更多").removeClass("fold");
+						_child.addClass("hidden").slice(0,11).removeClass("hidden");
+					}
+					return false;
+				});
+
+
+
+				//展示和隐藏更多属性选项
+				$(".more-type").live('click',function(){
+					if(!$(this).hasClass("fold")){
+						$(this).html("收起选项").addClass("fold");
+						$(".selected-type .item-type").removeClass("hidden");
+					}else{
+						$(this).html("更多选项").removeClass("fold");
+						$(".selected-type .item-type").addClass("hidden").slice(0,5).removeClass("hidden");
+					}
+					return false;
+				});
+
+				$(".list-h li").hover(function(){
+					$(this).addClass("hover");
+				},function(){
+					$(this).removeClass("hover");
+				});
+
+				//筛选条
+				filterBar();
+
+			})
+
+			//添加属性选择的更多
+			function loadAfterAction(){
+				var flog = true;
+				$(".item-type").each(function(){
+					if($(this).find("a[data-status]").length>0&&$(this).index()>4){
+						flog = false;
+					}
+					$(this).children(".type-name").find("a").slice(0,11).removeClass("hidden");
+					if($(this).children(".type-name").find("a").length>10){
+						$(this).children(".more").append('<a class="text-sub" href="">更多</a>');
+					}
+				});
+				if($(".item-type").length>5&&flog){
+					$(".item-type").slice(0,5).removeClass("hidden");
+					$(".selected-type").after('<a class="more-type" href="">更多选项</a>');
+				}else{
+					$(".item-type").removeClass("hidden");
+				}
+			}
+
+			//筛选条
+			function filterBar(){
+				$(window).scroll(function(){
+					var doctop = $(document).scrollTop();
+					var _head = $(".list-wrap").offset().top-41;
+					if(doctop <= _head){
+						$('.goods-list-wrap').removeClass('filter-bar');
+					}
+					if(doctop > _head){
+						$('.goods-list-wrap').addClass('filter-bar');
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

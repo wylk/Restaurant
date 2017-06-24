@@ -1,0 +1,30 @@
+<ul class='compare-switch fl'>
+    <?php foreach($list as $key => $item){?>
+    <li class='list'>
+        <?php if($item){?>
+        <div class='comp-content'>
+            <a href="<?php echo url('goods/index/detail',array('sku_id'=>$item['sku_id']))?>" class='fl img'><img src="<?php echo thumb($item['thumb'])?>"></a>
+            <div class='padding-15-left text'>
+                <a href="<?php echo url('goods/index/detail',array('sku_id'=>$item['sku_id']))?>" class='title'><?echo $item['sku_name']?></a>
+                <p class='text-red'><?echo $item['shop_price']?></p>
+            </div>
+        </div>
+        <div class='box-inline comp-num hidden'>
+            <span class='num fl'><?echo $key+1;?></span>
+            <p class='text fl'>您还可以继续添加</p>
+        </div>
+        <?php }else{?>
+        <div class='box-inline comp-num'>
+            <span class='num fl'><?php echo $key+1?></span>
+            <p class='text fl'>您还可以继续添加</p>
+        </div>
+        <?php }?>
+    </li>
+    <?php }?>
+</ul>
+
+<?php if($num < 2){ ?>
+<script>
+    $('.compare-btn .button').attr('href','javascript:;').css('background', '#9c9c9c').css('cursor','no-drop');
+</script>
+<?php }?>

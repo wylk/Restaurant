@@ -1,0 +1,1 @@
+DROP TABLE `hd_buy_limit`;
