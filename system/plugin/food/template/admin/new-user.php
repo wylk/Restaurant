@@ -78,16 +78,19 @@
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>门店状态:</label>
-                                <input class="col-md-9 form-control" type="text" />
+                                <label>
+                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>开启
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">关闭
+                                  </label>
+
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>门店公告:</label>
                                 <input class="col-md-9 form-control" type="text" />
                             </div>
-                            <div class="col-md-12 field-box">
-                                <label>门店简介:</label>
-                                <input class="col-md-9 form-control" type="text" />
-                            </div>
+
                             <div class="col-md-12 field-box">
                                 <label>人均消费:</label>
                                 <input class="col-md-9 form-control" type="text" />
