@@ -15,7 +15,10 @@ class index1 extends init_control
     // }
     public function test()
     {
-        echo 'success';
+         // echo APP_PATH;
+         //  die;
+        // die;
+        include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/index.html';
     }
 
 }
