@@ -22,6 +22,8 @@ class index extends init_control{
                     'auth_level'=>0,
                     'id'=>array('in',$role['role_auth_ids'])))
                 ->select();
+
+        //var_dump($authInfoA);die        
         $authInfoB = model('store_auth')
                 ->where(array(
                     'auth_level'=>1,
