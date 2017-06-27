@@ -28,6 +28,7 @@ define('IS_WIN',strstr(PHP_OS, 'WIN') ? 1 : 0 );
 define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 define('EXT', '.class.php');
 define('FOOD_PATH','./system/plugin/food/template/static/');
+define('FOOD_PATH_HTML','./system/plugin/food/template/admin/');
 require CORE_PATH.'hd_core'.EXT;
 // require CORE_PATH.'hd_load'.EXT;
 require APP_PATH.'function/function.php';
