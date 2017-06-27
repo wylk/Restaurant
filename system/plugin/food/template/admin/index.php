@@ -2,16 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>后台管理系统首页 Bootstrap响应式后台管理系统模版Detail - JS代码网</title>
-	<meta name="keywords" content="Bootstrap模版,Bootstrap模版下载,Bootstrap教程,Bootstrap中文,后台管理系统模版,后台模版下载,后台管理系统,后台管理模版" />
-	<meta name="description" content="JS代码网提供Bootstrap模版,后台管理系统模版,后台管理界面,Bootstrap教程,Bootstrap中文翻译等相关Bootstrap插件下载" />
+	<title>商家后台管理</title>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- bootstrap -->
     <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="C:/Users/1234/food/system/plugin/food/template/static/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
 
     <!-- libraries -->
     <link href="<?php echo FOOD_PATH?>css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
@@ -25,245 +24,13 @@
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/index.css" type="text/css" media="screen" />
 
-    <!-- open sans font -->
-<!--     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
- -->
-    <!-- lato font -->
-<!--     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'> -->
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 </head>
 <body>
-<!-- <?php echo FOOD_PATH;?> -->
-    <!-- navbar -->
-    <header class="navbar navbar-inverse" role="banner">
-        <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" id="menu-toggler">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index.html"><img href="<?php echo FOOD_PATH?>img/logo.png"></a>
-        </div>
-        <ul class="nav navbar-nav pull-right hidden-xs">
-            <li class="hidden-xs hidden-sm">
-                <input class="search" type="text" />
-            </li>
-            <li class="notification-dropdown hidden-xs hidden-sm">
-                <a href="#" class="trigger">
-                    <i class="icon-warning-sign"></i>
-                    <span class="count">8</span>
-                </a>
-                <div class="pop-dialog">
-                    <div class="pointer right">
-                        <div class="arrow"></div>
-                        <div class="arrow_border"></div>
-                    </div>
-                    <div class="body">
-                        <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
-                        <div class="notifications">
-                            <h3>你有6条信息</h3>
-                            <a href="#" class="item">
-                                <i class="icon-signin"></i> 新用户注册
-                                <span class="time"><i class="icon-time"></i> 13分钟前.</span>
-                            </a>
-                            <a href="#" class="item">
-                                <i class="icon-signin"></i> 新用户注册
-                                <span class="time"><i class="icon-time"></i> 18分钟前.</span>
-                            </a>
-                            <a href="#" class="item">
-                                <i class="icon-envelope-alt"></i> 新消息来自Alejandra
-                                <span class="time"><i class="icon-time"></i> 28分钟前.</span>
-                            </a>
-                            <a href="#" class="item">
-                                <i class="icon-signin"></i> 新用户注册
-                                <span class="time"><i class="icon-time"></i> 49分钟前.</span>
-                            </a>
-                            <a href="#" class="item">
-                                <i class="icon-download-alt"></i> 新订单
-                                <span class="time"><i class="icon-time"></i> 1天前.</span>
-                            </a>
-                            <div class="footer">
-                                <a href="#" class="logout">查看所有消息</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="notification-dropdown hidden-xs hidden-sm">
-                <a href="#" class="trigger">
-                    <i class="icon-envelope"></i>
-                </a>
-                <div class="pop-dialog">
-                    <div class="pointer right">
-                        <div class="arrow"></div>
-                        <div class="arrow_border"></div>
-                    </div>
-                    <div class="body">
-                        <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
-                        <div class="messages">
-                            <a href="#" class="item">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img.png" class="display" />
-                                <div class="name">DEMO</div>
-                                <div class="msg">
-                                    回家来吃饭了.
-                                </div>
-                                <span class="time"><i class="icon-time"></i> 13分钟前.</span>
-                            </a>
-                            <a href="#" class="item">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img2.png" class="display" />
-                                <div class="name">Galván</div>
-                                <div class="msg">
-                                    照片很不错哦.
-                                </div>
-                                <span class="time"><i class="icon-time"></i> 26分钟前.</span>
-                            </a>
-                            <a href="#" class="item last">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img.png" class="display" />
-                                <div class="name">后台</div>
-                                <div class="msg">
-                                   模版很不错赶紧下载.
-                                </div>
-                                <span class="time"><i class="icon-time"></i> 48分钟前.</span>
-                            </a>
-                            <div class="footer">
-                                <a href="#" class="logout">查看所有消息</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                    你的账号
-                    <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="personal-info.html">个人信息</a></li>
-                    <li><a href="#">账号设置</a></li>
-                    <li><a href="#">账单</a></li>
-                    <li><a href="#">导出数据</a></li>
-                    <li><a href="#">发送反馈</a></li>
-                </ul>
-            </li>
-            <li class="settings hidden-xs hidden-sm">
-                <a href="personal-info.html" role="button">
-                    <i class="icon-cog"></i>
-                </a>
-            </li>
-            <li class="settings hidden-xs hidden-sm">
-                <a href="signin.html" role="button">
-                    <i class="icon-share-alt"></i>
-                </a>
-            </li>
-        </ul>
-    </header>
-    <!-- end navbar -->
-
-    <!-- sidebar -->
-    <div id="sidebar-nav">
-        <ul id="dashboard-menu">
-            <li class="active">
-                <div class="pointer">
-                    <div class="arrow"></div>
-                    <div class="arrow_border"></div>
-                </div>
-                <a href="index.html">
-                    <i class="icon-home"></i>
-                    <span>首页</span>
-                </a>
-            </li>
-            <li>
-                <a href="chart-showcase.html">
-                    <i class="icon-signal"></i>
-                    <span>图表</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-group"></i>
-                    <span>用户</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="user-list.html">用户列表</a></li>
-                    <li><a href="new-user.html">新用户</a></li>
-                    <li><a href="user-profile.html">用户资料</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-edit"></i>
-                    <span>表单</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="form-showcase.html">表单应用</a></li>
-                    <li><a href="form-wizard.html">表单验证</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="gallery.html">
-                    <i class="icon-picture"></i>
-                    <span>相册</span>
-                </a>
-            </li>
-            <li>
-                <a href="calendar.html">
-                    <i class="icon-calendar-empty"></i>
-                    <span>日历</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="tables.html">
-                    <i class="icon-th-large"></i>
-                    <span>表格</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="tables.html">常用表格</a></li>
-                    <li><a href="datatables.html">数据表格</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="dropdown-toggle ui-elements" href="#">
-                    <i class="icon-code-fork"></i>
-                    <span>UI 组件</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="ui-elements.html">UI 组件</a></li>
-                    <li><a href="icons.html">Icons图标</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="personal-info.html">
-                    <i class="icon-cog"></i>
-                    <span>我的信息</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-share-alt"></i>
-                    <span>其他</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="code-editor.html">代码编辑器</a></li>
-                    <li><a href="grids.html">网格</a></li>
-                    <li><a href="signin.html">登录</a></li>
-                    <li><a href="signup.html">注册</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+<?php include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/header.php';?>
+<?php include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/left.php';?>
     <!-- end sidebar -->
-
-
-	<!-- main container -->
+    <!-- main container -->
     <div class="content">
 
         <!-- settings changer -->
@@ -444,7 +211,7 @@
                                 <td>
                                     <input type="checkbox">
                                     <div class="img">
-                                        <img href="<?php echo FOOD_PATH?>img/table-img.png">
+                                        <img src="img/table-img.png">
                                     </div>
                                     <a href="#">There are many variations </a>
                                 </td>
@@ -465,7 +232,7 @@
                                 <td>
                                     <input type="checkbox">
                                     <div class="img">
-                                        <img href="<?php echo FOOD_PATH?>img/table-img.png">
+                                        <img src="img/table-img.png">
                                     </div>
                                     <a href="#">Internet tend</a>
                                 </td>
@@ -485,7 +252,7 @@
                                 <td>
                                     <input type="checkbox">
                                     <div class="img">
-                                        <img href="<?php echo FOOD_PATH?>img/table-img.png">
+                                        <img src="img/table-img.png">
                                     </div>
                                     <a href="#">Many desktop publishing </a>
                                 </td>
@@ -505,7 +272,7 @@
                                 <td>
                                     <input type="checkbox">
                                     <div class="img">
-                                        <img href="<?php echo FOOD_PATH?>img/table-img.png">
+                                        <img src="img/table-img.png">
                                     </div>
                                     <a href="#">Generate Lorem </a>
                                 </td>
@@ -526,7 +293,7 @@
                                 <td>
                                     <input type="checkbox">
                                     <div class="img">
-                                        <img href="<?php echo FOOD_PATH?>img/table-img.png">
+                                        <img src="img/table-img.png">
                                     </div>
                                     <a href="#">Internet tend</a>
                                 </td>
@@ -558,17 +325,17 @@
     </div>
 
 
-	<!-- scripts -->
+    <!-- scripts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery-ui-1.10.2.custom.min.js"></script>
     <!-- knob -->
-    <script href="<?php echo FOOD_PATH?>js/jquery.knob.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery.knob.js"></script>
     <!-- flot charts -->
-    <script href="<?php echo FOOD_PATH?>js/jquery.flot.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/jquery.flot.stack.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/jquery.flot.resize.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery.flot.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery.flot.stack.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery.flot.resize.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
 
     <script type="text/javascript">
         $(function () {
