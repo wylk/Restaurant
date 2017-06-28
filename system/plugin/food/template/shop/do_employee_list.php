@@ -1,0 +1,130 @@
+
+    <!-- navbar -->
+<?php include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/header.php';?>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+<!-- <?php include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/left_menu.php';?> -->
+    <!-- end sidebar -->
+  <style type="text/css">
+
+ .sortable{
+     text-align: center;
+ }
+  </style>
+
+	<!-- main container -->
+   <div class="content">
+        
+        <!-- settings changer -->  
+        <div id="pad-wrapper" class="users-list">
+            <div class="row header">
+                <h3>员工列表</h3>
+                <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
+                    <input type="text" class="col-md-5 search" placeholder="输入姓名查询">
+                    
+                    <!-- custom popup filter -->
+                    <!-- styles are located in css/elements.css -->
+                    <!-- script that enables this dropdown is located in js/theme.js -->
+                    <a href="new-user.html" class="btn-flat success pull-right">
+                        <span>&#43;</span>
+                       添加员工
+                    </a>
+                </div>
+            </div>
+
+            <!-- Users table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover" style="text-align: center">
+                        <thead >
+                            <tr>
+                                <th class="col-md-2 sortable">
+                                    真实姓名
+                                </th>
+                                <th class="col-md-2 sortable">
+                                    <span class="line"></span>电话号码
+                                </th>
+                                <th class="col-md-2 sortable">
+                                    <span class="line"></span>邮箱
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>角色
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>状态
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                     <?php foreach ($employees as $key => $v) {?>
+                        <!-- row -->
+                        <tr>
+                            <td>
+                                <?php echo $v['truename']?>
+                            </td>
+                            <td>
+                                <?php echo $v['phone']?>
+                            </td>
+                            <td>
+                               <?php echo $v['email']?>
+                            </td>
+                            <td >
+                               <?php echo $v['role_name']?>
+                            </td>
+                            <td>
+                              <?php if($v['status'] == 0){ echo '正常';}else{ echo '停用';} ?>
+                            </td>
+                            <td>
+                              <a href="javascript:;" id="del"  data-id="<?php echo $v['id']?>" >删除</a>
+                              |
+                              编辑
+                            </td>
+                        </tr>
+                        <!-- row -->
+                       <?php }?>
+                       
+                        
+                        </tbody>
+                    </table>
+                </div>                
+            </div>
+            <ul class="pagination pull-right">
+                <li><a href="#">&#8249;</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&#8250;</a></li>
+            </ul>
+            <!-- end users table -->
+        </div>
+    </div>
+    <!-- end main container -->
+
+
+	<!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(function(){
+       $('#del').click(function(){
+           var id = $(this).dat('id');
+           $.get('/index.php?m=plugin&p=shop&cn=index&id=food:sit:do_empolyee_del',{id:id},function(re){
+               if (re.error == 0) {
+                    alert(re.msg);
+               }else{
+                    alert(re.msg);
+               }
+           });
+       });
+    });
+</script>
