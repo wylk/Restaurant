@@ -29,6 +29,7 @@ define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 define('EXT', '.class.php');
 define('FOOD_PATH','./system/plugin/food/template/static/');
 define('FOOD_PATH_HTML','./system/plugin/food/template/admin/');
+define('UPLOAD_PATH','./system/library/upload/');
 require CORE_PATH.'hd_core'.EXT;
 // require CORE_PATH.'hd_load'.EXT;
 require APP_PATH.'function/function.php';
@@ -45,3 +46,26 @@ if(function_exists('spl_autoload_register')) {
 	}
 }
 C::run();
+
+function clear_html($array)
+     {
+            if (!is_array($array))
+                return trim(htmlspecialchars($array, ENT_QUOTES));
+            foreach ($array as $key => $value) {
+                if (is_array($value)) {
+                    clear_html($value);
+                } else {
+                    $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
+                }
+            }
+            return $array;
+     }
+function dexit($data = '')
+    {
+            if (is_array($data)) {
+                echo json_encode($data);
+            } else {
+                echo $data;
+            }
+            exit();
+    }
