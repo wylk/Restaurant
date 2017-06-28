@@ -243,8 +243,10 @@ class table extends hd_base {
      */
      protected function _facade($data) {
         // 检查非数据字段
+
         if(!empty($this->fields)) {
             foreach ($data as $key=>$val){
+                 // var_dump($this->fields);die;
                 if(!in_array($key,$this->fields,true)){
                     unset($data[$key]);
                 }elseif(is_scalar($val)) {
@@ -253,6 +255,7 @@ class table extends hd_base {
                 }
             }
         }
+        // var_dump($data);die;
         // 安全过滤
         if(!empty($this->options['filter'])) {
             $data = array_map($this->options['filter'],$data);
