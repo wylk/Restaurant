@@ -51,11 +51,7 @@
 
                 <div class="row filter-block">
                     <div class="pull-right">
-                        <!-- <div class="btn-group pull-right">
-                            <button class="glow left large">All</button>
-                            <button class="glow middle large">Pending</button>
-                            <button class="glow right large">Completed</button>
-                        </div> -->
+                       <?php var_dump($data);?>
                         <input type="text" class="search order-search" placeholder="输入门店类型名称" />
                         <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_shop_type" class="btn-flat success pull-right">
                         <span>&#43;</span>

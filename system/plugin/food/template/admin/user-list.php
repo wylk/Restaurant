@@ -48,8 +48,10 @@
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
                 <h3>门店管理</h3>
+
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
                     <input type="text" class="col-md-5 search" placeholder="请输入门店名称">
+
 
 
                     <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_shop" class="btn-flat success pull-right">
