@@ -16,11 +16,11 @@ defined('TPL_PATH') 	OR 		define('TPL_PATH',  DOC_ROOT.'template/');
 defined('LANG_PATH') 	OR 		define('LANG_PATH',  APP_PATH.'language/');
 
 defined('APP_DEBUG') 	OR 		define('APP_DEBUG', false);
-/* ����ļ� */
+/* Èë¿ÚÎÄ¼þ */
 defined('__APP__') 	    OR 		define('__APP__', $_SERVER['SCRIPT_NAME']);
-/* ��װĿ¼ */
+/* °²×°Ä¿Â¼ */
 define('__ROOT__', str_replace(basename(__APP__), "", __APP__));
-/* ���Ŀ¼ */
+/* ²å¼þÄ¿Â¼ */
 defined('PLUGIN_PATH') 	OR 		define('PLUGIN_PATH',  APP_PATH.'plugin/');
 
 define('IS_CGI',(0 === strpos(PHP_SAPI,'cgi') || false !== strpos(PHP_SAPI,'fcgi')) ? 1 : 0 );
@@ -29,7 +29,8 @@ define('IS_CLI',PHP_SAPI=='cli'? 1   :   0);
 define('EXT', '.class.php');
 define('FOOD_PATH','./system/plugin/food/template/static/');
 define('FOOD_PATH_HTML','./system/plugin/food/template/admin/');
-define('UPLOAD_PATH','./system/library/upload/');
+define('UPLOAD_PATH','./system/library/');
+define('DISPLAY_PATH', PLUGIN_PATH.'food/template/');
 require CORE_PATH.'hd_core'.EXT;
 // require CORE_PATH.'hd_load'.EXT;
 require APP_PATH.'function/function.php';
@@ -48,24 +49,46 @@ if(function_exists('spl_autoload_register')) {
 C::run();
 
 function clear_html($array)
-     {
-            if (!is_array($array))
-                return trim(htmlspecialchars($array, ENT_QUOTES));
-            foreach ($array as $key => $value) {
-                if (is_array($value)) {
-                    clear_html($value);
-                } else {
-                    $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
-                }
-            }
-            return $array;
-     }
-function dexit($data = '')
-    {
-            if (is_array($data)) {
-                echo json_encode($data);
+ {
+        if (!is_array($array))
+            return trim(htmlspecialchars($array, ENT_QUOTES));
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                clear_html($value);
             } else {
-                echo $data;
+                $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
             }
-            exit();
-    }
+        }
+        return $array;
+ }
+function dexit($data = '')
+{
+        if (is_array($data)) {
+            echo json_encode($data);
+        } else {
+            echo $data;
+        }
+        exit();
+}
+// function display($a)
+// {
+
+//     include_once(DISPLAY_PATH.$_GET['p'].'/'.$a.'.php');
+// }
+// function assign($field, $value = '')
+//     {
+//         $arrays=[];
+//         if (!empty($value)) {
+//            $arrays[$field] = $value;
+//            $arrays[$field];
+//         }
+//         else if (is_array($field)) {
+//             foreach ($field as $key => $value) {
+//                 $arrays[$key] = $value;
+//             }
+//         }
+//         else {
+//             $arrays[$field] = $value;
+//               $arrays[$field];
+//         }
+//     }

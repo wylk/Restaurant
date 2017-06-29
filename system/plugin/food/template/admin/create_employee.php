@@ -38,15 +38,7 @@
     <!-- main container -->
     <div class="content">
 
-        <!-- settings changer -->
-        <!-- <div class="skins-nav">
-            <a href="#" class="skin first_nav selected">
-                <span class="icon"></span><span class="text">Default</span>
-            </a>
-            <a href="#" class="skin second_nav" data-file="css/compiled/skins/dark.css">
-                <span class="icon"></span><span class="text">Dark skin</span>
-            </a>
-        </div> -->
+
 
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
@@ -103,26 +95,7 @@
                                 <label>电子邮箱:</label>
                                 <input class="form-control" type="email" />
                             </div>
-                            <div class="col-md-12 field-box">
-                                <label>操作权限:</label>
 
-                                <label>
-                                  <input type="checkbox">订单管理
-                                </label>
-                                <label>
-                                  <input type="checkbox">接收订单通知
-                                </label>
-                                 <label>
-                                  <input type="checkbox">服务员通知
-                                </label>
-                                 <label>
-                                  <input type="checkbox">排队通知
-                                </label>
-                                 <label>
-                                  <input type="checkbox">每日统计通知
-                                </label>
-
-                            </div>
                             <div class="col-md-12 field-box">
                                 <label>状态:</label>
                                  <label>

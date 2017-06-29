@@ -21,7 +21,12 @@
 
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/new-user.css" type="text/css" media="screen" />
+    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrapValidator.min.css" rel="stylesheet">
 
+    <script src="<?php echo FOOD_PATH?>js/jquery-1.8.3.js"></script>
+    <script src="http://www.gouguoyin.cn/template/default/js/jquery.pin.js"></script>
+
+    <script src="<?php echo FOOD_PATH?>js/jquery.uploadView.js"></script>
 
 </head>
 <body>
@@ -36,15 +41,6 @@
     <!-- main container -->
     <div class="content">
 
-        <!-- settings changer -->
-        <!-- <div class="skins-nav">
-            <a href="#" class="skin first_nav selected">
-                <span class="icon"></span><span class="text">Default</span>
-            </a>
-            <a href="#" class="skin second_nav" data-file="css/compiled/skins/dark.css">
-                <span class="icon"></span><span class="text">Dark skin</span>
-            </a>
-        </div> -->
 
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
@@ -57,19 +53,39 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form class="new_user_form">
+                        <form class="new_user_form" id="defaultForm" enctype="multipart/form-data" method="post">
+                        <div class="form-group">
                             <div class="col-md-12 field-box">
-                                <label>门店类型名称:</label>
-                                <input class="form-control" type="text" />
+                                <label for="typename">门店类型名称:</label>
+                                <input class="form-control" id="typename" type="text" name="typename"/>
                             </div>
+                            </div>
+                            <div class='js_uploadBox'>
+                            <div class="form-group">
                              <div class="col-md-12 field-box">
-                                <label>门店类型图标:</label>
-                                <input class="form-control" type="file" />
+                                <label for="type_img" class='js_uploadText'>门店类型图标:</label>
+                                <input type="file" id="type_img" name="type_img" class="js_upFile">
                             </div>
+                             <div class="js_showBox" ><img class="js_logoBox" src="" width="100px" ></div>
+                            </div>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="typename">门店类型名称</label>
+                                <div class="col-lg-12">
+                                <input type="text" class="form-control" id="typename" name="typename" placeholder="门店类型名称">
+                                </div>
+                            </div>
+                              <div class="form-group">
+                                <label for="type_img">门店类型图标</label>
+                                <div class="col-lg-12">
+                                <input type="file" id="type_img" name="type_img">
+                                </div>
+
+                              </div> -->
                             <div class="col-md-11 field-box actions">
-                                <input type="button" class="btn-glow primary" value="确定创建">
+                                <input type="submit" id="validateBtn" class="btn-glow primary" value="确定创建">
                                 <span>or</span>
-                                <input type="reset" value="取消" class="reset">
+                                <input type="reset" value="取消" class="reset" id="resetBtn">
                             </div>
                         </form>
                     </div>
@@ -101,9 +117,25 @@
 
 
     <!-- scripts -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
+
+
+
+    <script type="text/javascript">
+
+        $(".js_upFile").uploadView({
+            uploadBox: '.js_uploadBox',//设置上传框容器
+            showBox : '.js_showBox',//设置显示预览图片的容器
+            width : 100, //预览图片的宽度，单位px
+            height : 100, //预览图片的高度，单位px
+            allowType: ["gif", "jpeg", "jpg", "bmp", "png"], //允许上传图片的类型
+            maxSize :2, //允许上传图片的最大尺寸，单位M
+            success:function(e){
+                $(".js_uploadText").text('更改图片');
+                alert('图片上传成功');
+            }
+        });
+
+    </script>
 
     <script type="text/javascript">
         $(function () {
@@ -127,3 +159,21 @@
     </script>
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+      $('#validateBtn').click(function(){
+        var a1=$("input[name='typename']").val();
+        var a2=$("input[name='type_img']").val();
+        if(a1=='')
+        {
+            alert('门店类型不能为空');
+            return false;
+        }
+        if(a2=='')
+        {
+            alert('请上传门店图标');
+            return false;
+        }
+    });
+});
+</script>

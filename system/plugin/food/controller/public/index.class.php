@@ -54,7 +54,7 @@ class index extends init_control
     }
     public function file_upload($phone)
     {
-        require_once(UPLOAD_PATH.'UploadTp.class.php');
+        require_once(UPLOAD_PATH.'upload/UploadTp.class.php');
         $up = new FileUpload();
         $up -> set("path", "./uploadfile/images/");
         $up -> set("maxsize", 5120000);
