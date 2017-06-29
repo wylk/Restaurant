@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/layout.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/elements.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/icons.css">
-
+     
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH;?>css/compiled/index.css" type="text/css" media="screen" />
 

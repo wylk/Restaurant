@@ -69,3 +69,9 @@ function dexit($data = '')
             }
             exit();
     }
+function display($a)
+{
+    // echo PLUGIN_PATH.'food/template/'.$_GET['p'].'/'.$a.'.php';
+    // die;
+    include_once PLUGIN_PATH.'food/template/'.$_GET['p'].'/'.$a.'.php';
+}
