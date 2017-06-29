@@ -145,5 +145,33 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
     	}
     }
 
+<<<<<<< HEAD
 
 
+=======
+    
+
+    function clear_html($array)
+	{
+        if (!is_array($array))
+            return trim(htmlspecialchars($array, ENT_QUOTES));
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $this->clear_html($value);
+            } else {
+                $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
+            }
+        }
+        return $array;
+	}
+
+	function dexit($data = '')
+	{
+		if (is_array($data)) {
+		    echo json_encode($data);
+		} else {
+		    echo $data;
+		}
+		exit();
+	}
+>>>>>>> f41ebdf35fc77026166e16729a89fd9fb8a2b1b6
