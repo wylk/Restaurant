@@ -17,7 +17,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3 style="    margin-left: 95px;">添加员工</h3>
+                    <h3 style="    margin-left: 95px;">员工修改</h3>
                 </div>                
             </div>
 
@@ -28,7 +28,7 @@
                         <form class="new_user_form">
                             <div class="col-md-12 field-box">
                                 <label>真实姓名</label>
-                                <input class="form-control" type="text"  id="truename" />
+                                <input class="form-control" type="text"  id="truename"  value="<?php echo $employee['truename']?>" />
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>角色选择</label>
@@ -36,7 +36,7 @@
                                     <select id="role_id">
                                      <?php foreach ($roles as $key => $v) {?>
                                         
-                                        <option value="<?php echo $v['id'];?>"><?php echo $v['role_name'];?></option>
+                                        <option value="<?php echo $v['id'];?>" <?php if($v['id'] == $employee['role_id']){echo 'selected = "selected"';}?>><?php echo $v['role_name'];?></option>
                                         
                                         <?php }?>
                                     </select>
@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>登录账号</label>
-                                <input class="col-md-9 form-control" type="text"  id="username" />
+                                <input class="col-md-9 form-control" type="text"  id="username" value="<?php echo $employee['username']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>登录密码</label>
@@ -56,17 +56,17 @@
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>手机号</label>
-                                <input class="col-md-9 form-control" type="text" id="phone" />
+                                <input class="col-md-9 form-control" type="text" id="phone" value="<?php echo $employee['phone']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>电子邮箱</label>
-                                <input class="col-md-9 form-control" type="text" id="email" />
+                                <input class="col-md-9 form-control" type="text" id="email" value="<?php echo $employee['email']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>是否开启</label>&nbsp;
-                                开启：<input  type="radio" name="status" checked="checked" value="0"/> &nbsp;&nbsp;关闭：<input  type="radio" name="status" value='1'/>
+                                开启：<input  type="radio" name="status" checked="checked" value="0" <?php if($employee['status'] == 0){ echo 'checked';}?>/> &nbsp;&nbsp;关闭：<input  type="radio" name="status" value='1' <?php if($employee['status'] == 1){ echo 'checked';}?>/>
                             </div>
-                            
+                            <input type="hidden" value="<?php echo $employee['id']; ?>" id='hidd'></input>>
                             <div class="col-md-11 field-box actions" style="text-align: center;">
                                 <input type="button" class="btn-glow default" value="提交" id="add" style="width: 13%;">
                             </div>
@@ -105,12 +105,14 @@
               if (username.length < 6) {
                     alert('输入的登录账号不能少于6个字符，请重新输入');return false;
               }
-              if (password1 != password2) {
-                     alert('输入的密码不一致，请重新输入');return false;  
-              }
-              if (password1.length < 6) {
-                    alert('输入的登录密码不能少于6个字符，请重新输入');return false;
-              }
+              if (password1.length >0 && password2.length>0) {
+                  if (password1 != password2) {
+                         alert('输入的密码不一致，请重新输入');return false;  
+                  }
+                 if (password1.length < 6) {
+                        alert('输入的登录密码不能少于6个字符，请重新输入');return false;
+                 } 
+             }
               if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone))) {
                     alert('输入的手机号格式不对，请重新输入');return false;
               }
@@ -127,8 +129,8 @@
               data.phone = phone;
               data.email = email;
               data.status = status;
-              console.log(data);
-             $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_add',data,function(re){
+              data.employee_id = $('#hidd').val();
+             $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_edit',data,function(re){
                 console.log(re);
                 if (re.error == 0) {
                     alert(re.msg);

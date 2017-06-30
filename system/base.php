@@ -47,84 +47,29 @@ if(function_exists('spl_autoload_register')) {
 	}
 }
 C::run();
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-// function clear_html($array)
-//  {
-//         if (!is_array($array))
-//             return trim(htmlspecialchars($array, ENT_QUOTES));
-//         foreach ($array as $key => $value) {
-//             if (is_array($value)) {
-//                 clear_html($value);
-//             } else {
-//                 $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
-=======
-function clear_html($array)
- {
-        if (!is_array($array))
-            return trim(htmlspecialchars($array, ENT_QUOTES));
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                clear_html($value);
-            } else {
-                $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
-            }
-<<<<<<< HEAD
-            exit();
-    }
-function display($a)
+function dump($var, $echo = true, $label = null, $strict = true) 
 {
-    // echo PLUGIN_PATH.'food/template/'.$_GET['p'].'/'.$a.'.php';
-    // die;
-    include_once PLUGIN_PATH.'food/template/'.$_GET['p'].'/'.$a.'.php';
-}
-=======
-        }
-        return $array;
- }
-function dexit($data = '')
-{
-        if (is_array($data)) {
-            echo json_encode($data);
+    $label = ($label === null) ? '' : rtrim($label) . ' ';
+    if (!$strict) {
+        if (ini_get('html_errors')) {
+            $output = print_r($var, true);
+            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
         } else {
-            echo $data;
+            $output = $label . print_r($var, true);
         }
-        exit();
+    } else {
+        ob_start();
+        var_dump($var);
+        $output = ob_get_clean();
+        if (!extension_loaded('xdebug')) {
+            $output = preg_replace("/\]\=\>\n(\s+)/m", '] => ', $output);
+            $output = '<pre>' . $label . htmlspecialchars($output, ENT_QUOTES) . '</pre>';
+        }
+    }
+    if ($echo) {
+        echo($output);
+        return null;
+    } else
+        return $output;
 }
-// function display($a)
-// {
-
-//     include_once(DISPLAY_PATH.$_GET['p'].'/'.$a.'.php');
-// }
-// function assign($field, $value = '')
-//     {
-//         $arrays=[];
-//         if (!empty($value)) {
-//            $arrays[$field] = $value;
-//            $arrays[$field];
-//         }
-//         else if (is_array($field)) {
-//             foreach ($field as $key => $value) {
-//                 $arrays[$key] = $value;
->>>>>>> 33cfcde23658f26aba012924b670c67bb41faa24
-//             }
-//         }
-//         return $array;
-//  }
-// function dexit($data = '')
-// {
-//         if (is_array($data)) {
-//             echo json_encode($data);
-//         } else {
-//             echo $data;
-//         }
-<<<<<<< HEAD
-//         exit();
-// }
-=======
-//     }
->>>>>>> fee989f491f109977d0fb697e66478a9685b81b9
->>>>>>> 33cfcde23658f26aba012924b670c67bb41faa24
-=======
->>>>>>> 3647bb02e1d51d00de340ea8bcd1782af1c7242a
