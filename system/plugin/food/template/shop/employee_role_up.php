@@ -30,7 +30,7 @@
         <!-- settings changer -->  
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
-                <h3>添加角色</h3>
+                <h3>修改角色</h3>
             </div>
 
             <!-- Users table -->
@@ -38,7 +38,8 @@
                 <div class="col-md-12">
                    <div class="col-md-12 field-box" style="margin-top:30px">
                                 <label>角色名</label>
-                                <input class="form-control" type="text" / style="width: 46%" id="role_name">
+                                <input type="hidden" value="<?php echo $roles['id'];?>"  id='hidd'></input>
+                                <input class="form-control" type="text" / style="width: 46%" id="role_name" value="<?php echo $roles['role_name']?>">
                     </div>
                    <p style="clear:both;"></p>
                     <div  style="border:1px solid #dae3e9; min-height: 500px; margin: 19px 19px;padding-top:20px">
@@ -46,13 +47,13 @@
                         <?php foreach ($auth1 as $k => $value) {?>
                         
                             <li style="width:20%;text-align: center;font-size: 16px;">
-                               <input name="auth_id[]" type="checkbox" value="<?php echo $value['id'];?>" id='pid' class="id<?php echo  $value['id'];?>"/><?php echo $value['auth_name'];?>
+                               <input name="auth_id[]" type="checkbox" value="<?php echo $value['id'];?>" <?php if(strpos('a,'.$roles['role_auth_ids'],$value['id'])){ echo 'checked="checked"';}?> id='pid' class="id<?php echo  $value['id'];?>"/><?php echo $value['auth_name'];?>
                             </li>
                              
                             <li>
                                 <?php foreach ($auth2 as $v) {?> 
                                     <?php if($value['id'] == $v['auth_pid']){?> 
-                                        <span style="margin-left: 30px"><input name="auth_id[]" type="checkbox" value="<?php echo $v['id'];?>" onClick="find_fid(<?php echo $value['id'];?>)" id='id<?php echo $value['id'];?>'/><?php echo $v['auth_name']?></span>
+                                        <span style="margin-left: 30px"><input name="auth_id[]" type="checkbox" value="<?php echo $v['id'];?>" onClick="find_fid(<?php echo $value['id'];?>)" id='id<?php echo $value['id'];?>' <?php if(strpos($roles['role_auth_ids'],$v['id'])){ echo 'checked="checked"';}?>/><?php echo $v['auth_name']?></span>
                                     <?php }?>
                                 <?php }?> 
                             </li>
@@ -60,7 +61,7 @@
                         
                          <?php }?>
                     </ul>
-                    <div style="clear:both "><a href="javascript:;"   class="btn btn-default" style="margin-top:20px;margin-right: 90px;float: right;" id="add">添加</a></div>
+                    <div style="clear:both "><a href="javascript:;"   class="btn btn-default" style="margin-top:20px;margin-right: 90px;float: right;" id="add">修改</a></div>
                     </div>
                 </div>                
             </div>
@@ -108,7 +109,8 @@
         var data= {}
         data.role_name = role_name;
         data.all_id = a1;
-        $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_role_add',data,function(re){
+        data.role_id = $('#hidd').val();
+        $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_role_up',data,function(re){
             console.log(re);
                if (re.error == 0) {
                     alert(re.msg);

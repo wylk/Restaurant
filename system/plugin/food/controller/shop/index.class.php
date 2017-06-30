@@ -1,5 +1,5 @@
 <?php
-class index extends init_control{
+class index extends plugin{
     public $c = '';
     public $mid = '';
 	public function _initialize()
@@ -61,26 +61,32 @@ eof;
    //删除员工
     public function do_empolyee_del()
     {   
-        $id = clear_html($_GET['del_id']);
+        $id = $this->clear_html($_GET['del_id']);
         $sql = 'select b.is_shopowner from hd_employee as a Left Join hd_store_role as b on a.role_id=b.id where a.id='.$id;
         $datas = model('employee')->query($sql);
 
         if ($datas[0]['is_shopowner']) {
-            dexit(array('error'=>1,'msg'=>'店长不能删除'));  
+            $this->dexit(array('error'=>1,'msg'=>'店长不能删除'));  
         }
          
         if (model('employee')->data(array('status'=>2))->where(array('id'=>$id))->save()) {
-            dexit(array('error'=>0,'msg'=>'删除成功'));
+           $this->dexit(array('error'=>0,'msg'=>'删除成功'));
         }else{
-            dexit(array('error'=>1,'msg'=>'删除失败'));
+        $this->dexit(array('error'=>1,'msg'=>'删除失败'));
         }
 
     }
 
     public function do_employee_add()
     {
-       $this->left_menu();
-       include PLUGIN_PATH.PLUGIN_ID.'/template/shop/employee_add.php'; 
+        if (IS_POST) {
+            $data = $this->clear_thml($_POST);
+            $data['shop_id'] = $this->mid;
+
+        }
+        $roles = model('store_role')->where(array('store_id'=>$this->mid))->order('id desc')->select();
+        $this->displays('employee_add',array('roles'=>$roles));
+      
     }
      
      public function do_employee_role()
@@ -92,16 +98,38 @@ eof;
 
      public function do_empolyee_role_del()
      {
-         $id = clear_html($_GET['del_id']);
+         $id = $this->clear_html($_GET['del_id']);
          if (model('store_role')->where(array('id'=>$id))->delete()) {
-            dexit(array('error'=>0,'msg'=>'删除成功')); 
+            $this->dexit(array('error'=>0,'msg'=>'删除成功')); 
          }else{
-            dexit(array('error'=>1,'msg'=>'删除成功')); 
+            $this->dexit(array('error'=>1,'msg'=>'删除成功')); 
          }
      }
 
      public function do_employee_role_add()
      {
+
+        if ($_POST) {
+            $datas= $this->clear_html($_POST);
+            $ids = rtrim($datas['all_id'],',');
+            
+            $auths = model('store_auth')->field('auth_a,auth_c')->where(array('id'=>array('in',$ids)))->select();
+            $ac = '';
+            foreach ($auths as  $v) {
+               $ac.=$v['auth_a'].'-'.$v['auth_c'].',';
+            }
+            $data['store_id'] = $this->mid;
+            $data['role_name'] = $datas['role_name'];
+            $data['role_auth_ids'] = $ids;
+            $data['role_auth_ac'] =  $ac;
+            
+            if (model('store_role')->data($data)->add()) {
+                
+                $this->dexit(array('error'=>0,'msg'=>'添加成功'));
+            }else{
+                $this->dexit(array('error'=>1,'msg'=>'添加失败'));
+            }
+        }
         
         // die;
         $auth1 = model('store_auth')->where(array('auth_level'=>0))->select();
@@ -109,6 +137,39 @@ eof;
         // var_dump($auth2);die;
         $this->displays('employee_role_add',array('auth1'=>$auth1,'auth2'=>$auth2));
      }
+
+     public function do_employee_role_up()
+     {
+        if (IS_POST) {
+            $datas= $this->clear_html($_POST);
+            $ids = rtrim($datas['all_id'],',');
+            
+            $auths = model('store_auth')->field('auth_a,auth_c')->where(array('id'=>array('in',$ids)))->select();
+            $ac = '';
+            foreach ($auths as  $v) {
+               $ac.=$v['auth_a'].'-'.$v['auth_c'].',';
+            }
+            $data['store_id'] = $this->mid;
+            $data['role_name'] = $datas['role_name'];
+            $data['role_auth_ids'] = $ids;
+            $data['role_auth_ac'] =  $ac;
+            
+            if (model('store_role')->data($data)->where(array('id'=>$datas['role_id']))->save()) {
+                
+                $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+            }else{
+                $this->dexit(array('error'=>1,'msg'=>'修改失败'));
+            }
+        }
+
+        $role_id = $this->clear_html($_GET['role_id']);
+        $roles = model('store_role')->where(array('id'=>$role_id))->find();
+        $auth1 = model('store_auth')->where(array('auth_level'=>0))->select();
+        $auth2 = model('store_auth')->where(array('auth_level'=>1))->select();
+        $this->displays('employee_role_up',array('auth1'=>$auth1,'auth2'=>$auth2,'roles'=>$roles)); 
+     }
+
+
      
      public function displays($c,$data=array())
      {
