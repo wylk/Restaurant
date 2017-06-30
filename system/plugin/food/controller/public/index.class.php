@@ -5,6 +5,82 @@ class index extends plugin
     {
         parent::_initialize();
     }
+    public function manager()
+    {
+      $this->display('manager');
+    }
+    public function super_login()
+    {
+      if(IS_POST)
+      {
+        $data=$this->clear_html($_POST);
+        $data1=model('company')->where(array('phone'=>$data['phone']))->find();
+        if($data1)
+        {
+          if($data1['status']==0)
+          {
+            $this->dexit(array('error'=>1,'msg'=>'正在审核，请耐心等待'));
+          }elseif($data1['status']==2)
+          {
+            $this->dexit(array('error'=>2,'msg'=>'你的审核未通过,请修改','cid'=>$data1['id']));
+          }elseif($data1['status']==1)
+          {
+            //验证密码是否正确
+            if(md5($data['password'])!=$data1['password'])
+            {
+              $this->dexit(array('error'=>1,'msg'=>'密码错误'));
+            }else
+            {
+              //密码正确
+              $_SESSION['cid']=$data1['id'];
+              $_SESSION['phone']=$data1['phone'];
+              $this->dexit(array('error'=>0,'msg'=>'登录成功'));
+            }
+          }
+        }else
+        {
+          $this->dexit(array('error'=>1,'msg'=>'手机号码不存在，请先注册'));
+        }
+      }
+      $this->display('super_login');
+    }
+    public function edit_company()
+    {
+      $data=$this->clear_html($_GET);
+      $data1=model('company')->where(array('id'=>$data['cid']))->find();
+      if(IS_POST)
+      {
+        $data2=$this->clear_html($_POST);
+        $result=$this->file_upload($data1['phone']);
+
+        if($result)
+        {
+          $data2['licence_path']=$result['licence_path'];
+          $data2['frontal_view']=$result['frontal_view'];
+          $data2['back_view']=$result['back_view'];
+          $data2['status']=0;
+          unset($data2['repass']);
+          unset($data2['code']);
+        }else
+        {
+          $data2['status']=0;
+          unset($data2['repass']);
+          unset($data2['code']);
+        }
+        $data3=model('company')->data($data2)->where(array('id'=>$data2['cid']))->save();
+        if($data3)
+        {
+          echo "<script>alert('修改成功');history.go(-1);</script>";
+                die;
+        }else
+        {
+          echo "<script>alert('修改失败，请稍后再试');history.go(-1);</script>";
+                die;
+        }
+      }
+      $this->assign('data1',$data1);
+      $this->display('edit_company');
+    }
     public function create_company()
     {
         if(IS_POST)

@@ -91,6 +91,8 @@ class index1 extends plugin
     public function order_list()
     {
         //订单中心
+        var_dump($_SESSION['cid']);
+        die;
         $this->display('tables');
 
     }
