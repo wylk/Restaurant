@@ -52,12 +52,16 @@ class index extends plugin
       {
         $data2=$this->clear_html($_POST);
         $result=$this->file_upload($data1['phone']);
-
+        // $_count=count($result);
         if($result)
         {
+          unlink($data1['licence_path']);
+          unlink($data1['frontal_view']);
+          unlink($data1['back_view']);
           $data2['licence_path']=$result['licence_path'];
           $data2['frontal_view']=$result['frontal_view'];
           $data2['back_view']=$result['back_view'];
+
           $data2['status']=0;
           unset($data2['repass']);
           unset($data2['code']);

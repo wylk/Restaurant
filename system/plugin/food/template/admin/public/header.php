@@ -1,3 +1,4 @@
+
     <!-- navbar -->
     <header class="navbar navbar-inverse" role="banner">
         <div class="navbar-header">
@@ -7,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><img href="<?php echo FOOD_PATH?>img/logo.png"></a>
+            <a class="navbar-brand" href="index.html"><img src="<?php echo FOOD_PATH;?>img/logo.png"></a>
         </div>
         <ul class="nav navbar-nav pull-right hidden-xs">
             <li class="hidden-xs hidden-sm">
@@ -67,7 +68,7 @@
                         <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
                         <div class="messages">
                             <a href="#" class="item">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img.png" class="display" />
+                                <img src="<?php echo FOOD_PATH;?>img/contact-img.png" class="display" />
                                 <div class="name">DEMO</div>
                                 <div class="msg">
                                     回家来吃饭了.
@@ -75,7 +76,7 @@
                                 <span class="time"><i class="icon-time"></i> 13分钟前.</span>
                             </a>
                             <a href="#" class="item">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img2.png" class="display" />
+                                <img src="<?php echo FOOD_PATH;?>img/contact-img2.png" class="display" />
                                 <div class="name">Galván</div>
                                 <div class="msg">
                                     照片很不错哦.
@@ -83,7 +84,7 @@
                                 <span class="time"><i class="icon-time"></i> 26分钟前.</span>
                             </a>
                             <a href="#" class="item last">
-                                <img href="<?php echo FOOD_PATH?>img/contact-img.png" class="display" />
+                                <img src="<?php echo FOOD_PATH;?>img/contact-img.png" class="display" />
                                 <div class="name">后台</div>
                                 <div class="msg">
                                    模版很不错赶紧下载.
@@ -99,7 +100,7 @@
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                    你的账号
+                    欢迎你，<?php echo $_SESSION['phone'];?>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
@@ -110,16 +111,16 @@
                     <li><a href="#">发送反馈</a></li>
                 </ul>
             </li>
+
             <li class="settings hidden-xs hidden-sm">
-                <a href="personal-info.html" role="button">
+                <a href="#" role="button">
                     <i class="icon-cog"></i>
                 </a>
             </li>
             <li class="settings hidden-xs hidden-sm">
-                <a href="signin.html" role="button">
+                <a href="?m=plugin&p=admin&cn=index1&id=food:sit:logout" onclick="if(confirm('是否确定退出？')==false)return false;" role="button">
                     <i class="icon-share-alt"></i>
                 </a>
             </li>
         </ul>
     </header>
-    <!-- end navbar -->

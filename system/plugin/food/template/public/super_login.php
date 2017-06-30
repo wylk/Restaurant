@@ -28,7 +28,7 @@
 	</div>
 
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 $.backstretch([
 '<?php echo __ROOT__;?>statics/images/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',
@@ -41,6 +41,7 @@ fade : 1000, // 动画时长
 duration : 2000 // 切换延时
 });
 </script>
+<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 <?php include template('footer','admin');?>
 <script>
 	$(function(){
