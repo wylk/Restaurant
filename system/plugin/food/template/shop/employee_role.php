@@ -75,7 +75,7 @@
                             <td>
                               <a href="javascript:;" id="del"  data-id="<?php echo $v['id']?>" >删除</a>
                               |
-                              编辑
+                              <a href="./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_role_up&role_id=<?php echo $v['id'];?>">编辑</a>
                             </td>
                         </tr>
                         <!-- row -->

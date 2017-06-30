@@ -47,6 +47,7 @@ if(function_exists('spl_autoload_register')) {
 	}
 }
 C::run();
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 // function clear_html($array)
@@ -125,3 +126,5 @@ function dexit($data = '')
 //     }
 >>>>>>> fee989f491f109977d0fb697e66478a9685b81b9
 >>>>>>> 33cfcde23658f26aba012924b670c67bb41faa24
+=======
+>>>>>>> 3647bb02e1d51d00de340ea8bcd1782af1c7242a

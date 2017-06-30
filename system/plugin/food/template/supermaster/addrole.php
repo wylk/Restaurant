@@ -86,7 +86,7 @@
 	            adddata.auth_url = auth_url;
 	            $.post('/index.php?m=admin&c=app&a=module&mod=food&type=doaddrole',adddata,function(re){
 	               	if (re.error == 0) {
-	               		//console.log(re.msg);
+	               		console.log(re.msg);
                         alert(re.msg);
                         window.location.href='/index.php?m=admin&c=app&a=module&mod=food&type=doroleLidt'
 	               	}else{

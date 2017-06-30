@@ -32,6 +32,10 @@ class plugin extends init_control
              $this->arrays[$field] = $value;
         }
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3647bb02e1d51d00de340ea8bcd1782af1c7242a
     public function clear_html($array)
     {
         if (!is_array($array))
@@ -45,6 +49,7 @@ class plugin extends init_control
         }
         return $array;
     }
+<<<<<<< HEAD
     public function dexit($data = '')
     {
         if (is_array($data)) {
@@ -54,6 +59,19 @@ class plugin extends init_control
         }
         exit();
     }
+=======
+
+   public  function dexit($data = '')
+  {
+            if (is_array($data)) {
+                echo json_encode($data);
+            } else {
+                echo $data;
+            }
+            exit();
+  }
+
+>>>>>>> 3647bb02e1d51d00de340ea8bcd1782af1c7242a
 
 
 }
