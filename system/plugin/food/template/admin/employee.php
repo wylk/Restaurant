@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>创建店长账号</title>
+    <title>店长列表</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,24 +68,36 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th class="col-md-2">
+                            <th class="col-md-1">
                                     编号
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                 <span class="line"></span>
                                     店长姓名
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                     <span class="line"></span>
                                     所属门店
                                 </th>
-                                <th class="col-md-2">
+                                <th class="col-md-1">
                                     <span class="line"></span>
-                                    角色
+                                    真实姓名
+                                </th>
+                                 <th class="col-md-1">
+                                    <span class="line"></span>
+                                    手机号码
+                                </th>
+                                 <th class="col-md-1">
+                                    <span class="line"></span>
+                                    电子邮箱
+                                </th>
+                                <th class="col-md-1">
+                                    <span class="line"></span>
+                                    状态
                                 </th>
                                 <th class="col-md-2">
                                     <span class="line"></span>
-                                    状态
+                                    备注
                                 </th>
                                 <th class="col-md-2">
                                     <span class="line"></span>
@@ -94,24 +106,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- row -->
+                            <?php if(!empty($data)){
+                                foreach($data as $v):
+
+                                ?>
                             <tr class="first">
-                               <td>1</td>
-                               <td>人人6</td>
-                               <td>五一乐卡</td>
-                               <td>店长</td>
-                               <td><button class="btn btn-success">启用</button></td>
-                               <td><button class="btn btn-primary">修改</button><button class="btn btn-danger">删除</button></td>
+                                <td><?php echo $v['id']?></td>
+                                <td><?php echo $v['username']?></td>
+                                <td><?php echo $v['shop_name']?></td>
+                                <td><?php echo $v['truename']?></td>
+                                <td><?php echo $v['phone']?></td>
+                                <td><?php echo $v['email']?></td>
+                                <td><?php
+                                if($v['status']==1)
+                                    echo '开启';
+                                else
+                                    echo '关闭';
+
+                                ?></td>
+                                <td><?php echo $v['remark']?></td>
+
+                               <td>
+                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:employee_edit&bid=<?php echo $v['id']?>"><button class="btn btn-primary" onclick="if(confirm('是否确认修改？')==false)return false;">修改</button></a>
+                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:employee_del&bid=<?php echo $v['id']?>"><button class="btn btn-danger" onclick="if(confirm('是否确认删除？')==false)return false;">删除</button></a>
+                               </td>
                             </tr>
-
-
+                            <?php endforeach;}else{?>
+                                暂无数据
+                                <?php };?>
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- end orders table -->
 
-
+            <td colspan="12"><?php echo $pagebar;?></td>
 
             <!-- end users table -->
         </div>

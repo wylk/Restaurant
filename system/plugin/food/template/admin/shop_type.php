@@ -51,7 +51,6 @@
 
                 <div class="row filter-block">
                     <div class="pull-right">
-                       <?php var_dump($data);?>
                         <input type="text" class="search order-search" placeholder="输入门店类型名称" />
                         <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_shop_type" class="btn-flat success pull-right">
                         <span>&#43;</span>
@@ -64,16 +63,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            <th class="col-md-3">
+                            <th class="col-md-2">
                                     编号
                                 </th>
-                                <th class="col-md-3">
+                                <th class="col-md-2">
                                 <span class="line"></span>
+                                    名称
+                                </th>
+                                <th class="col-md-2">
+                                    <span class="line"></span>
                                     图标
                                 </th>
-                                <th class="col-md-3">
+                                 <th class="col-md-3">
                                     <span class="line"></span>
-                                    名称
+                                    创建时间
                                 </th>
                                 <th class="col-md-3">
                                     <span class="line"></span>
@@ -84,21 +87,34 @@
                         </thead>
                         <tbody>
                             <!-- row -->
+                            <?php if(!empty($data)){
+                                foreach($data as $v):
+                                ?>
                             <tr class="first">
-                               <td>1</td>
-                               <td><img src="1.jpg" alt=""></td>
-                               <td>川菜馆</td>
-                               <td><button class="btn btn-primary">修改</button><button class="btn btn-danger">删除</button></td>
+                               <td><?php echo $v['id']?></td>
+
+                               <td><?php echo $v['typename']?></td>
+
+                               <td>
+                               <a rel="example_group" href="<?php echo $v['type_img']?>">
+                               <img src="<?php echo $v['type_img']?>" alt="" style="width:50px;height:50px;">
+                               </a>
+                               </td>
+                               <td><?php echo date('Y-m-d H:i:s',$v['create_time'])?></td>
+                               <td>
+                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_type_edit&sid=<?php echo $v['id'];?>"><button class="btn btn-primary" onclick="if(confirm('是否确定修改？')==false)return false;">修改</button></a>
+                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_type_del&sid=<?php echo $v['id'];?>"><button class="btn btn-danger" onclick="if(confirm('是否确定删除？')==false) return false;">删除</button></a></td>
                             </tr>
-
-
+                            <?php endforeach;}else{?>
+                                暂无数据
+                            <?php };?>
                         </tbody>
                     </table>
                 </div>
             </div>
             <!-- end orders table -->
 
-
+  <td colspan="12"><?php echo $pagebar;?></td>
 
             <!-- end users table -->
         </div>
@@ -111,3 +127,17 @@
     <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+
+      $("a[rel=example_group]").fancybox({
+        'transitionIn'    : 'none',
+        'transitionOut'   : 'none',
+        'titlePosition'   : 'over',
+        'titleFormat'   : function(title, currentArray, currentIndex, currentOpts) {
+          return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+        }
+      });
+    });
+</script>

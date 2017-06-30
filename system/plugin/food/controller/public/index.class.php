@@ -1,5 +1,5 @@
 <?php
-class index extends init_control
+class index extends plugin
 {
     public function _initialize()
     {
@@ -9,7 +9,7 @@ class index extends init_control
     {
         if(IS_POST)
         {
-            $data=clear_html($_POST);
+            $data=$this->clear_html($_POST);
 
             $result=$this->file_upload($data['phone']);
             $data['licence_path']=$result['licence_path'];
@@ -34,21 +34,21 @@ class index extends init_control
             }
 
         }
-        include_once PLUGIN_PATH.PLUGIN_ID.'/template/public/create_company.php';
+       $this->display('create_company');
     }
 
     public function validate_company_name()
     {
         if(IS_POST)
         {
-            $data=clear_html($_POST);
+            $data=$this->clear_html($_POST);
             $return=model('company')->where(array('company_name'=>$data['company_name']))->find();
             if($return)
             {
-                dexit(array('valid'=>false));
+                $this->dexit(array('valid'=>false));
             }else
             {
-                dexit(array('valid'=>true));
+                $this->dexit(array('valid'=>true));
             }
         }
     }
@@ -72,7 +72,7 @@ class index extends init_control
         $urlarr=array();
         if($_FILES)
         {
-          $url = clear_html($_FILES);
+          $url = $this->clear_html($_FILES);
           foreach ($url as $k =>  $v) {
              if($v['size'] > 5120000)
                {

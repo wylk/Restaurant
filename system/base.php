@@ -48,47 +48,25 @@ if(function_exists('spl_autoload_register')) {
 }
 C::run();
 
-function clear_html($array)
- {
-        if (!is_array($array))
-            return trim(htmlspecialchars($array, ENT_QUOTES));
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                clear_html($value);
-            } else {
-                $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
-            }
-        }
-        return $array;
- }
-function dexit($data = '')
-{
-        if (is_array($data)) {
-            echo json_encode($data);
-        } else {
-            echo $data;
-        }
-        exit();
-}
-// function display($a)
-// {
-
-//     include_once(DISPLAY_PATH.$_GET['p'].'/'.$a.'.php');
-// }
-// function assign($field, $value = '')
-//     {
-//         $arrays=[];
-//         if (!empty($value)) {
-//            $arrays[$field] = $value;
-//            $arrays[$field];
-//         }
-//         else if (is_array($field)) {
-//             foreach ($field as $key => $value) {
-//                 $arrays[$key] = $value;
+// function clear_html($array)
+//  {
+//         if (!is_array($array))
+//             return trim(htmlspecialchars($array, ENT_QUOTES));
+//         foreach ($array as $key => $value) {
+//             if (is_array($value)) {
+//                 clear_html($value);
+//             } else {
+//                 $array[$key] = trim(htmlspecialchars($value, ENT_QUOTES));
 //             }
 //         }
-//         else {
-//             $arrays[$field] = $value;
-//               $arrays[$field];
+//         return $array;
+//  }
+// function dexit($data = '')
+// {
+//         if (is_array($data)) {
+//             echo json_encode($data);
+//         } else {
+//             echo $data;
 //         }
-//     }
+//         exit();
+// }

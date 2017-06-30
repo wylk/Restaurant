@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>创建店长账号</title>
+    <title>修改店长账号</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +43,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3>创建店长账号</h3>
+                    <h3>修改店长账号</h3>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
 
                             <div class="col-md-12 field-box">
                                 <label>登录账号:</label>
-                                <input class="form-control" type="text" name="username"/>
+                                <input class="form-control" type="text" name="username" value="<?php echo $data1['username']?>" />
                             </div>
                            <!--   <div class="form-group">
                                 <label for="exampleInputEmail1">登录账号:</label>
@@ -74,11 +74,18 @@
 
                                 <div class="ui-select span5">
                                     <select name="shop_id" id="se">
-                                    <?php if(!empty($data)){
-                                        foreach($data as $v):
+                                    <?php if(!empty($data2)){
+                                        foreach($data2 as $v):
+                                        if($v['id']==$data1['shop_id'])
+                                        {
+                                            $selected='selected="selected"';
+                                        }else
+                                        {
+                                            $selected='';
+                                        }
                                         ?>
 
-                                        <option value="<?php echo $v['id']?>"><?php echo $v['shop_name']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php echo $selected;?>><?php echo $v['shop_name']?></option>
 
                                         <?php endforeach;}else{?>
                                              <option value="0">暂无数据</option>
@@ -87,24 +94,25 @@
                                 </div>
                             </div>
 
-
+                              <input class="form-control" type="hidden" name="bid" value="<?php echo $data1['id']?>"/>
 
                              <div class="col-md-12 field-box">
                                 <label>真实姓名:</label>
-                                <input class="form-control" type="text" name="truename" />
+                                <input class="form-control" type="text" name="truename" value="<?php echo $data1['truename']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>手机号码:</label>
-                                <input class="form-control" type="text" name="phone"/>
+                                <input class="form-control" type="text" name="phone" value="<?php echo $data1['phone']?>"/>
                             </div>
 
                             <div class="col-md-12 field-box">
                                 <label>电子邮箱:</label>
-                                <input class="form-control" type="text" name="email"/>
+                                <input class="form-control" type="text" name="email" value="<?php echo $data1['email']?>"/>
                             </div>
 
                             <div class="col-md-12 field-box">
                                 <label>状态:</label>
+                                <?php if($data1['status']==1):?>
                                  <label>
                                     <input type="radio" name="status" id="optionsRadios1" value="1" checked>启用
                                   </label>
@@ -112,15 +120,23 @@
                                     <input type="radio" name="status" id="optionsRadios1" value="0"
                                     >禁用
                                   </label>
-
+                                <?php else:?>
+                                    <label>
+                                    <input type="radio" name="status" id="optionsRadios1" value="1" >启用
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="status" id="optionsRadios1" value="0"
+                                     checked>禁用
+                                  </label>
+                              <?php endif;?>
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>备注:</label>
-                                <textarea class="form-control" rows="3" name="remark" id="aa"></textarea>
+                                <textarea class="form-control" rows="3" name="remark" id="aa"><?php echo $data1['remark']?></textarea>
                             </div>
 
                             <div class="col-md-11 field-box actions">
-                                <input type="submit" class="btn-glow primary" value="确定创建">
+                                <input type="submit" class="btn-glow primary" value="确定修改">
                                 <span>or</span>
                                 <input type="reset" value="取消" class="reset">
                             </div>
@@ -192,6 +208,9 @@
         var a7=$("input[name='email']").val();
         var a8=$("input:radio:checked").val();
         var a9=$("#aa").val();
+        var a10=$("input[name='bid']").val();
+        // alert(a10);
+        // return false;
         if(a1=='')
         {
             alert('登录账号不能为空');
@@ -242,8 +261,9 @@
         postData.email=a7;
         postData.status=a8;
         postData.remark=a9;
+        postData.bid=a10;
         console.log(postData);
-        $.post('?m=plugin&p=admin&cn=index1&id=food:sit:create_employee',postData,function(re){
+        $.post('?m=plugin&p=admin&cn=index1&id=food:sit:employee_edit',postData,function(re){
             if(re.error==0)
             {
                 alert(re.msg);
