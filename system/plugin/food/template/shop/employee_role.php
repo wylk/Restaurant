@@ -19,16 +19,16 @@
         <!-- settings changer -->  
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
-                <h3>员工列表</h3>
+                <h3>角色列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                    <input type="text" class="col-md-5 search" placeholder="输入姓名查询">
+                    <!-- <input type="text" class="col-md-5 search" placeholder="输入姓名查询"> -->
                     
                     <!-- custom popup filter -->
                     <!-- styles are located in css/elements.css -->
                     <!-- script that enables this dropdown is located in js/theme.js -->
-                    <a href="new-user.html" class="btn-flat success pull-right">
+                    <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_role_add" class="btn-flat success pull-right">
                         <span>&#43;</span>
-                       添加员工
+                       添加角色
                     </a>
                 </div>
             </div>
@@ -40,19 +40,16 @@
                         <thead >
                             <tr>
                                 <th class="col-md-2 sortable">
-                                    真实姓名
+                                    序号
                                 </th>
                                 <th class="col-md-2 sortable">
-                                    <span class="line"></span>电话号码
+                                    <span class="line"></span>角色名称
                                 </th>
                                 <th class="col-md-2 sortable">
-                                    <span class="line"></span>邮箱
+                                    <span class="line"></span>权限id
                                 </th>
                                 <th class="col-md-2 sortable ">
-                                    <span class="line"></span>角色
-                                </th>
-                                <th class="col-md-2 sortable ">
-                                    <span class="line"></span>状态
+                                    <span class="line"></span>role_auth_ac
                                 </th>
                                 <th class="col-md-2 sortable ">
                                     <span class="line"></span>操作
@@ -60,23 +57,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                     <?php foreach ($employees as $key => $v) {?>
+                     <?php foreach ($role as $key => $v) {?>
                         <!-- row -->
                         <tr>
                             <td>
-                                <?php echo $v['truename']?>
+                                <?php echo $v['id']?>
                             </td>
                             <td>
-                                <?php echo $v['phone']?>
+                                <?php echo $v['role_name']?>
                             </td>
-                            <td>
-                               <?php echo $v['email']?>
+                            <td>  
+                               <?php echo substr($v['role_auth_ids'],0,8)?>
                             </td>
                             <td >
-                               <?php echo $v['role_name']?>
-                            </td>
-                            <td>
-                              <?php if($v['status'] == 0){ echo '正常';}else{ echo '停用';} ?>
+                               <?php echo substr($v['role_auth_ac'],0,8)?>
                             </td>
                             <td>
                               <a href="javascript:;" id="del"  data-id="<?php echo $v['id']?>" >删除</a>
@@ -116,15 +110,18 @@
 
 <script type="text/javascript">
     $(function(){
-       $('#del').click(function(){
-           var id = $(this).dat('id');
-           $.get('/index.php?m=plugin&p=shop&cn=index&id=food:sit:do_empolyee_del',{id:id},function(re){
+       $('[id=del]').click(function(){
+           var id = $(this).data('id');
+         
+           $.get('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_empolyee_role_del',{del_id:id},function(re){
+            console.log(re);
                if (re.error == 0) {
                     alert(re.msg);
+                    window.location.reload();
                }else{
                     alert(re.msg);
                }
-           });
+           },'json');
        });
     });
 </script>

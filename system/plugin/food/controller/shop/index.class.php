@@ -25,8 +25,7 @@ eof;
 
     public function doindex()
     {
-        $this->left_menu();
-        include_once PLUGIN_PATH.PLUGIN_ID.'/template/shop/index.php'; 
+         $this->displays('index');
     }
 
 
@@ -48,7 +47,7 @@ eof;
         $c = $this->c;     
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/left_menu.php';
     }
-
+    //员工列表
     public function do_employee_list()
     {
        
@@ -57,13 +56,69 @@ eof;
              $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
              $v['role_name'] = $roles['role_name'];
          }
-        $this->left_menu();
-        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/do_employee_list.php';
+        $this->displays('employee_list',array('employees'=>$employees));
     }
-
+   //删除员工
     public function do_empolyee_del()
-    {
+    {   
+        $id = clear_html($_GET['del_id']);
+        $sql = 'select b.is_shopowner from hd_employee as a Left Join hd_store_role as b on a.role_id=b.id where a.id='.$id;
+        $datas = model('employee')->query($sql);
+
+        if ($datas[0]['is_shopowner']) {
+            dexit(array('error'=>1,'msg'=>'店长不能删除'));  
+        }
+         
+        if (model('employee')->data(array('status'=>2))->where(array('id'=>$id))->save()) {
+            dexit(array('error'=>0,'msg'=>'删除成功'));
+        }else{
+            dexit(array('error'=>1,'msg'=>'删除失败'));
+        }
 
     }
+
+    public function do_employee_add()
+    {
+       $this->left_menu();
+       include PLUGIN_PATH.PLUGIN_ID.'/template/shop/employee_add.php'; 
+    }
+     
+     public function do_employee_role()
+     {
+    
+        $role = model('store_role')->where(array('store_id'=>$this->mid))->select();
+        $this->displays('employee_role',array('role'=>$role));
+     }
+
+     public function do_empolyee_role_del()
+     {
+         $id = clear_html($_GET['del_id']);
+         if (model('store_role')->where(array('id'=>$id))->delete()) {
+            dexit(array('error'=>0,'msg'=>'删除成功')); 
+         }else{
+            dexit(array('error'=>1,'msg'=>'删除成功')); 
+         }
+     }
+
+     public function do_employee_role_add()
+     {
+        
+        // die;
+        $auth1 = model('store_auth')->where(array('auth_level'=>0))->select();
+        $auth2 = model('store_auth')->where(array('auth_level'=>1))->select();
+        // var_dump($auth2);die;
+        $this->displays('employee_role_add',array('auth1'=>$auth1,'auth2'=>$auth2));
+     }
+     
+     public function displays($c,$data=array())
+     {
+         foreach($data as $key =>$value)
+        {
+            $$key=$value;
+        }
+
+        $this->left_menu();
+        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
+     }
 
 }
