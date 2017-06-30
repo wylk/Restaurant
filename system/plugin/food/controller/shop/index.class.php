@@ -8,12 +8,7 @@ class index extends plugin{
         $urse = model('employee')->where(array('username'=>'test1','password'=>123))->find();
         $_SESSION['employee'] = $urse;
         if (!$_SESSION['employee']) {
-         $js = <<<eof
-            <script type="text/javascript">
-               window.history.go(-1);
-            </script>
-eof;
-            echo $js;  
+          echo   '<script type="text/javascript"> window.history.go(-1);</script>';   
         }
         $id = $_GET['id'];
         list($id,$module,$c) = explode(':', $id);
@@ -62,10 +57,10 @@ eof;
     public function do_empolyee_del()
     {   
         $id = $this->clear_html($_GET['del_id']);
-        $sql = 'select b.is_shopowner from hd_employee as a Left Join hd_store_role as b on a.role_id=b.id where a.id='.$id;
+        $sql = 'select a.role_id from hd_employee as a Left Join hd_store_role as b on a.role_id=b.id where a.id='.$id;
         $datas = model('employee')->query($sql);
 
-        if ($datas[0]['is_shopowner']) {
+        if ($datas[0]['role_id'] == 0) {
             $this->dexit(array('error'=>1,'msg'=>'店长不能删除'));  
         }
          
