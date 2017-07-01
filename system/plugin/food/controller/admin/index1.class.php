@@ -33,7 +33,22 @@ class index1 extends plugin
         require_once(UPLOAD_PATH.'common_page.class.php');
         $p = new Page($_count, 1);
         $pagebar = $p->show(1);
-        $data=model('shop')->query('select a.*,b.typename from hd_shop as a left join hd_shop_type as b on a.type_id=b.id where a.company_id='.$cid.' order by a.add_time desc limit '.$p->firstRow.','.$p->listRows);
+        if(IS_POST)
+        {
+            $data=$this->clear_html($_POST);
+            if($data['shop_name'])
+            {
+                $where=' and a.shop_name="'.$data['shop_name'].'"';
+                $data1=model('shop')->where(array('shop_name'=>$data['shop_name']))->find();
+                $this->assign('data1',$data1);
+            }else
+            {
+                $where='';
+            }
+
+        }
+
+        $data=model('shop')->query('select a.*,b.typename from hd_shop as a left join hd_shop_type as b on a.type_id=b.id where a.company_id='.$cid.$where.'  order by a.add_time desc limit '.$p->firstRow.','.$p->listRows);
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('user_list');

@@ -20,9 +20,11 @@
 
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/tables.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="http://js.alixixi.com/demo/584/style/jquery.fancybox-1.3.1.css" type="text/css" />
+
 
     <!-- open sans font -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
 
 
 </head>
@@ -51,7 +53,10 @@
 
                 <div class="row filter-block">
                     <div class="pull-right">
-                        <input type="text" class="search order-search" placeholder="输入门店类型名称" />
+                        <form action="">
+                        <input type="text" class="search order-search" name="typename" placeholder="输入门店类型名称" />
+                        <input type="submit" value="搜索">
+                        </form>
                         <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_shop_type" class="btn-flat success pull-right">
                         <span>&#43;</span>
                         创建门店类型
@@ -120,11 +125,11 @@
         </div>
     </div>
     <!-- end main container -->
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <!-- scripts -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
+
     <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
+    <script type="text/javascript" src="http://js.alixixi.com/demo/584/js/jquery.fancybox-1.3.1.js"></script>
 </body>
 </html>
 <script type="text/javascript">
