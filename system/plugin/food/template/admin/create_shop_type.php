@@ -114,7 +114,9 @@
         </div>
     </div>
     <!-- end main container -->
-
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
 
     <!-- scripts -->
 

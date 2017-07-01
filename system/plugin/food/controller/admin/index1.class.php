@@ -6,10 +6,20 @@ class index1 extends plugin
     public function _initialize()
     {
         parent::_initialize();
+        if(empty($_SESSION['cid']))
+        {
+            header('Location:?m=plugin&p=public&cn=index&id=food:sit:super_login');
+        }
 
     }
 
+    public function logout()
+    {
+        $_SESSION=[];
 
+        header('Location:?m=plugin&p=public&cn=index&id=food:sit:super_login');
+
+    }
     public function test()
     {
         include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/index.php';
@@ -18,12 +28,12 @@ class index1 extends plugin
     public function user_list()
     {
         //门店管理
-
-        $_count=model('shop')->where(array('company_id'=>83))->count();
+        $cid=$_SESSION['cid'];
+        $_count=model('shop')->where(array('company_id'=>$cid))->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
         $p = new Page($_count, 1);
         $pagebar = $p->show(1);
-        $data=model('shop')->query('select a.*,b.typename from hd_shop as a left join hd_shop_type as b on a.type_id=b.id where a.company_id=83 order by a.add_time desc limit '.$p->firstRow.','.$p->listRows);
+        $data=model('shop')->query('select a.*,b.typename from hd_shop as a left join hd_shop_type as b on a.type_id=b.id where a.company_id='.$cid.' order by a.add_time desc limit '.$p->firstRow.','.$p->listRows);
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('user_list');
@@ -68,13 +78,14 @@ class index1 extends plugin
     }
     public function create_shop()
     {
+        $cid=$_SESSION['cid'];
         //创建门店
-        $data=model('shop_type')->select();
+        $data=model('shop_type')->where(array('cid'=>$cid))->select();
         if(IS_POST)
         {
             $data=$this->clear_html($_POST);
             $data['add_time']=time();
-            $data['company_id']=83;
+            $data['company_id']=$cid;
             $data1=model('shop')->data($data)->add();
             if($data1)
             {
@@ -99,12 +110,13 @@ class index1 extends plugin
     public function shop_type()
     {
         //门店类型
-        $_count=model('shop_type')->where(array('cid'=>83))->count();
+        $cid=$_SESSION['cid'];
+        $_count=model('shop_type')->where(array('cid'=>$cid))->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
         $p = new Page($_count, 1);
         $pagebar = $p->show(1);
 
-        $data=model('shop_type')->query('select * from hd_shop_type where cid=83 order by create_time desc limit '.$p->firstRow.','.$p->listRows);
+        $data=model('shop_type')->query('select * from hd_shop_type where cid='.$cid.' order by create_time desc limit '.$p->firstRow.','.$p->listRows);
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('shop_type');
@@ -137,6 +149,7 @@ class index1 extends plugin
             $result=$this->file_upload('18811480487');
             if($result)
             {
+                unlink($data1['type_img']);
                 $data2['type_img']=$result['type_img'];
             }
 
@@ -159,13 +172,14 @@ class index1 extends plugin
         //创建门店类型
         if(IS_POST)
         {
+            $cid=$_SESSION['cid'];
             $data=$this->clear_html($_POST);
             $phone='18811480487';
 
             $result=$this->file_upload($phone);
             $data['type_img']=$result['type_img'];
 
-            $data['cid']=83;
+            $data['cid']=$cid;
             $data['create_time']=time();
             $return=model('shop_type')->data($data)->add();
             if($return)
@@ -184,11 +198,12 @@ class index1 extends plugin
     public function employee()
     {
         //员工管理
-        $_count=model('employee')->where(array('company_id'=>83))->count();
+        $cid=$_SESSION['cid'];
+        $_count=model('employee')->where(array('company_id'=>$cid))->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
         $p = new Page($_count, 1);
         $pagebar = $p->show(1);
-        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.company_id=83 order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
+        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.company_id='.$cid.' order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('employee');
@@ -196,9 +211,10 @@ class index1 extends plugin
     }
     public function employee_edit()
     {
+        $cid=$_SESSION['cid'];
         $data=$this->clear_html($_GET);
         $data1=model('employee')->where(array('id'=>$data['bid']))->find();
-        $data2=model('shop')->where(array('company_id'=>83))->select();
+        $data2=model('shop')->where(array('company_id'=>$cid))->select();
         if(IS_POST)
         {
             $data3=$this->clear_html($_POST);
@@ -232,13 +248,14 @@ class index1 extends plugin
     public function create_employee()
     {
         //创建账号
-        $data=model('shop')->where(array('company_id'=>83))->select();
+        $cid=$_SESSION['cid'];
+        $data=model('shop')->where(array('company_id'=>$cid))->select();
         if(IS_POST)
         {
             $data1=$this->clear_html($_POST);
             $data1['password']=md5($data1['password']);
             $data1['create_time']=time();
-            $data1['company_id']=83;
+            $data1['company_id']=$cid;
             $data2=model('employee')->data($data1)->add();
 
             if($data2)

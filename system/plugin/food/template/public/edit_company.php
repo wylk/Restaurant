@@ -72,7 +72,7 @@
     <div class="col-lg-12">
     <input type="file" id="frontal_view" name="frontal_view" value="<?php echo $data1['frontal_view']?>" class="js_upFile">
     </div>
-    <div class="js_showBox" ><img class="js_logoBox" src="<?php echo $data1['licence_path']?>" width="100px" ></div>
+    <div class="js_showBox" ><img class="js_logoBox" src="<?php echo $data1['frontal_view']?>" width="100px" ></div>
   </div>
 </div>
 <div class='js_uploadBox'>
@@ -81,7 +81,7 @@
     <div class="col-lg-12">
     <input type="file" id="back_view" name="back_view" value="<?php echo $data1['back_view']?>" class="js_upFile">
     </div>
-     <div class="js_showBox" ><img class="js_logoBox" src="<?php echo $data1['licence_path']?>" width="100px" ></div>
+     <div class="js_showBox" ><img class="js_logoBox" src="<?php echo $data1['back_view']?>" width="100px" ></div>
   </div>
   </div>
 <div class="form-group">
@@ -125,11 +125,7 @@
 </div>
 </body>
 </html>
-<script>
-    $(function(){
-        $(':submit')
-    });
-</script>
+
 <script type="text/javascript">
 
         $(".js_upFile").uploadView({
@@ -203,7 +199,14 @@ $(document).ready(function(){
                     }
                 }
             },
-
+            licence_path:{
+                message:'the licence_path is not valid',
+                validators:{
+                    notEmpty:{
+                        message:'请上传营业执照'
+                    }
+                }
+            },
             cart_number:{
                 message:'the cart_number is not valid',
                 validators:{
@@ -216,7 +219,22 @@ $(document).ready(function(){
                     }
                 }
             },
-
+            frontal_view:{
+                message:'the frontal_view is not valid',
+                validators:{
+                    notEmpty:{
+                        message:'请上传身份证正面照'
+                    }
+                }
+            },
+            back_view:{
+                message:'the back_view is not valid',
+                validators:{
+                    notEmpty:{
+                        message:'请上传身份证反面照'
+                    }
+                }
+            },
             phone:{
                 message:'the phone is not valid',
                 validators:{

@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH?>css/compiled/icons.css">
 
     <!-- libraries -->
-
+    <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH?>css/lib/font-awesome.css">
 
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/new-user.css" type="text/css" media="screen" />
@@ -171,8 +171,8 @@
 
     <!-- scripts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
 
     <script type="text/javascript">
         $(function () {

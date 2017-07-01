@@ -2,43 +2,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>门店管理</title>
+    <title>商家后台管理</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- bootstrap -->
-    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet">
+    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="<?php echo FOOD_PATH?>css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="<?php echo FOOD_PATH?>css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo FOOD_PATH?>css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
 
     <!-- global styles -->
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH?>css/compiled/layout.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH?>css/compiled/elements.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH?>css/compiled/icons.css">
 
-    <!-- libraries -->
-    <link href="<?php echo FOOD_PATH?>css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
-
     <!-- this page specific styles -->
-    <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/user-list.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/index.css" type="text/css" media="screen" />
 
-    <!-- open sans font -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 </head>
 <body>
-
-
-
-<?php include PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/header.php';?>
-    <!-- end navbar -->
-
-    <!-- sidebar -->
-<?php include PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/left.php';?>
-
+<?php include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/header.php';?>
+<?php include_once PLUGIN_PATH.PLUGIN_ID.'/template/admin/public/left.php';?>
 
 	<!-- main container -->
     <div class="content">
@@ -88,7 +78,7 @@
                                  <th class="col-md-1 sortable align-left">
                                     <span class="line"></span>门店地址
                                 </th>
-                                <th class="col-md-2 sortable align-left">
+                                <th class="col-md-1 sortable align-left">
                                     <span class="line"></span>门店简介
                                 </th>
                                 <th class="col-md-1 sortable align-left">
@@ -96,6 +86,9 @@
                                 </th>
                                  <th class="col-md-2 sortable align-left">
                                     <span class="line"></span>操作
+                                </th>
+                                 <th class="col-md-1 sortable align-left">
+                                    <span class="line"></span>管理
                                 </th>
 
                             </tr>
@@ -137,11 +130,13 @@
                              <td class="align-left">
                                <?php echo date('Y-m-d H:i:s',$v['add_time'])?>
                             </td>
-                             <td class="align-left">
+                             <td class="align-right">
 
                                <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_edit&bid=<?php echo $v['id']?>"><button class="btn btn-success" onclick="if(confirm('是否确认修改？')==false)return false;">修改</button></a>
                                 <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_del&bid=<?php echo $v['id']?>"><button class="btn btn-danger" onclick="if(confirm('是否确认删除？')==false)return false;">删除</button></a>
+
                             </td>
+                            <td><a href="?m=plugin&p=shop&cn=index&id=food:sit:doindex&store_id=<?php echo $v['id']?>"><button class="btn btn-success">进入店铺</button></a></td>
 
                         </tr>
                         <?php endforeach;}else{?>
@@ -160,7 +155,12 @@
 
 	<!-- scripts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
+
+    <!-- flot charts -->
+
+
+
 </body>
 </html>

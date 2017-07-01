@@ -149,7 +149,7 @@
 
     <!-- scripts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script href="<?php echo FOOD_PATH?>js/theme.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
 </body>
 </html>
