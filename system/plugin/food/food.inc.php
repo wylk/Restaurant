@@ -145,6 +145,7 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
     	}
     }
 
+
     function clear_html($array)
     {
         if (!is_array($array))
@@ -169,8 +170,6 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
         }
         exit();
     }
-
-
 
 
 

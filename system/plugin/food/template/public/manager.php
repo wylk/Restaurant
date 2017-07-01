@@ -14,7 +14,7 @@
 	<div class="btns">
 
 		<a href="?m=plugin&p=public&cn=index&id=food:sit:super_login" class="btn btn-primary btn-lg"><i class="fa fa-user"></i> 商家管理</a>
-		<a href="./index.php?m=plugin&p=public&cn=index&id=food:sit:create_company
+		<a href="./index.php?m=plugin&p=public&cn=index&id=food:sit:do_shop_login
 " class="btn btn-primary btn-lg"><i class="fa fa-user-plus"></i> 员工登陆</a>
 	</div>
 </div>

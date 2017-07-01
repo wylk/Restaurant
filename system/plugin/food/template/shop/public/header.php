@@ -137,7 +137,7 @@
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                    你的账号
+                    <?php echo $_SESSION['employee']['truename'];?>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
@@ -154,7 +154,7 @@
                 </a>
             </li>
             <li class="settings hidden-xs hidden-sm">
-                <a href="signin.html" role="button">
+                <a href="?m=plugin&p=public&cn=index&id=food:sit:do_shop_out_login" role="button">
                     <i class="icon-share-alt"></i>
                 </a>
             </li>

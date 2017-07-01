@@ -5,18 +5,39 @@ class index extends plugin{
 	public function _initialize()
 	{
 		parent::_initialize();
-        $urse = model('employee')->where(array('username'=>'test1','password'=>123))->find();
-        $_SESSION['employee'] = $urse;
-        if (!$_SESSION['employee']) {
-          echo   '<script type="text/javascript"> window.history.go(-1);</script>';   
-        }
         $id = $_GET['id'];
+        $action = $_GET['cn'];
         list($id,$module,$c) = explode(':', $id);
         $this->c =  $c;
-        $this->mid =  $_SESSION['employee']['shop_id'];
-       // var_dump($_SESSION['employee']);die;
-    }
 
+        if (isset($_GET['store_id'])) {
+            
+            $_SESSION['employee']['shop_id']= $_GET['store_id'];
+            $this->mid  = $_SESSION['employee']['shop_id'];
+        }else{
+            $this->mid = $_SESSION['employee']['shop_id']; 
+           
+        }
+
+        $nowAC = $action.'-'.$c;
+        if (empty($_SESSION['employee']) && empty($_SESSION['cid'])) {
+          echo   '<script type="text/javascript"> window.top.location.href = "?m=plugin&p=public&cn=index&id=food:sit:manager";</script>';   
+        }else{
+
+            if (isset($_SESSION['employee']) && $_SESSION['employee']['role_id'] != 0) {
+                $role= model('store_role')->where(array('store_id'=>$this->mid,'id'=>$_SESSION['employee']['role_id']))->find();
+            }
+            $allAC = "index-doindex,index-left_menu";
+            if (strpos($role['role_auth_ac'],$nowAC) === false && strpos($allAC,$nowAC) === false && $_SESSION['employee']['role_id'] != 0 && empty($_SESSION['cid']) ){
+                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;  
+            }
+        }
+        
+
+        
+        //dump($this->mid);die;
+    }
+    
 
     public function doindex()
     {
@@ -26,19 +47,26 @@ class index extends plugin{
 
     public function left_menu()
     {
-        $role= model('store_role')->where(array('store_id'=>1,'id'=>1))->find();
-        $authInfoA = model('store_auth')
-                ->where(array(
-                    'auth_level'=>0,
-                    'id'=>array('in',$role['role_auth_ids'])))
-                ->select();
+        if (isset($_SESSION['cid']) || $_SESSION['employee']['role_id'] == 0) {
+            $authInfoA = model('store_auth')->where(array('auth_level'=>0,'is_show'=>1))->select();
+            $authInfoB = model('store_auth')->where(array('auth_level'=>1,'is_show'=>1))->select();      
+        }else{
+            $role= model('store_role')->where(array('store_id'=>$this->mid,'id'=>$_SESSION['employee']['role_id']))->find();
+            $authInfoA = model('store_auth')
+                    ->where(array(
+                        'auth_level'=>0,
+                        'is_show'=>1,
+                        'id'=>array('in',$role['role_auth_ids'])))
+                    ->select();
 
-        //var_dump($authInfoA);die        
-        $authInfoB = model('store_auth')
-                ->where(array(
-                    'auth_level'=>1,
-                    'id'=>array('in',$role['role_auth_ids'])))
-                ->select();
+            //var_dump($authInfoA);die        
+            $authInfoB = model('store_auth')
+                    ->where(array(
+                        'auth_level'=>1,
+                        'is_show'=>1,
+                        'id'=>array('in',$role['role_auth_ids'])))
+                    ->select(); 
+        }
         $c = $this->c;     
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/left_menu.php';
     }
@@ -47,6 +75,7 @@ class index extends plugin{
     {
        
          $employees = model('employee')->where(array('shop_id'=>$this->mid,'status'=>array(' in','0,1'),'role_id'=>array('neq',0)))->select();
+         //dump($this->mid);die;
          foreach ($employees as $key => &$v) {
              $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
              $v['role_name'] = $roles['role_name'];
@@ -141,6 +170,8 @@ class index extends plugin{
                $this->dexit(array('error'=>1,'msg'=>'邮箱号码也存在'));
             }
             $data['password'] = md5($data['password']);
+            $time = time();
+            $data['create_time'] = $time;
             if (model('employee')->data($data)->add()) {
                 $this->dexit(array('error'=>0,'msg'=>'添加成功'));
             }else{
@@ -156,7 +187,6 @@ class index extends plugin{
      //角色列表
      public function do_employee_role()
      {
-    
         $role = model('store_role')->where(array('store_id'=>$this->mid))->select();
         $this->displays('employee_role',array('role'=>$role));
      }

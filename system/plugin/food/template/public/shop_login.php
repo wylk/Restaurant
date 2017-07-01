@@ -16,15 +16,15 @@
 	<div id="login">
 
 
-		<input type="text"  placeholder="手机号码" name="phone"></input>
+		<input type="text"  placeholder="手机号码/登录账户" name="phone"></input>
 		<input type="password"  placeholder="登录密码" name="password"></input>
 		<button class="btn btn-primary btn-lg" type="submit" id="aa"><i class="fa fa-user"></i> 登录管理</button>
 
-
+<!-- 
 		<div class="login_link">
 			<a class="zhuce" href="./index.php?m=plugin&p=public&cn=index&id=food:sit:create_company"> 注册商家</a>
 			<a class="zhaohui" href="a">密码找回</a>
-		</div>
+		</div> -->
 	</div>
 
 </div>
@@ -51,7 +51,7 @@ duration : 2000 // 切换延时
 
 			if(a1=='')
 			{
-				alert('手机号码不能为空');
+				alert('登录账号不能为空');
 				return false;
 			}
 			if(a2=='')
@@ -62,12 +62,12 @@ duration : 2000 // 切换延时
 			var postData = {}
 			postData.phone=a1;
 			postData.password=a2;
-			console.log(postData);
-			$.post('?m=plugin&p=public&cn=index&id=food:sit:super_login',postData,function(re){
+			$.post('?m=plugin&p=public&cn=index&id=food:sit:do_shop_login',postData,function(re){
+				console.log(re);
 				if(re.error==0)
 				{
-					alert(re.msg);
-					window.location.href='?m=plugin&p=admin&cn=index1&id=food:sit:test';
+					//alert(re.msg);
+					window.location.href='?m=plugin&p=shop&cn=index&id=food:sit:doindex';
 				}else if(re.error==1)
 				{
 					alert(re.msg);
