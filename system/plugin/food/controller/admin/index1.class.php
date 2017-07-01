@@ -199,11 +199,19 @@ class index1 extends plugin
     {
         //员工管理
         $cid=$_SESSION['cid'];
-        $_count=model('employee')->where(array('company_id'=>$cid))->count();
+        $shop=model('shop')->field('id')->where(array('company_id'=>$cid))->select();
+        $shop_id = '';
+        foreach ($shop as $key => $v) {
+           $shop_id.=$v['id'].',';
+        }
+        $shop_id = rtrim($shop_id,',');
+        $where = 'role_id=0 and shop_id in ('.$shop_id.')';
+        $_count=model('employee')->where($where)->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
-        $p = new Page($_count, 1);
-        $pagebar = $p->show(1);
-        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.company_id='.$cid.' order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
+        $p = new Page($_count, 10);
+        $pagebar = $p->show(10);
+        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.role_id=0 and a.shop_id in ('.$shop_id.') order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
+
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('employee');
