@@ -28,10 +28,6 @@
 	</div>
 
 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 05854c2f1346f63acca0a0978ae6336310084ef6
 <script type="text/javascript">
 $.backstretch([
 '<?php echo __ROOT__;?>statics/images/TB1sXGYIFXXXXc5XpXXXXXXXXXX.jpg',

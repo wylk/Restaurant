@@ -145,12 +145,7 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
     	}
     }
 
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> 05854c2f1346f63acca0a0978ae6336310084ef6
     function clear_html($array)
     {
         if (!is_array($array))
@@ -176,10 +171,5 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
         exit();
     }
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 05854c2f1346f63acca0a0978ae6336310084ef6
 
 

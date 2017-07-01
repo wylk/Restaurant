@@ -47,12 +47,6 @@ if(function_exists('spl_autoload_register')) {
 	}
 }
 C::run();
-<<<<<<< HEAD
-
-=======
->>>>>>> 05854c2f1346f63acca0a0978ae6336310084ef6
-
-
 function dump($var, $echo = true, $label = null, $strict = true)
 {
     $label = ($label === null) ? '' : rtrim($label) . ' ';

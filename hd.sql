@@ -1,36 +1,59 @@
 ﻿-- 入驻公司表------------------------------------
-create table if not exists hd_company(
-id int unsigned not null auto_increment comment 'id',
-company_name varchar(55) not null comment '公司名称',
-company_address varchar(255) not null comment '公司地址',
-company_person varchar(55) not null comment '公司法人',
-licence varchar(55) not null comment '营业执照号码',
-img_licence varchar(255) not null comment '营业执照图片',
-cart_number varchar(55) not null comment '身份证号码',
-frontal_view varchar(255) not null comment '身份证正面照',
-back_view varchar(255) not null comment '身份证反面照',
-phone char(11) not null comment '手机号码',
-unique hd_company_company_name(company_name),
-key hd_company_phone(phone),
-primary key(id)
-)engine=innodb default charset=utf8 comment '公司表';
+CREATE TABLE IF NOT EXISTS `hd_company` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `company_name` varchar(55) NOT NULL COMMENT '٫˾ĻԆ',
+  `company_address` varchar(255) NOT NULL COMMENT '٫˾ַ֘',
+  `company_person` varchar(55) NOT NULL COMMENT '٫˾רɋ',
+  `licence` varchar(55) NOT NULL COMMENT 'Ӫҵִ֕ۅë',
+  `cart_number` varchar(55) NOT NULL COMMENT 'ʭ؝֤ۅë',
+  `licence_path` varchar(255) NOT NULL,
+  `frontal_view` varchar(255) NOT NULL COMMENT 'ʭ؝ֽ֤Ħ֕',
+  `back_view` varchar(255) NOT NULL COMMENT 'ʭ؝֤״Ħ֕',
+  `phone` char(11) NOT NULL COMMENT '˖ܺۅë',
+  `password` char(32) NOT NULL COMMENT '登录密码',
+  `email` varchar(55) NOT NULL COMMENT '电子邮箱',
+  `addtime` int(10) unsigned NOT NULL COMMENT 'Դݨʱݤ',
+  `status` tinyint(3) unsigned NOT NULL COMMENT '状态值 默认0 通过1 不通过2',
+  `reason` varchar(255) NOT NULL COMMENT '驳回原因',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hd_company_company_name` (`company_name`),
+  KEY `hd_company_phone` (`phone`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='٫˾ҭ' AUTO_INCREMENT=85 ;
+
+--
+-- 转存表中的数据 `hd_company`
+--
+
+INSERT INTO `hd_company` (`id`, `company_name`, `company_address`, `company_person`, `licence`, `cart_number`, `licence_path`, `frontal_view`, `back_view`, `phone`, `password`, `email`, `addtime`, `status`, `reason`) VALUES
+(83, '北京五一乐卡科技有限公司', '北京海淀区苏州街银丰大厦3楼纳什空间', '人人陆', '1111111', '412627199809090909', './uploadfile/images/18811480487/20170630143320_103.jpg', './uploadfile/images/18811480487/20170630143320_994.jpg', './uploadfile/images/18811480487/20170630143320_216.jpg', '18811480487', '96e79218965eb72c92a549dd5a330112', '760553350@qq.com', 1498632860, 2, ''),
+(84, '北京五一乐卡科技', '北京海淀区苏州街银丰大厦3楼', 'luwen', '1111111', '412627199809090909', './uploadfile/images/15651117501/20170628164115_623.jpg', './uploadfile/images/15651117501/20170628164115_352.jpg', './uploadfile/images/15651117501/20170628164115_619.jpg', '15651117501', '96e79218965eb72c92a549dd5a330112', '760553350@qq.com', 1498639275, 0, '');
 
 -- 门店表-------------------------------------------
-create table if not exists hd_shop(
-id int unsigned not null auto_increment comment '门店id',
-shop_name varchar(55) not null comment '门店名称',
-type_id int unsigned not null comment '门店类型id',
-company_id int unsigned not null comment '公司id',
-shop_status tinyint unsigned not null comment '门店状态',
-shop_notice varchar(55) not null comment '门店公告',
-cost_per float(10,2) not null comment '人均消费',
-shop_address varchar(255) not null comment '门店地址',
-shop_introduction varchar(255) not null comment '门店简介',
-unique hd_shop_shop_name(shop_name),
-key hd_shop_type_id(type_id),
-key hd_shop_company_id(company_id),
-primary key(id)
-)engine=innodb default charset=utf8 comment '门店表';
+CREATE TABLE IF NOT EXISTS `hd_shop` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ą֪id',
+  `shop_name` varchar(55) NOT NULL COMMENT 'ą֪ĻԆ',
+  `type_id` int(10) unsigned NOT NULL COMMENT 'ą֪`эid',
+  `company_id` int(10) unsigned NOT NULL COMMENT '٫˾id',
+  `shop_status` tinyint(3) unsigned NOT NULL COMMENT 'ą֪״̬',
+  `shop_notice` varchar(55) NOT NULL COMMENT 'ą֪٫٦',
+  `cost_per` float(10,2) NOT NULL COMMENT 'ɋ߹лؑ',
+  `shop_address` varchar(255) NOT NULL COMMENT 'ąַ֪֘',
+  `shop_introduction` varchar(255) NOT NULL COMMENT 'ą֪ݲީ',
+  `add_time` int(10) unsigned NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hd_shop_shop_name` (`shop_name`),
+  KEY `hd_shop_type_id` (`type_id`),
+  KEY `hd_shop_company_id` (`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='ą֪ҭ' AUTO_INCREMENT=8 ;
+
+--
+-- 转存表中的数据 `hd_shop`
+--
+
+INSERT INTO `hd_shop` (`id`, `shop_name`, `type_id`, `company_id`, `shop_status`, `shop_notice`, `cost_per`, `shop_address`, `shop_introduction`, `add_time`) VALUES
+(3, '全聚德', 4, 83, 1, '老北京地道烤鸭，一鸭多吃，开业大酬宾', 200.00, '北京省北京市朝阳区区三里屯什么路全聚德烤鸭店', '位居北京朝阳三里屯，黄金地段，老北京地道烤鸭，吃货们不容错过，赶快品尝吧！', 1498721789),
+(6, '金手勺', 3, 83, 1, '江湖菜涵盖多种地方特色菜，让你一饱口福', 300.00, '北京省北京市海淀区银丰大厦3楼', '金手勺位居北京海淀区中关村，地段繁华，深受上班族的喜爱。', 1498725710),
+(7, '鱼头汤', 2, 83, 0, '山东特色菜，一鱼多吃，口味鲜美', 200.00, '北京省北京市昌平区霍营街道', '赶快来吃', 1498788136);
 
 -- 员工表------------------------------------------
 create table if not exists hd_employee(
