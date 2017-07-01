@@ -11,9 +11,12 @@ class index extends plugin{
         $this->c =  $c;
 
         if (isset($_GET['store_id'])) {
-            $this->mid = $store_id =  $_GET['store_id']; 
+            
+            $_SESSION['employee']['shop_id']= $_GET['store_id'];
+            $this->mid  = $_SESSION['employee']['shop_id'];
         }else{
-            $this->mid = $store_id =  $_SESSION['employee']['shop_id'];   
+            $this->mid = $_SESSION['employee']['shop_id']; 
+           
         }
 
         $nowAC = $action.'-'.$c;
@@ -22,7 +25,7 @@ class index extends plugin{
         }else{
 
             if (isset($_SESSION['employee']) && $_SESSION['employee']['role_id'] != 0) {
-                $role= model('store_role')->where(array('store_id'=>$store_id,'id'=>$_SESSION['employee']['role_id']))->find();
+                $role= model('store_role')->where(array('store_id'=>$this->mid,'id'=>$_SESSION['employee']['role_id']))->find();
             }
             $allAC = "index-doindex,index-left_menu";
             if (strpos($role['role_auth_ac'],$nowAC) === false && strpos($allAC,$nowAC) === false && $_SESSION['employee']['role_id'] != 0 && empty($_SESSION['cid']) ){
@@ -32,7 +35,7 @@ class index extends plugin{
         
 
         
-        //dump($nowAC);die;
+        //dump($this->mid);die;
     }
     
 
@@ -72,6 +75,7 @@ class index extends plugin{
     {
        
          $employees = model('employee')->where(array('shop_id'=>$this->mid,'status'=>array(' in','0,1'),'role_id'=>array('neq',0)))->select();
+         //dump($this->mid);die;
          foreach ($employees as $key => &$v) {
              $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
              $v['role_name'] = $roles['role_name'];
@@ -183,7 +187,6 @@ class index extends plugin{
      //角色列表
      public function do_employee_role()
      {
-    
         $role = model('store_role')->where(array('store_id'=>$this->mid))->select();
         $this->displays('employee_role',array('role'=>$role));
      }

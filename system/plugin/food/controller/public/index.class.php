@@ -210,6 +210,7 @@ class index extends plugin
     public function do_shop_out_login()
     {
     		if ($_SESSION['cid']) {
+          unset($_SESSION['employee']['shop_id']);
     			header('Location:?m=plugin&p=admin&cn=index1&id=food:sit:test');
 
     		}else{
