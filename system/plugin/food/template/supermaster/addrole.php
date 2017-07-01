@@ -49,6 +49,10 @@
     <label for="exampleInputEmail1">全路径</label>
     <input type="email" class="form-control"   id="auth_url" placeholder="全路径">
   </div>
+    <div class="form-group">
+        <label>是否显示</label>&nbsp;
+        显示：<input  type="radio" name="status" checked="checked" value="1"/> &nbsp;&nbsp;不显示：<input  type="radio" name="status" value='0'/>
+    </div>
   <p style="margin-left: 50%"><a href="javascript:;" class="btn btn-default" id="submit">保存</a></p>
  
  </form>
@@ -78,12 +82,18 @@
                if ( auth_url.length < 6) {
                	  alert('输入url格式不对请重新输入'); return false;
                }
+
+              var status = $('input:radio[name="status"]:checked').val();
+              if (status.length<0) {
+                   alert('请选择是否展示'); return false;  
+              }
 	            var adddata = {}
 	            adddata.auth_name = auth_name;
 	            adddata.auth_pid = auth_pid;
 	            adddata.auth_a = auth_a;
 	            adddata.auth_c = auth_c;
-	            adddata.auth_url = auth_url;
+              adddata.auth_url = auth_url;
+	            adddata.is_show = status;
 	            $.post('/index.php?m=admin&c=app&a=module&mod=food&type=doaddrole',adddata,function(re){
 	               	if (re.error == 0) {
 	               		console.log(re.msg);

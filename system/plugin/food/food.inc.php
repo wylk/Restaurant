@@ -144,11 +144,10 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
     		dexit(array('error'=>1,'msg'=>'修改失败'));
     	}
     }
-<<<<<<< HEAD
-=======
 
 
->>>>>>> c6b32e5b7c73d3a7ce95e37e14a433d3ae039e8c
+
+
     function clear_html($array)
     {
         if (!is_array($array))
@@ -161,7 +160,7 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
             }
         }
         return $array;
-<<<<<<< HEAD
+
     }
 
     function dexit($data = '')
@@ -175,18 +174,5 @@ if(!defined('IN_PLUGIN')) { exit('Access Denied');}
     }
 
 
-=======
-	}
-
-	function dexit($data = '')
-	{
-		if (is_array($data)) {
-		    echo json_encode($data);
-		} else {
-		    echo $data;
-		}
-		exit();
-	}
->>>>>>> c6b32e5b7c73d3a7ce95e37e14a433d3ae039e8c
 
 

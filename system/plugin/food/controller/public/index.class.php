@@ -5,10 +5,12 @@ class index extends plugin
     {
         parent::_initialize();
     }
+
     public function manager()
     {
-      $this->display('manager');
+        $this->display('manager');
     }
+
     public function super_login()
     {
       if(IS_POST)
@@ -177,6 +179,40 @@ class index extends plugin
            return   $urlarr;
 
           }
+    }
+    //店铺登录
+    public  function do_shop_login()
+    {
+        if (IS_POST) {
+            $data=$this->clear_html($_POST);
+            $where = "username='".$data['phone']."' or phone='".$data['phone']."' and status=0";
+
+            $employee = model('employee')->where($where)->find();
+            if (empty($employee)) {
+                $this->dexit(array('error'=>1,'msg'=>'登录名不对'));
+            }
+            if (md5($data['password']) != $employee['password']) {
+                $this->dexit(array('error'=>1,'msg'=>'登录密码不对'));
+            }else{
+                $_SESSION['employee'] = $employee;
+                $this->dexit(array('error'=>0,'msg'=>'登录成功'));
+            }
+            
+        }
+        
+        $this->display('shop_login');
+    }
+     //店铺退出登录
+    public function do_shop_out_login()
+    {
+    		if ($_SESSION['cid']) {
+    			header('Location:?m=plugin&p=admin&cn=index1&id=food:sit:test');
+
+    		}else{
+            unset($_SESSION['employee']);
+    		    header('Location:?m=plugin&p=public&cn=index&id=food:sit:manager');
+    		}
+        
     }
 
 }

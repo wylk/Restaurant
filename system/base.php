@@ -47,8 +47,7 @@ if(function_exists('spl_autoload_register')) {
 	}
 }
 C::run();
-<<<<<<< HEAD
-=======
+
 
 function dump($var, $echo = true, $label = null, $strict = true) 
 {
@@ -75,4 +74,4 @@ function dump($var, $echo = true, $label = null, $strict = true)
     } else
         return $output;
 }
->>>>>>> c6b32e5b7c73d3a7ce95e37e14a433d3ae039e8c
+

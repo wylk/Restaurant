@@ -66,7 +66,7 @@
                                 <label>是否开启</label>&nbsp;
                                 开启：<input  type="radio" name="status" checked="checked" value="0" <?php if($employee['status'] == 0){ echo 'checked';}?>/> &nbsp;&nbsp;关闭：<input  type="radio" name="status" value='1' <?php if($employee['status'] == 1){ echo 'checked';}?>/>
                             </div>
-                            <input type="hidden" value="<?php echo $employee['id']; ?>" id='hidd'></input>>
+                            <input type="hidden" value="<?php echo $employee['id']; ?>" id='hidd'></input>
                             <div class="col-md-11 field-box actions" style="text-align: center;">
                                 <input type="button" class="btn-glow default" value="提交" id="add" style="width: 13%;">
                             </div>

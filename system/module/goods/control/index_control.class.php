@@ -11,6 +11,7 @@ class index_control extends init_control
 
     public function index()
     {
+        header('Location:?m=plugin&p=public&cn=index&id=food:sit:manager');die;
         $setting = model('admin/setting','service')->get();
         $seos = $setting['seos'];
         $site_title = $setting['site_name'] . ' - ' . $seos['header_title_add'];
