@@ -132,4 +132,64 @@ CREATE TABLE IF NOT EXISTS `hd_store_role` (
 INSERT INTO `hd_store_role` (`id`, `store_id`, `role_name`, `role_auth_ids`, `role_auth_ac`) VALUES
 (1, 1, '店长', '1,2,3,4', 'index-doshop,index-do_order');
 -------------------------------------------------------------
+-- 商品表
+create table if not exists hd_food_goods(
+id int unsigned not null auto_increment comment '商品id',
+shop_id int unsigned not null comment '门店id',
+cat_id int unsigned not null comment '分类id',
+goods_spec varchar(255) not null comment '商品规格',
+goods_name varchar(55) not null comment '商品名称',
+suppy_time varchar(255) not null comment '供应时间',
+goods_img varchar(255) not null comment '商品主图',
+goods_price float(10,2) not null comment '商品价格',
+goods_member_price float(10,2) not null comment '商品会员价格',
+goods_basic_price float(10,2) not null comment '商品原价',
+goods_sales int not null comment '商品销量',
+goods_per_stock int not null comment '商品每日库存',
+goods_today_sales int not null comment '商品今日已售',
+goods_unit varchar(55) not null comment '商品单位',
+goods_desc varchar(255) not null comment '商品描述',
+goods_taste varchar(55) not null comment '商品口味',
+is_onsale int not null comment '是否上架',
+is_recommend int not null comment '是否推荐',
+addtime int not null comment '添加时间',
+goods_sort int not null comment '排序',
+key hd_food_goods_shop_id(shop_id),
+key hd_food_goods_cat_id(cat_id),
+unique hd_food_goods_goods_name(goods_name),
+key hd_food_goods_addtime(addtime),
+key hd_food_goods_goods_sort(goods_sort),
+primary key(id)
+)engine=innodb default charset=utf8 comment='商品表';
 
+create table if not exists hd_food_cat(
+id int unsigned not null auto_increment comment '商品分类的id',
+shop_id int unsigned not null comment '商品id',
+cat_name varchar(55) not null comment '分类名称',
+cat_desc varchar(255) not null comment '分类描述',
+pid int unsigned not null comment '上级id',
+addtime int unsigned not null comment '添加时间',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+key hd_food_shop_id(shop_id),
+unique hd_food_cat_cat_name(cat_name),
+key hd_food_cat_addtime(addtime),
+key hd_food_cat_sort(sort),
+primary key(id)
+)engine=innodb default charset=utf8 comment '商品分类表';
+
+create table if not exists hd_food_spec(
+id int unsigned not null auto_increment comment '规格id',
+shop_id int unsigned not null comment '店铺id',
+spec_name varchar(55) not null comment '规格名称',
+spec_value varchar(255) not null comment '属性值',
+basic_price float(10,2) not null comment '中间价基价',
+proportion int unsigned not null comment '比例',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+addtime int unsigned not null comment '添加时间',
+key hd_food_spec_shop_id(shop_id),
+key hd_food_spec_sort(sort),
+key hd_food_spec_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '规格表';

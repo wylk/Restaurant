@@ -133,11 +133,11 @@
                             </td>
                              <td class="align-right">
 
-                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_edit&bid=<?php echo $v['id']?>"><button class="btn btn-success" onclick="if(confirm('是否确认修改？')==false)return false;">修改</button></a>
+                               <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_edit&bid=<?php echo $v['id']?>" class="btn btn-success" onclick="if(confirm('是否确认修改？')==false)return false;">修改</a>
                                 <a href="?m=plugin&p=admin&cn=index1&id=food:sit:shop_del&bid=<?php echo $v['id']?>"><button class="btn btn-danger" onclick="if(confirm('是否确认删除？')==false)return false;">删除</button></a>
 
                             </td>
-                            <td><a href="?m=plugin&p=shop&cn=index&id=food:sit:doindex&store_id=<?php echo $v['id']?>"><button class="btn btn-success">进入店铺</button></a></td>
+                            <td><a href="?m=plugin&p=shop&cn=index&id=food:sit:doindex&store_id=<?php echo $v['id']?>" class="btn btn-success">进入店铺</a></td>
 
                         </tr>
                         <?php endforeach;}else{?>
