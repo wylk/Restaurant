@@ -40,8 +40,9 @@
                 <h3>门店管理</h3>
 
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                    <input type="text" class="col-md-5 search" placeholder="请输入门店名称">
-
+                    <form action="?m=plugin&p=admin&cn=index1&id=food:sit:user_list" method="post">
+                    <input type="text" class="col-md-5 search" placeholder="请输入门店名称" name="shop_name" value="<?php echo $data1['shop_name']?>">
+                     <input type="submit" value="搜索" style="margin-top: 12px;">
 
 
                     <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_shop" class="btn-flat success pull-right">
