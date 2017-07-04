@@ -19,6 +19,14 @@ class index extends plugin{
            
         }
 
+        if ($_SESSION['cid']) {
+            $cid = $_SESSION['cid'];
+            if (!model('shop')->where(array('company_id'=>$cid,'id'=>$this->mid))->find()) {
+                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;   
+            }
+            
+        }
+
         $nowAC = $action.'-'.$c;
         if (empty($_SESSION['employee']) && empty($_SESSION['cid'])) {
           echo   '<script type="text/javascript"> window.top.location.href = "?m=plugin&p=public&cn=index&id=food:sit:manager";</script>';   
@@ -35,7 +43,7 @@ class index extends plugin{
         
 
         
-        //dump($this->mid);die;
+        //dump($_SESSION);die;
     }
     
 
@@ -172,6 +180,10 @@ class index extends plugin{
             $data['password'] = md5($data['password']);
             $time = time();
             $data['create_time'] = $time;
+            $shop = model('shop')->where(array('id'=>$this->mid))->find();
+            $data['company_id'] = $shop['company_id'];
+            
+            
             if (model('employee')->data($data)->add()) {
                 $this->dexit(array('error'=>0,'msg'=>'添加成功'));
             }else{
