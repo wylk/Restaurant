@@ -118,7 +118,7 @@
     $(function(){
        $('[id=del]').click(function(){
            var id = $(this).data('id');
-         
+         if (confirm('你确定要删除吗？')) {
            $.get('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_empolyee_del',{del_id:id},function(re){
             console.log(re);
                if (re.error == 0) {
@@ -128,6 +128,9 @@
                     alert(re.msg);
                }
            },'json');
+       }else{
+        return false;
+       }
        });
     });
 </script>

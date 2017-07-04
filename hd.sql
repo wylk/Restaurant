@@ -132,7 +132,11 @@ CREATE TABLE IF NOT EXISTS `hd_store_role` (
 INSERT INTO `hd_store_role` (`id`, `store_id`, `role_name`, `role_auth_ids`, `role_auth_ac`) VALUES
 (1, 1, '店长', '1,2,3,4', 'index-doshop,index-do_order');
 -------------------------------------------------------------
+<<<<<<< HEAD
 -- 商品表
+=======
+---------菜单表----------------------------------------------
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
 create table if not exists hd_food_goods(
 id int unsigned not null auto_increment comment '商品id',
 shop_id int unsigned not null comment '门店id',
@@ -161,6 +165,7 @@ key hd_food_goods_addtime(addtime),
 key hd_food_goods_goods_sort(goods_sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment='商品表';
+<<<<<<< HEAD
 
 create table if not exists hd_food_cat(
 id int unsigned not null auto_increment comment '商品分类的id',
@@ -177,6 +182,9 @@ key hd_food_cat_addtime(addtime),
 key hd_food_cat_sort(sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment '商品分类表';
+=======
+------------------------------------------------------------
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
 
 create table if not exists hd_food_spec(
 id int unsigned not null auto_increment comment '规格id',

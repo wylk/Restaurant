@@ -137,7 +137,7 @@
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
-                    <?php echo $_SESSION['employee']['truename'];?>
+                    <?php  if($_SESSION['employee']['truename']){echo $_SESSION['employee']['truename'];}else{echo $_SESSION['phone'];};?>
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">

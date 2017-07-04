@@ -49,6 +49,10 @@
     <label for="exampleInputEmail1">全路径</label>
     <input type="email" class="form-control"   id="auth_url" placeholder="全路径" value="<?php echo $authInfo1['auth_url'];?>">
   </div>
+  <div class="form-group">
+        <label>是否显示</label>&nbsp;
+        显示：<input  type="radio" name="status" <?php if($authInfo1['is_show'] == 1){echo 'checked="checked"';}?> value="1"/> &nbsp;&nbsp;不显示：<input  type="radio" name="status" value='0' <?php if($authInfo1['is_show'] == 0){echo 'checked="checked"';}?>/>
+    </div>
   <input type="hidden" value="<?php echo $authInfo1['id'];?>" id='hidd'></input>
   <p style="margin-left: 50%"><a href="javascript:;" class="btn btn-default" id="submit">修改</a></p>
  
@@ -82,6 +86,10 @@
                     alert('输入url格式不对请重新输入'); return false;
                }
                }
+               var status = $('input:radio[name="status"]:checked').val();
+              if (status.length<0) {
+                   alert('请选择是否展示'); return false;  
+              }
               var adddata = {}
               adddata.auth_name = auth_name;
 	            adddata.id = id;
@@ -89,6 +97,7 @@
 	            adddata.auth_a = auth_a;
 	            adddata.auth_c = auth_c;
 	            adddata.auth_url = auth_url;
+              adddata.is_show = status;
   	         $.post('/index.php?m=admin&c=app&a=module&mod=food&type=do_update_role',adddata,function(re){
   	               	if (re.error == 0) {
                           alert(re.msg);
