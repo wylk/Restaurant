@@ -23,6 +23,7 @@
      
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH;?>css/compiled/index.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="<?php echo FOOD_PATH;?>sweetalert/sweetalert.css" type="text/css" media="screen" />
 
     <!-- open sans font -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -34,6 +35,7 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="<?php echo FOOD_PATH;?>sweetalert/sweetalert.min.js"></script>
 </head>
 <body>
     <!-- navbar -->

@@ -275,17 +275,148 @@ class index extends plugin{
         $auth2 = model('store_auth')->where(array('auth_level'=>1))->select();
         $this->displays('employee_role_up',array('auth1'=>$auth1,'auth2'=>$auth2,'roles'=>$roles)); 
      }
+    
+    //餐桌管理
+    public function do_shop_table()
+    {
+        $this->displays('shop/shop_table');
 
+    }
 
+    //添加餐桌
+    public function do_shop_table_add()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $data['store_id'] = $this->mid; 
+             $this->dexit(['error'=>0,'msg'=>$data]);
+        }
+
+        $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        $printlabel = model('food_shop_print_label')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        $this->displays('shop/shop_table_add',array('datas'=>$datas,'printlabel'=>$printlabel));  
+    }
+
+    public function do_shop_table_printlabel_add()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $data['store_id'] = $this->mid;
+            if (model('food_shop_print_label')->data($data)->add()) {
+                $this->dexit(['error'=>0,'msg'=>'添加成功']); 
+            }else{
+                $this->dexit(['error'=>1,'msg'=>'添加失败']);
+            }
+        }
+
+        $this->displays('shop/shop_table_printlabel_add');
+    
+    }
+
+    //餐桌类型管理
+    public function do_shop_table_type()
+    {
+        $datas = model('food_shop_tablezones')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        //dump($datas);die;
+        $this->displays('shop/shop_table_type',array('datas'=>$datas));
+
+    }
+    //餐桌类型排序
+    public function do_shop_table_type_order()
+    {
+        $data = $this->clear_html($_POST);
+        $ids = explode(',',rtrim($data['table_id'],','));
+        $vs = explode(',',rtrim($data['orders'],','));
+        $status = [];
+        foreach ($ids as $k => $v) {
+           foreach ($vs as $key => $value) {
+              if ($k == $key) {
+                $status[] = model('food_shop_tablezones')->data(array('displayorder'=>$value,'store_id'=>$this->mid))->where(array('id'=>$v))->save();  
+              }
+           }
+        }
+        if ($status) {
+            $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+            
+        }else{
+            
+            $this->dexit(array('error'=>0,'msg'=>'修改失败'));
+
+        }
+    }
+
+    //餐桌类型删除
+    public function do_shop_table_type_del()
+    {
+        $id = $this->clear_html($_GET['del_id']);
+        if (model(food_shop_tablezones)->where(array('id'=>$id,'store_id'=>$this->mid))->delete()) {
+            $this->dexit(array('error'=>0,'msg'=>'删除成功'));  
+        }else{
+
+            $this->dexit(array('error'=>1,'msg'=>'删除失败'));
+        }
+           
+    }
+
+    //编辑餐桌类型
+    public function do_shop_table_type_edit()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $id = $data['order_id'];
+            unset($data['order_id']);
+            if (model('food_shop_tablezones')->data($data)->where(array('id'=>$id,'store_id'=>$this->mid))->save()) {
+                $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+               
+            }else{
+
+                $this->dexit(array('error'=>1,'msg'=>'修改失败'));
+            }
+
+        }
+
+        $id = $_GET['type_id'];
+        $datas = model('food_shop_tablezones')->where(array('id'=>$id,'store_id'=>$this->mid))->find();
+        $this->displays('shop/shop_table_type_edit',array('datas' =>$datas));
+    }
+    //添加餐桌类型
+    public function do_shop_table_type_add()
+    {
+        if (IS_POST) {
+           $data = $this->clear_html($_POST);
+           $data['store_id'] = $this->mid;
+
+           if (model('food_shop_tablezones')->data($data)->add()) {
+                $this->dexit(array('error'=>0,'msg'=>'添加成功'));
+           }else{
+                $this->dexit(array('error'=>1,'msg'=>'添加失败'));
+           }
+        }
+        $this->displays('shop/shop_table_type_add');
+
+    }
+
+    //排队管理
+    public function do_shop_queue()
+    {
+        $this->displays('shop/shop_queue');
+
+    }
+    
+    //预定管理
+    public function do_shop_reserve()
+    {
+        $this->displays('shop/shop_reserve');
+    }
      
-     public function displays($c,$data=array())
-     {
-         foreach($data as $key =>$value){
+    public function displays($c,$data=array())
+    {
+        foreach($data as $key =>$value){
             $$key=$value;
         }
 
         $this->left_menu();
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
-     }
+    }
 
 }
