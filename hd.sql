@@ -132,7 +132,11 @@ CREATE TABLE IF NOT EXISTS `hd_store_role` (
 INSERT INTO `hd_store_role` (`id`, `store_id`, `role_name`, `role_auth_ids`, `role_auth_ac`) VALUES
 (1, 1, '店长', '1,2,3,4', 'index-doshop,index-do_order');
 -------------------------------------------------------------
+<<<<<<< HEAD
+-- 商品表
+=======
 ---------菜单表----------------------------------------------
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
 create table if not exists hd_food_goods(
 id int unsigned not null auto_increment comment '商品id',
 shop_id int unsigned not null comment '门店id',
@@ -161,7 +165,26 @@ key hd_food_goods_addtime(addtime),
 key hd_food_goods_goods_sort(goods_sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment='商品表';
+<<<<<<< HEAD
+
+create table if not exists hd_food_cat(
+id int unsigned not null auto_increment comment '商品分类的id',
+shop_id int unsigned not null comment '商品id',
+cat_name varchar(55) not null comment '分类名称',
+cat_desc varchar(255) not null comment '分类描述',
+pid int unsigned not null comment '上级id',
+addtime int unsigned not null comment '添加时间',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+key hd_food_shop_id(shop_id),
+unique hd_food_cat_cat_name(cat_name),
+key hd_food_cat_addtime(addtime),
+key hd_food_cat_sort(sort),
+primary key(id)
+)engine=innodb default charset=utf8 comment '商品分类表';
+=======
 ------------------------------------------------------------
+<<<<<<< HEAD
 -----------商品分类表---------------------------------
 create table if not exists hd_food_cat(
 id int unsigned not null auto_increment comment '商品分类的id',
@@ -209,4 +232,22 @@ CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+=======
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
+>>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
 
+create table if not exists hd_food_spec(
+id int unsigned not null auto_increment comment '规格id',
+shop_id int unsigned not null comment '店铺id',
+spec_name varchar(55) not null comment '规格名称',
+spec_value varchar(255) not null comment '属性值',
+basic_price float(10,2) not null comment '中间价基价',
+proportion int unsigned not null comment '比例',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+addtime int unsigned not null comment '添加时间',
+key hd_food_spec_shop_id(shop_id),
+key hd_food_spec_sort(sort),
+key hd_food_spec_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '规格表';

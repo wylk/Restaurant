@@ -56,7 +56,15 @@
                             <button class="glow middle large">Pending</button>
                             <button class="glow right large">Completed</button>
                         </div> -->
-                        <input type="text" class="search order-search" placeholder="输入店长姓名" />
+                        <form action="" method="post">
+                        <input type="text" class="search order-search" name="truename" placeholder="输入店长真实姓名" style=" margin: 0 588px 0 0;
+    position: relative;
+    top: 26px;
+    left: 0px" value="<?php echo $data2['truename']?>" />
+                        <input type="submit" value="搜索" style="position: relative;
+    top: 26px;
+    left: -591px;">
+                        </form>
                         <a href="?m=plugin&p=admin&cn=index1&id=food:sit:create_employee" class="btn-flat success pull-right">
                         <span>&#43;</span>
                         创建店长账号

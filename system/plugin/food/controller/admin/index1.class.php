@@ -31,8 +31,8 @@ class index1 extends plugin
         $cid=$_SESSION['cid'];
         $_count=model('shop')->where(array('company_id'=>$cid))->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
-        $p = new Page($_count, 1);
-        $pagebar = $p->show(1);
+        $p = new Page($_count, 10);
+        $pagebar = $p->show(10);
         if(IS_POST)
         {
             $data=$this->clear_html($_POST);
@@ -128,10 +128,25 @@ class index1 extends plugin
         $cid=$_SESSION['cid'];
         $_count=model('shop_type')->where(array('cid'=>$cid))->count();
         require_once(UPLOAD_PATH.'common_page.class.php');
-        $p = new Page($_count, 1);
-        $pagebar = $p->show(1);
+        $p = new Page($_count, 10);
+        $pagebar = $p->show(10);
+        if(IS_POST)
+        {
+            $data1=$this->clear_html($_POST);
 
-        $data=model('shop_type')->query('select * from hd_shop_type where cid='.$cid.' order by create_time desc limit '.$p->firstRow.','.$p->listRows);
+            if($data1['typename'])
+            {
+                $where=" and typename='".$data1['typename']."'";
+                $data2=model('shop_type')->where(array('typename'=>$data1['typename']))->find();
+
+                $this->assign('data2',$data2);
+            }else
+            {
+                $where='';
+            }
+
+        }
+        $data=model('shop_type')->query('select * from hd_shop_type where cid='.$cid.$where.' order by create_time desc limit '.$p->firstRow.','.$p->listRows);
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);
         $this->display('shop_type');
@@ -161,7 +176,7 @@ class index1 extends plugin
         if(IS_POST)
         {
             $data2=$this->clear_html($_POST);
-            $result=$this->file_upload('18811480487');
+            $result=$this->file_upload($_SESSION['phone']);
             if($result)
             {
                 unlink($data1['type_img']);
@@ -189,7 +204,7 @@ class index1 extends plugin
         {
             $cid=$_SESSION['cid'];
             $data=$this->clear_html($_POST);
-            $phone='18811480487';
+            $phone=$_SESSION['phone'];
 
             $result=$this->file_upload($phone);
             $data['type_img']=$result['type_img'];
@@ -225,7 +240,22 @@ class index1 extends plugin
         require_once(UPLOAD_PATH.'common_page.class.php');
         $p = new Page($_count, 10);
         $pagebar = $p->show(10);
-        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.role_id=0 and a.shop_id in ('.$shop_id.') order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
+        if(IS_POST)
+        {
+            $data1=$this->clear_html($_POST);
+            if($data1['truename'])
+            {
+                $where1=" and a.truename='".$data1['truename']."'";
+                $data2=model('employee')->where(array('truename'=>$data1['truename']))->find();
+                $this->assign('data2',$data2);
+            }else
+            {
+                $where1='';
+            }
+
+        }
+
+        $data=model('employee')->query('select a.*,b.shop_name from hd_employee as a left join hd_shop as b on a.shop_id=b.id where a.role_id=0  '.$where1.' and a.shop_id in ('.$shop_id.')  order by a.create_time desc limit '.$p->firstRow.','.$p->listRows);
 
         $this->assign('pagebar',$pagebar);
         $this->assign('data',$data);

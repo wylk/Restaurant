@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+
     <!-- bootstrap -->
     <link href="<?php echo FOOD_PATH;?>css/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="<?php echo FOOD_PATH;?>css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/layout.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/elements.css">
     <link rel="stylesheet" type="text/css" href="<?php echo FOOD_PATH;?>css/compiled/icons.css">
-     
+    <link rel="stylesheet" href="<?php echo FOOD_PATH?>css/compiled/new-user.css" type="text/css" media="screen" />
     <!-- this page specific styles -->
     <link rel="stylesheet" href="<?php echo FOOD_PATH;?>css/compiled/index.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo FOOD_PATH;?>sweetalert/sweetalert.css" type="text/css" media="screen" />
