@@ -24,9 +24,9 @@ class index extends plugin{
         if ($_SESSION['cid']) {
             $cid = $_SESSION['cid'];
             if (!model('shop')->where(array('company_id'=>$cid,'id'=>$this->mid))->find()) {
-                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;   
+                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;
             }
-            
+
         }
 
         $nowAC = $action.'-'.$c;
@@ -43,16 +43,95 @@ class index extends plugin{
             }
         }
 
-<<<<<<< HEAD
+    }
+    public function do_spec_del()
+    {
+      $data=$this->clear_html($_GET);
+      $data1=model('food_spec')->where(array('id'=>$data['del_id']))->delete();
+      if($data1)
+      {
+        $this->dexit(array('error'=>0,'msg'=>'删除成功'));
+      }else
+      {
+        $this->dexit(array('error'=>1,'msg'=>'删除失败，请稍后再试'));
+      }
 
-
-        //dump($this->mid);die;
-=======
-        
-        //dump($_SESSION);die;
->>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
+    }
+    public function do_spec_edit()
+    {
+      //修改商品规格
+      $data=$this->clear_html($_GET);
+      $data1=model('food_spec')->where(array('id'=>$data['cid']))->find();
+      if(IS_POST)
+      {
+        $data2=$this->clear_html($_POST);
+        $datas=[];
+        foreach($data2['spec_value'] as $key=>$value)
+        {
+          foreach($data2['proportion'] as $k=>$v)
+          {
+            if($key==$k)
+            {
+              $datas[]=array('id'=>$key,'spec_name'=>$value,'proportion'=>$v);
+            }
+          }
+        }
+          $data2['spec_value']=json_encode($datas);
+          $data2['shop_id']=$this->mid;
+          unset($data2['proportion']);
+          $return=model('food_spec')->data($data2)->where(array('id'=>$data2['cid']))->save();
+          if($return)
+          {
+              echo "<script>alert('修改成功');history.go(-1);</script>";
+              die;
+          }else
+          {
+              echo "<script>alert('修改失败，请稍后再试');history.go(-1);</script>";
+              die;
+          }
+      }
+      $this->displays('do_spec_edit',array('data1'=>$data1));
     }
     public function do_goods_spec()
+    {
+       if(IS_POST)
+      {
+        $data1=$this->clear_html($_POST);
+        if($data1['spec_name'])
+        {
+          $_SESSION['spec_name']=$data1['spec_name'];
+          $where=' and spec_name like "%'.$_SESSION['spec_name'].'%"';
+          $data2=model('food_spec')->where(array('spec_name'=>$_SESSION['spec_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['spec_name']);
+        }
+
+      }
+      if($_GET['page'])
+      {
+        if($_SESSION['spec_name'])
+        {
+          $where=' and spec_name like "%'.$_SESSION['spec_name'].'%"';
+          $data2=model('food_spec')->where(array('spec_name'=>$_SESSION['spec_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['spec_name']);
+        }
+      }
+      //规格列表
+      $shop_id=$this->mid;
+      $_count=model('food_spec')->query('select count(*) as c from hd_food_spec where shop_id='.$shop_id.$where);
+      require_once(UPLOAD_PATH.'common_page.class.php');
+      $p = new Page($_count[0]['c'], 10);
+      $pagebar = $p->show(10);
+
+      $data=model('food_spec')->query('select * from hd_food_spec where shop_id='.$shop_id.$where.' order by sort desc limit '.$p->firstRow.','.$p->listRows);
+      $this->displays('do_goods_spec',array('data'=>$data,'pagebar'=>$pagebar,'data2'=>$data2));
+    }
+    public function do_spec_add()
     {
       $shop_id=$this->mid;
       if(IS_POST)
@@ -80,10 +159,6 @@ class index extends plugin{
           die;
         }
       }
-      $this->displays('do_goods_spec');
-    }
-    public function do_spec_add()
-    {
       $this->displays('do_spec_add');
     }
     public function do_cat_edit()
@@ -120,12 +195,58 @@ class index extends plugin{
     }
     public function do_goods_cat()
     {
-      $shop_id=$this->mid;
-      $data1=model('food_cat')->field('id,cat_name')->where(array('shop_id'=>$shop_id,'pid'=>0))->select();
-      $data=model('food_cat')->where(array('shop_id'=>$shop_id))->select();
-      $data=$this->GetTree($data,0,0);
+      if(IS_POST)
+      {
+        $data2=$this->clear_html($_POST);
+        if($data2['cat_name'])
+        {
+          $_SESSION['cat_name']=$data2['cat_name'];
+          $where=' and cat_name like "%'.$_SESSION['cat_name'].'%"';
+          $data3=model('food_cat')->where(array('cat_name'=>$_SESSION['cat_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['cat_name']);
+        }
 
-      $this->displays('do_goods_cat',array('data'=>$data,'data1'=>$data1));
+      }
+      if($_GET['page'])
+      {
+        if($_SESSION['cat_name'])
+        {
+          $where=' and cat_name like "%'.$_SESSION['cat_name'].'%"';
+          $data3=model('food_cat')->where(array('cat_name'=>$_SESSION['cat_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['cat_name']);
+        }
+      }
+      $shop_id=$this->mid;
+      $_count=model('food_cat')->query('select count(*) as c from hd_food_cat where shop_id='.$shop_id.$where);
+      require_once(UPLOAD_PATH.'common_page.class.php');
+      $p = new Page($_count[0]['c'], 10);
+      $pagebar = $p->show(10);
+      $data1=model('food_cat')->field('id,cat_name,pid')->where(array('shop_id'=>$shop_id,'pid'=>0))->select();
+      $data=model('food_cat')->query('select * from hd_food_cat where shop_id='.$shop_id.$where.' order by sort desc limit '.$p->firstRow.','.$p->listRows);
+      // $sql='select * from hd_food_cat where shop_id='.$shop_id.$where.' order by sort desc limit '.$p->firstRow.','.$p->listRows;
+      // echo $sql;
+      $data4=[];
+      foreach($data as $v1)
+      {
+        if($v1['pid']==0)
+        {
+          $data4=$this->GetTree($data,0,0);
+        }else
+        {
+          $data4=$this->GetTree($data,$v1['pid'],0);
+        }
+
+      }
+
+       // dump($data4);
+      // die;
+      $this->displays('do_goods_cat',array('data4'=>$data4,'data1'=>$data1,'pagebar'=>$pagebar,'data3'=>$data3));
     }
 
     public function cat_add()
@@ -150,16 +271,108 @@ class index extends plugin{
       }
       $this->displays('cat_add',array('data'=>$data));
     }
+    public function do_goods_del()
+    {
+      $data=$this->clear_html($_GET);
+      $return=model('food_goods')->where(array('id'=>$data['del_id']))->delete();
+      if($return)
+      {
+        $this->dexit(array('error'=>0,'msg'=>'删除成功'));
+      }else
+      {
+        $this->dexit(array('error'=>1,'msg'=>'删除失败，请稍后再试'));
+      }
+    }
+    public function do_goods_edit()
+    {
+      $data=$this->clear_html($_GET);
+      $data1=model('food_goods')->where(array('id'=>$data['cid']))->find();
+      $data2=model('food_cat')->where(array('shop_id'=>$this->mid))->select();
+
+      $data3=model('food_spec')->where(array('shop_id'=>$this->mid))->select();
+      $phone=model('employee')->query('select b.phone from hd_employee as a left join hd_company as b on a.company_id=b.id where a.shop_id='.$this->mid);
+
+      if(IS_POST)
+      {
+        $data4=$this->clear_html($_POST);
+
+        $result=$this->file_upload($phone[0]['phone']);
+        if($result)
+        {
+          unlink($data1['goods_img']);
+          $data4['goods_img']=$result['goods_img'];
+        }
+        $data4['suppy_time']=implode(',',$data4['suppy_time']);
+        // dump($data4);
+        // die;
+        $return=model('food_goods')->data($data4)->where(array('id'=>$data4['cid']))->save();
+        if($return)
+        {
+          echo "<script>alert('修改成功');history.go(-1);</script>";
+          die;
+        }else
+        {
+          echo "<script>alert('修改失败，请稍后再试');history.go(-1);</script>";
+          die;
+        }
+
+      }
+      $this->displays('do_goods_edit',array('data'=>$data,'data1'=>$data1,'data2'=>$data2,'data3'=>$data3));
+
+    }
+    public function do_goods_list()
+    {
+      if(IS_POST)
+      {
+        $data1=$this->clear_html($_POST);
+        if($data1['goods_name'])
+        {
+          $_SESSION['goods_name']=$data1['goods_name'];
+          $where=' and goods_name like "%'.$_SESSION['goods_name'].'%"';
+          $data2=model('food_goods')->where(array('goods_name'=>$_SESSION['goods_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['goods_name']);
+        }
+
+      }
+      if($_GET['page'])
+      {
+        if($_SESSION['goods_name'])
+        {
+          $where=' and goods_name like "%'.$_SESSION['goods_name'].'%"';
+          $data2=model('food_goods')->where(array('goods_name'=>$_SESSION['goods_name'],'shop_id'=>$this->mid))->find();
+        }else
+        {
+          $where='';
+          unset($_SESSION['goods_name']);
+        }
+      }
+
+      $_count=model('food_goods')->query('select count(*) as c from hd_food_goods where shop_id='.$this->mid.$where);
+      require_once(UPLOAD_PATH.'common_page.class.php');
+      $p = new Page($_count[0]['c'], 1);
+      $pagebar = $p->show(1);
+      $data=model('food_goods')->query('select * from hd_food_goods where shop_id='.$this->mid.$where.' order by goods_sort desc limit '.$p->firstRow.','.$p->listRows);
+
+      $this->displays('do_goods_list',array('data'=>$data,'pagebar'=>$pagebar,'data2'=>$data2));
+    }
     public function do_goods_add()
     {
       $data=model('food_cat')->where(array('shop_id'=>$this->mid))->select();
-      $data1=model('food_spec')->query('select distinct spec_name from hd_food_spec where shop_id='.$this->mid.' order by sort desc');
+      $data=$this->GetTree($data,0,0);
+      // dump($data);
+      // die;
+      $data1=model('food_spec')->query('select spec_name,id from hd_food_spec where shop_id='.$this->mid.' order by sort desc');
+       $phone=model('employee')->query('select b.phone from hd_employee as a left join hd_company as b on a.company_id=b.id where a.shop_id='.$this->mid);
       if(IS_POST)
       {
         $data2=$this->clear_html($_POST);
+
         $data2['shop_id']=$this->mid;
         $data2['addtime']=time();
-        $result=$this->file_upload('18811480487');
+        $result=$this->file_upload($phone[0]['phone']);
         if($result!='')
         {
           $data2['goods_img']=$result['goods_img'];
@@ -314,8 +527,8 @@ class index extends plugin{
             $data['create_time'] = $time;
             $shop = model('shop')->where(array('id'=>$this->mid))->find();
             $data['company_id'] = $shop['company_id'];
-            
-            
+
+
             if (model('employee')->data($data)->add()) {
                 $this->dexit(array('error'=>0,'msg'=>'添加成功'));
             }else{

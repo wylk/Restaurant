@@ -7,7 +7,13 @@
             <div class="row header">
                 <h3>分类列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                    <input type="text" class="col-md-5 search" placeholder="输入分类查询">
+                <form method="post">
+                    <input type="text" class="col-md-5 search" name="cat_name" placeholder="输入分类名称" value="<?php echo $data3['cat_name']?>">
+                    <input type="submit" value="搜索" style="
+                        position: relative;
+                        top: 10px;
+                        left: 0px;">
+                </form>
                     <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:cat_add" class="btn-flat success pull-right">
                         <span>&#43;</span>
                        添加分类
@@ -45,12 +51,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                       <!--  <?php var_dump($data4);?> -->
                      <?php
 
-                     if(!empty($data))
+                     if(!empty($data4))
                      {
 
-                        foreach ($data as $key => $v):
+                        foreach ($data4 as $key => $v):
 
 
                       ?>
@@ -74,7 +81,7 @@
                                 {
 
                                     echo '顶级分类';
-
+                                    break;
                                 }
                             }
 
@@ -104,15 +111,7 @@
                     </table>
                 </div>
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#">&#8249;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&#8250;</a></li>
-            </ul>
+           <?php echo $pagebar;?>
             <!-- end users table -->
         </div>
     </div>

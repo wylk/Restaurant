@@ -11,7 +11,7 @@
         <div id="pad-wrapper" class="new-user">
             <div class="row header">
                 <div class="col-md-12">
-                    <h3>商品添加</h3>
+                    <h3>商品修改</h3>
                 </div>
             </div>
 
@@ -19,21 +19,29 @@
                 <!-- left column -->
                 <div class="col-md-9 with-sidebar">
                     <div class="container">
-                        <form action="?m=plugin&p=shop&cn=index&id=food:sit:do_goods_add" method="post" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data">
+                        <input class="form-control" type="hidden" name="cid" value="<?php echo $data1['id']?>" />
                             <div class="col-md-12 field-box">
                                 <label>商品名称:</label>
-                                <input class="form-control" type="text" name="goods_name"/>
+                                <input class="form-control" type="text" name="goods_name" value="<?php echo $data1['goods_name']?>" />
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>商品分类:</label>
 
                                 <div class="ui-select span5">
                                     <select name="cat_id" id="se">
-                                    <?php if(!empty($data)){
-                                        foreach($data as $v):
+                                    <?php if(!empty($data2)){
+                                        foreach($data2 as $v):
+                                            if($v['id']==$data1['cat_id'])
+                                            {
+                                                $selected='selected="selected"';
+                                            }else
+                                            {
+                                                $selected='';
+                                            }
                                         ?>
 
-                                        <option value="<?php echo $v['id']?>"><?php echo $v['name'].$v['cat_name']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php echo $selected?>><?php echo $v['cat_name']?></option>
 
                                         <?php endforeach;}else{?>
                                              <option value="0">暂无数据</option>
@@ -47,11 +55,18 @@
                                 <div class="ui-select span5">
                                     <select name="goods_spec" id="se1">
                                     <option value="0">--请选择--</option>
-                                    <?php if(!empty($data1)){
-                                        foreach($data1 as $v):
+                                    <?php if(!empty($data3)){
+                                        foreach($data3 as $v):
+                                            if($v['id']==$data1['goods_spec'])
+                                            {
+                                                $selected='selected="selected"';
+                                            }else
+                                            {
+                                                $selected='';
+                                            }
                                         ?>
 
-                                        <option value="<?php echo $v['id']?>"><?php echo $v['spec_name']?></option>
+                                        <option value="<?php echo $v['id']?>" <?php echo $selected;?>><?php echo $v['spec_name']?></option>
 
                                         <?php endforeach;}else{?>
                                              <option value="0">暂无数据</option>
@@ -65,71 +80,135 @@
                                     <label for="goods_img" class='js_uploadText'>商品主图:</label>
                                     <input type="file" id="goods_img" name="goods_img" class="js_upFile">
                                 </div>
-                                 <div class="js_showBox" ><img class="js_logoBox" src=""></div>
+                                 <div class="js_showBox" ><img class="js_logoBox" src="<?php echo $data1['goods_img']?>" style="width:200px;"></div>
                                 </div>
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>供应时间:</label>
+                                <?php
+                                $data4=['星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
+                                $data5=explode(',', $data1['suppy_time']);
+
+                                ?>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox1" name="suppy_time[]" value="星期一"> 星期一
+                                  <input type="checkbox" id="inlineCheckbox1" name="suppy_time[]" value="<?php echo $data4[0]?>" <?php if(in_array($data4[0],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>><?php echo $data4[0]?>
+
                                 </label>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox2" name="suppy_time[]" value="星期二"> 星期二
+                                  <input type="checkbox" id="inlineCheckbox2" name="suppy_time[]" value="<?php echo $data4[1]?>" <?php if(in_array($data4[1],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[1]?>
                                 </label>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="星期三"> 星期三
+                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="<?php echo $data4[2]?>" <?php if(in_array($data4[2],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[2]?>
                                 </label>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox1" name="suppy_time[]" value="星期四"> 星期四
+                                  <input type="checkbox" id="inlineCheckbox1" name="suppy_time[]" value="<?php echo $data4[3]?>" <?php if(in_array($data4[3],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[3]?>
                                 </label>
-                                <br>
+                                <br><br>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox2" name="suppy_time[]" value="星期五"> 星期五
+                                  <input type="checkbox" id="inlineCheckbox2" name="suppy_time[]" value="<?php echo $data4[4]?>" <?php if(in_array($data4[4],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[4]?>
                                 </label>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="星期六"> 星期六
+                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="<?php echo $data4[5]?>" <?php if(in_array($data4[5],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[5]?>
                                 </label>
                                 <label class="checkbox-inline">
-                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="星期日"> 星期日
+                                  <input type="checkbox" id="inlineCheckbox3" name="suppy_time[]" value="<?php echo $data4[6]?>" <?php if(in_array($data4[6],$data5))
+                                  {
+                                    $checked="checked";
+                                  }else
+                                  {
+                                    $checked='';
+                                  }
+
+                                  ?> <?php echo $checked;?>> <?php echo $data4[6]?>
                                 </label>
+
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>商品价格:</label>
-                                <input class="form-control" type="text" name="goods_price"/>
+                                <input class="form-control" type="text" name="goods_price" value="<?php echo $data1['goods_price']?>" />
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>会员价格:</label>
-                                <input class="form-control" type="text" name="goods_member_price"/>
+                                <input class="form-control" type="text" name="goods_member_price" value="<?php echo $data1['goods_member_price']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>商品原价:</label>
-                                <input class="form-control" type="text" name="goods_basic_price"/>
+                                <input class="form-control" type="text" name="goods_basic_price" value="<?php echo $data1['goods_basic_price']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>每日库存:</label>
-                                <input class="form-control" type="text" name="goods_per_stock"/>
+                                <input class="form-control" type="text" name="goods_per_stock" value="<?php echo $data1['goods_per_stock']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>今日已售:</label>
-                                <input class="form-control" type="text" name="goods_today_sales"/>
+                                <input class="form-control" type="text" name="goods_today_sales" value="<?php echo $data1['goods_today_sales']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>总销量:</label>
-                                <input class="form-control" type="text" name="goods_sales"/>
+                                <input class="form-control" type="text" name="goods_sales" value="<?php echo $data1['goods_sales']?>"/>
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>商品单位:</label>
-                                <input class="form-control" type="text" name="goods_unit" placeholder="例如:份/斤/碗" />
+                                <input class="form-control" type="text" name="goods_unit" placeholder="例如:份/斤/碗"  value="<?php echo $data1['goods_unit']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
                                 <label>商品描述:</label>
-                                <textarea class="form-control" rows="3" name="goods_desc" id="aa"></textarea>
+                                <textarea class="form-control" rows="3" name="goods_desc" id="aa"><?php echo $data1['goods_desc']?></textarea>
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>商品口味:</label>
-                                <input class="form-control" type="text" name="goods_taste" placeholder="例如：麻辣/清淡/酸辣" />
+                                <input class="form-control" type="text" name="goods_taste" placeholder="例如：麻辣/清淡/酸辣" value="<?php echo $data1['goods_taste']?>"/>
                             </div>
                             <div class="col-md-12 field-box">
+                                <?php if($data1['is_onsale']==1):?>
                                 <label>是否上架:</label>
                                  <label>
                                     <input type="radio" name="is_onsale" id="optionsRadios1" value="1" checked>上架
@@ -138,26 +217,44 @@
                                     <input type="radio" name="is_onsale" id="optionsRadios1" value="0"
                                     >下架
                                   </label>
-
+                              <?php else:?>
+                                     <label>
+                                    <input type="radio" name="is_onsale" id="optionsRadios1" value="1" >上架
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="is_onsale" id="optionsRadios1" value="0"
+                                     checked>下架
+                                  </label>
+                              <?php endif;?>
                             </div>
                             <div class="col-md-12 field-box">
+
                                 <label>是否推荐:</label>
+                                <?php if($data1['is_recommend']==1):?>
                                  <label>
                                     <input type="radio" name="is_recommend" id="optionsRadios1" value="1" checked>推荐
                                   </label>
                                   <label>
                                     <input type="radio" name="is_recommend" id="optionsRadios1" value="0"
                                     >不推荐
+                                </label>
+                            <?php else:?>
+                                <label>
+                                    <input type="radio" name="is_recommend" id="optionsRadios1" value="1" >推荐
                                   </label>
+                                  <label>
+                                    <input type="radio" name="is_recommend" id="optionsRadios1" value="0" checked>不推荐
+                                </label>
+                            <?php endif;?>
 
                             </div>
                              <div class="col-md-12 field-box">
                                 <label>排序:</label>
-                                <input class="form-control" type="text" name="goods_sort" placeholder="数字越大越靠前" />
+                                <input class="form-control" type="text" name="goods_sort" placeholder="数字越大越靠前" value="<?php echo $data1['goods_sort']?>" />
                             </div>
 
                             <div class="col-md-11 field-box actions">
-                                <input type="submit" class="btn-glow primary" value="确定添加">
+                                <input type="submit" class="btn-glow primary" value="确定修改">
                                 <span>or</span>
                                 <input type="reset" value="取消" class="reset">
                             </div>
@@ -243,11 +340,11 @@
             alert('商品名称不能为空');
             return false;
         }
-        if(a15=='')
-        {
-            alert('商品主图不能为空');
-            return false;
-        }
+        // if(a15=='')
+        // {
+        //     alert('商品主图不能为空');
+        //     return false;
+        // }
         // if(a2=='')
         // {
         //     alert('供应时间至少选择一项');

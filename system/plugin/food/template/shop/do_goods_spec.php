@@ -1,122 +1,111 @@
 <?php include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/header.php';?>
-    <!-- end navbar -->
-
-
-
     <!-- main container -->
     <div class="content">
 
         <!-- settings changer -->
-        <div class="skins-nav">
-            <a href="#" class="skin first_nav selected">
-                <span class="icon"></span><span class="text">Default</span>
-            </a>
-            <a href="#" class="skin second_nav" data-file="css/compiled/skins/dark.css">
-                <span class="icon"></span><span class="text">Dark skin</span>
-            </a>
-        </div>
-
-        <div id="pad-wrapper" class="new-user">
+        <div id="pad-wrapper" class="users-list">
             <div class="row header">
+                <h3>规格列表</h3>
+                <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
+                <form method="post">
+                    <input type="text" class="col-md-5 search" name="spec_name" placeholder="输入规格名称" value="<?php echo $data2['spec_name']?>">
+                    <input type="submit" value="搜索" style="
+                        position: relative;
+                        top: 10px;
+                        left: 0px;">
+                    </form>
+                    <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_spec_add" class="btn-flat success pull-right">
+                        <span>&#43;</span>
+                       添加规格
+                    </a>
+                </div>
+            </div>
+
+            <!-- Users table -->
+            <div class="row">
                 <div class="col-md-12">
-                    <h3>商品规格</h3>
+                    <table class="table table-hover" style="text-align: center">
+                        <thead >
+                            <tr>
+                                <th class="col-md-1 sortable">
+                                    编号
+                                </th>
+                                <th class="col-md-2 sortable">
+                                    <span class="line"></span>规格名称
+                                </th>
+                                <th class="col-md-2 sortable">
+                                    <span class="line"></span>属性值
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>排序
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>创建时间
+                                </th>
+                                <th class="col-md-1 sortable ">
+                                    <span class="line"></span>状态
+                                </th>
+                                <th class="col-md-2 sortable ">
+                                    <span class="line"></span>操作
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                     <?php
+
+                     if(!empty($data))
+                     {
+
+                        foreach ($data as $key => $v):
+
+
+                      ?>
+                        <!-- row -->
+                        <tr>
+                            <td>
+                                <?php echo $v['id']?>
+                            </td>
+                            <td>
+                                <?php echo $v['spec_name']?>
+                            </td>
+                            <td>
+                               <?php
+                                $data1=json_decode($v['spec_value'],true);
+                                foreach($data1 as $v1)
+                                {
+                                    echo '属性值='.$v1['spec_name'].',比例='.$v1['proportion']."<br>";
+                                }
+
+
+                                ;?>
+                            </td>
+                            <td>
+                                <?php echo $v['sort']?>
+                            </td>
+                            <td>
+
+                               <?php echo date('Y-m-d H:i:s',$v['addtime'])?>
+                            </td>
+
+                            <td>
+                              <?php if($v['status'] == 0){ echo '关闭';}else{ echo '开启';} ?>
+                            </td>
+                            <td>
+                              <a href="javascript:;" id="del"  data-id="<?php echo $v['id']?>">删除</a>
+                              |
+                              <a href="/index.php?m=plugin&p=shop&cn=index&id=food:sit:do_spec_edit&cid=<?php echo $v['id']?>" onclick="if(confirm('是否确定编辑？')==false)return false;">编辑</a>
+                            </td>
+                        </tr>
+                        <!-- row -->
+                       <?php endforeach;}else{?>
+                        暂无数据
+                        <?php };?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <form method="post">
-            <div class="row form-wrapper">
-                <!-- left column -->
-                <div class="col-md-9 with-sidebar">
-                    <div class="container">
-                        <!-- <form class="new_user_form"> -->
-                            <div class="col-md-12 field-box">
-                                <label>规格名称:</label>
-                                <input class="form-control" type="text" name="spec_name" placeholder="规格名称" />
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>状态:</label>
-                                <label>
-                                <input type="radio" name="status" id="optionsRadios1" value="1" checked>开启
-                                  </label>
-                                  <label>
-                                    <input type="radio" name="status" id="optionsRadios1" value="0">关闭
-                                  </label>
-
-                            </div>
-                            <div class="col-md-12 field-box">
-                                <label>规格排序:</label>
-                                <input class="form-control" type="text" name="sort" placeholder="数字越大越靠前" />
-                            </div>
-
-                           <h4>添加属性</h4>
-                           <br>
-                            <div id="aa">
-                            <div class="form-inline">
-                                <label>添加属性:</label>
-
-                              <div class="form-group">
-                                <label class="sr-only" for="exampleInputEmail3"></label>
-                                <input type="text" class="form-control" id="exampleInputEmail3" placeholder="属性名称" name="spec_value[]">
-                              </div>
-                              <div class="form-group">
-                                <label class="sr-only" for="exampleInputPassword3"></label>
-                                <input type="text" class="form-control" id="exampleInputPassword3" placeholder="比例" name="proportion[]">
-                              </div>
-
-
-                              </div>
-                              <br>
-                         <!--      <div class="form-inline">
-                                <label>添加属性:</label>
-
-                              <div class="form-group">
-                                <label class="sr-only" for="exampleInputEmail3"></label>
-                                <input type="text" class="form-control" id="exampleInputEmail3" placeholder="属性名称" name="spec_value">
-                              </div>
-                              <div class="form-group">
-                                <label class="sr-only" for="exampleInputPassword3"></label>
-                                <input type="text" class="form-control" id="exampleInputPassword3" placeholder="基价" name="basic_price">
-                              </div>
-                              <div class="form-group">
-                                <label class="sr-only" for="exampleInputPassword3"></label>
-                                <input type="text" class="form-control" id="exampleInputPassword3" placeholder="比例" name="proportion">
-                              </div>
-
-
-                              </div> -->
-
-
-                              </div>
-                               <a href="#" id="b1">点我添加属性</a>
-
-                            <div class="col-md-11 field-box actions">
-                                <input type="submit" class="btn-glow primary" value="确定创建">
-                                <span>or</span>
-                                <input type="reset" value="取消" class="reset">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- side right column -->
-                <div class="col-md-3 form-sidebar pull-right">
-                    <div class="btn-group toggle-inputs hidden-tablet">
-                        <button class="glow left active" data-input="normal">NORMAL INPUTS</button>
-                        <button class="glow right" data-input="inline">INLINE INPUTS</button>
-                    </div>
-                    <div class="alert alert-info hidden-tablet">
-                        <i class="icon-lightbulb pull-left"></i>
-                        Click above to see difference between inline and normal inputs on a form
-                    </div>
-                    <h6>Sidebar text for instructions</h6>
-                    <p>Add multiple users at once</p>
-                    <p>Choose one of the following file types:</p>
-                    <ul>
-                        <li><a href="#">Upload a vCard file</a></li>
-                        <li><a href="#">Import from a CSV file</a></li>
-                        <li><a href="#">Import from an Excel file</a></li>
-                    </ul>
-                </div>
-            </div>
+           <?php echo $pagebar?>
+            <!-- end users table -->
         </div>
     </div>
     <!-- end main container -->
@@ -124,83 +113,27 @@
 
     <!-- scripts -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="<?php echo FOOD_PATH?>js/bootstrap.min.js"></script>
-    <script src="<?php echo FOOD_PATH?>js/theme.js"></script>
-    <script>
-        $(function(){
-            $('[id=b1]').click(function(){
-                $("#aa").append('<div class="form-inline" id="b3"><label>添加属性:</label><div class="form-group"><label class="sr-only" for="exampleInputEmail3"></label><input type="text" class="form-control" id="exampleInputEmail3" placeholder="属性名称" name="spec_value[]"></div><div class="form-group"><label class="sr-only" for="exampleInputPassword3"></label><input type="text" class="form-control" id="exampleInputPassword3" placeholder="比例" name="proportion[]"></div><a href="#" id="b2">删除</a></div><br>');
-            });
-
-        });
-    </script>
-    <script type="text/javascript">
-        $(function () {
-
-            // toggle form between inline and normal inputs
-            var $buttons = $(".toggle-inputs button");
-            var $form = $("form.new_user_form");
-
-            $buttons.click(function () {
-                var mode = $(this).data("input");
-                $buttons.removeClass("active");
-                $(this).addClass("active");
-
-                if (mode === "inline") {
-                    $form.addClass("inline-input");
-                } else {
-                    $form.removeClass("inline-input");
-                }
-            });
-        });
-    </script>
+    <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
 </body>
 </html>
-<script>
+<script type="text/javascript">
     $(function(){
-        $(':submit').click(function(){
-            var a1=$("input[name='spec_name']").val();
-            var a2=$("input[name='sort']").val();
-            var a3=$("input:radio:checked").val();
-            var a4=$("input[name='spec_value']").val();
-            var a6=$("input[name='proportion']").val();
-
-            if(a1=='')
-            {
-                alert('商品规格不能为空');
-                return false;
-            }
-            if(a2=='')
-            {
-                alert('规格排序不能为空');
-                return false;
-            }
-            if(a4=='')
-            {
-                alert('属性值不能为空');
-                return false;
-            }
-            if(a6=='')
-            {
-                alert('比例不能为空');
-                return false;
-            }
-            // var postData={spec_name:a1};
-            // postData.sort=a2;
-            // postData.status=a3;
-            // postData.spec_value=a4;
-            // postData.basic_price=a5;
-            // postData.proportion=a6;
-            // console.log(postData);
-            // $.post('?m=plugin&p=shop&cn=index&id=food:sit:cat_add',postData,function(re){
-            //     if(re.error==0)
-            //     {
-            //         alert(re.msg);
-            //     }else
-            //     {
-            //         alert(re.msg);
-            //     }
-            // },'json');
-        });
+       $('[id=del]').click(function(){
+        if(confirm('是否确定删除?')==false)
+        {
+            return false;
+        }
+           var id = $(this).data('id');
+           $.get('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_spec_del',{del_id:id},function(re){
+            console.log(re);
+               if (re.error == 0) {
+                    alert(re.msg);
+                     window.location.reload();
+               }else{
+                    alert(re.msg);
+               }
+           },'json');
+       });
     });
 </script>
