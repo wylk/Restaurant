@@ -630,7 +630,7 @@
         $auth2 = model('store_auth')->where(array('auth_level'=>1))->select();
         $this->displays('employee_role_up',array('auth1'=>$auth1,'auth2'=>$auth2,'roles'=>$roles));
      }
-    
+
     //餐桌管理
     public function do_shop_table()
     {
@@ -643,13 +643,13 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
-            $data['store_id'] = $this->mid; 
+            $data['store_id'] = $this->mid;
              $this->dexit(['error'=>0,'msg'=>$data]);
         }
 
         $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
         $printlabel = model('food_shop_print_label')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
-        $this->displays('shop/shop_table_add',array('datas'=>$datas,'printlabel'=>$printlabel));  
+        $this->displays('shop/shop_table_add',array('datas'=>$datas,'printlabel'=>$printlabel));
     }
 
     public function do_shop_table_printlabel_add()
@@ -658,14 +658,14 @@
             $data = $this->clear_html($_POST);
             $data['store_id'] = $this->mid;
             if (model('food_shop_print_label')->data($data)->add()) {
-                $this->dexit(['error'=>0,'msg'=>'添加成功']); 
+                $this->dexit(['error'=>0,'msg'=>'添加成功']);
             }else{
                 $this->dexit(['error'=>1,'msg'=>'添加失败']);
             }
         }
 
         $this->displays('shop/shop_table_printlabel_add');
-    
+
     }
 
     //餐桌类型管理
@@ -686,15 +686,15 @@
         foreach ($ids as $k => $v) {
            foreach ($vs as $key => $value) {
               if ($k == $key) {
-                $status[] = model('food_shop_tablezones')->data(array('displayorder'=>$value,'store_id'=>$this->mid))->where(array('id'=>$v))->save();  
+                $status[] = model('food_shop_tablezones')->data(array('displayorder'=>$value,'store_id'=>$this->mid))->where(array('id'=>$v))->save();
               }
            }
         }
         if ($status) {
             $this->dexit(array('error'=>0,'msg'=>'修改成功'));
-            
+
         }else{
-            
+
             $this->dexit(array('error'=>0,'msg'=>'修改失败'));
 
         }
@@ -705,12 +705,12 @@
     {
         $id = $this->clear_html($_GET['del_id']);
         if (model(food_shop_tablezones)->where(array('id'=>$id,'store_id'=>$this->mid))->delete()) {
-            $this->dexit(array('error'=>0,'msg'=>'删除成功'));  
+            $this->dexit(array('error'=>0,'msg'=>'删除成功'));
         }else{
 
             $this->dexit(array('error'=>1,'msg'=>'删除失败'));
         }
-           
+
     }
 
     //编辑餐桌类型
@@ -722,7 +722,7 @@
             unset($data['order_id']);
             if (model('food_shop_tablezones')->data($data)->where(array('id'=>$id,'store_id'=>$this->mid))->save()) {
                 $this->dexit(array('error'=>0,'msg'=>'修改成功'));
-               
+
             }else{
 
                 $this->dexit(array('error'=>1,'msg'=>'修改失败'));
@@ -756,34 +756,32 @@
     {
         $this->displays('shop/shop_queue');
 
-<<<<<<< HEAD
+
     }
-    
+
     //预定管理
     public function do_shop_reserve()
     {
         $this->displays('shop/shop_reserve');
     }
-     
-    public function displays($c,$data=array())
-    {
-        foreach($data as $key =>$value){
-=======
 
+    // public function displays($c,$data=array())
+    // {
+    //     foreach($data as $key =>$value){}
+
+    // }
      public function displays($c,$data=array())
      {
          foreach($data as $key =>$value){
->>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
+
             $$key=$value;
         }
 
         $this->left_menu();
-<<<<<<< HEAD
-        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
-    }
-=======
+
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
-     }
+    }
+
      public function file_upload($phone)
     {
         require_once(UPLOAD_PATH.'upload/UploadTp.class.php');
@@ -849,6 +847,6 @@
       return $tree;
    }
 
->>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
+
 
 }

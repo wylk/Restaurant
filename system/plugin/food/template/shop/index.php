@@ -7,7 +7,6 @@
 <!-- <?php include PLUGIN_PATH.PLUGIN_ID.'/template/shop/public/left_menu.php';?> -->
     <!-- end sidebar -->
 
-
 	<!-- main container -->
     <div class="content">
 
@@ -20,6 +19,7 @@
                 <span class="icon"></span><span class="text">深色皮肤</span>
             </a>
         </div>
+
 
         <!-- upper main stats -->
         <div id="main-stats">
@@ -55,7 +55,7 @@
             </div>
         </div>
         <!-- end upper main stats -->
-
+    <a href="?m=plugin&p=wap&cn=index&id=food:sit:test&table_id=1&shop_id=7">进入手机端</a>
         <div id="pad-wrapper">
 
             <!-- statistics chart built with jQuery Flot -->
@@ -80,7 +80,7 @@
             <div class="row section ui-elements">
                 <div class="col-md-12">
                     <h4>UI Elements</h4>
-                </div>                
+                </div>
                 <div class="col-md-5 knobs">
                     <div class="knob-wrapper">
                         <input type="text" value="50" class="knob" data-thickness=".3" data-inputColor="#333" data-fgColor="#30a1ec" data-bgColor="#d4ecfd" data-width="150">
@@ -99,7 +99,7 @@
                                 % disk space usage
                             </div>
                         </div>
-                    </div>                        
+                    </div>
                 </div>
                 <div class="col-md-6 showcase">
                     <div class="ui-sliders">
@@ -112,7 +112,7 @@
                         <a class="btn-flat gray">Large Button</a>
                         <a class="btn-flat default">Large Button</a>
                         <a class="btn-flat primary">Large Button</a>
-                    </div>                        
+                    </div>
 
                     <div class="ui-group">
                         <a class="btn-flat icon">
@@ -278,7 +278,7 @@
                                 <td class="description">
                                     There are many variations of passages.
                                 </td>
-                                <td>                                        
+                                <td>
                                     <ul class="actions">
                                         <li><i class="table-edit"></i></span></li>
                                         <li><i class="table-settings"></i></li>
@@ -342,7 +342,7 @@
                 values: [ 40, 170 ],
             });
 
-            
+
 
             // jQuery Flot Chart
             var visits = [[1, 50], [2, 40], [3, 45], [4, 23],[5, 55],[6, 65],[7, 61],[8, 70],[9, 65],[10, 75],[11, 57],[12, 59]];
@@ -354,28 +354,28 @@
                     series: {
                         lines: { show: true,
                                 lineWidth: 1,
-                                fill: true, 
+                                fill: true,
                                 fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
                              },
-                        points: { show: true, 
+                        points: { show: true,
                                  lineWidth: 2,
                                  radius: 3
                              },
                         shadowSize: 0,
                         stack: true
                     },
-                    grid: { hoverable: true, 
-                           clickable: true, 
+                    grid: { hoverable: true,
+                           clickable: true,
                            tickColor: "#f9f9f9",
                            borderWidth: 0
                         },
                     legend: {
                             // show: false
                             labelBoxBorderColor: "#fff"
-                        },  
+                        },
                     colors: ["#a7b5c5", "#30a0eb"],
                     xaxis: {
-                        ticks: [[1, "JAN"], [2, "FEB"], [3, "MAR"], [4,"APR"], [5,"MAY"], [6,"JUN"], 
+                        ticks: [[1, "JAN"], [2, "FEB"], [3, "MAR"], [4,"APR"], [5,"MAY"], [6,"JUN"],
                                [7,"JUL"], [8,"AUG"], [9,"SEP"], [10,"OCT"], [11,"NOV"], [12,"DEC"]],
                         font: {
                             size: 12,
@@ -385,7 +385,7 @@
                         }
                     },
                     yaxis: {
-                        ticks:3, 
+                        ticks:3,
                         tickDecimals: 0,
                         font: {size:12, color: "#9da3a9"}
                     }
