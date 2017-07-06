@@ -1,47 +1,47 @@
 <?php
-header("Content-type: text/html; charset=utf-8");
-class index extends plugin{
-    public $c = '';
-    public $mid = '';
+  header("Content-type: text/html; charset=utf-8");
+  class index extends plugin{
+  public $c = '';
+  public $mid = '';
 	public function _initialize()
 	{
 
 		parent::_initialize();
-        $id = $_GET['id'];
-        $action = $_GET['cn'];
-        list($id,$module,$c) = explode(':', $id);
-        $this->c =  $c;
+    $id = $_GET['id'];
+    $action = $_GET['cn'];
+    list($id,$module,$c) = explode(':', $id);
+    $this->c =  $c;
 
-        if (isset($_GET['store_id'])) {
+    if (isset($_GET['store_id'])) {
 
-            $_SESSION['employee']['shop_id']= $_GET['store_id'];
-            $this->mid  = $_SESSION['employee']['shop_id'];
-        }else{
-            $this->mid = $_SESSION['employee']['shop_id'];
+      $_SESSION['employee']['shop_id']= $_GET['store_id'];
+      $this->mid  = $_SESSION['employee']['shop_id'];
+    }else{
+      $this->mid = $_SESSION['employee']['shop_id'];
 
+    }
+
+    if ($_SESSION['cid']) {
+      $cid = $_SESSION['cid'];
+      if (!model('shop')->where(array('company_id'=>$cid,'id'=>$this->mid))->find()) {
+          echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;
+      }
+
+    }
+
+    $nowAC = $action.'-'.$c;
+    if (empty($_SESSION['employee']) && empty($_SESSION['cid'])) {
+      echo   '<script type="text/javascript"> window.top.location.href = "?m=plugin&p=public&cn=index&id=food:sit:manager";</script>';
+    }else{
+
+        if (isset($_SESSION['employee']) && $_SESSION['employee']['role_id'] != 0) {
+            $role= model('store_role')->where(array('store_id'=>$this->mid,'id'=>$_SESSION['employee']['role_id']))->find();
         }
-
-        if ($_SESSION['cid']) {
-            $cid = $_SESSION['cid'];
-            if (!model('shop')->where(array('company_id'=>$cid,'id'=>$this->mid))->find()) {
-                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;
-            }
-
+        $allAC = "index-doindex,index-left_menu";
+        if (strpos($role['role_auth_ac'],$nowAC) === false && strpos($allAC,$nowAC) === false && $_SESSION['employee']['role_id'] != 0 && empty($_SESSION['cid']) ){
+            echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;
         }
-
-        $nowAC = $action.'-'.$c;
-        if (empty($_SESSION['employee']) && empty($_SESSION['cid'])) {
-          echo   '<script type="text/javascript"> window.top.location.href = "?m=plugin&p=public&cn=index&id=food:sit:manager";</script>';
-        }else{
-
-            if (isset($_SESSION['employee']) && $_SESSION['employee']['role_id'] != 0) {
-                $role= model('store_role')->where(array('store_id'=>$this->mid,'id'=>$_SESSION['employee']['role_id']))->find();
-            }
-            $allAC = "index-doindex,index-left_menu";
-            if (strpos($role['role_auth_ac'],$nowAC) === false && strpos($allAC,$nowAC) === false && $_SESSION['employee']['role_id'] != 0 && empty($_SESSION['cid']) ){
-                echo "<script>alert('非法访问！');window.history.go(-1);</script>";die;
-            }
-        }
+    }
 
     }
     public function do_spec_del()
@@ -352,8 +352,8 @@ class index extends plugin{
 
       $_count=model('food_goods')->query('select count(*) as c from hd_food_goods where shop_id='.$this->mid.$where);
       require_once(UPLOAD_PATH.'common_page.class.php');
-      $p = new Page($_count[0]['c'], 1);
-      $pagebar = $p->show(1);
+      $p = new Page($_count[0]['c'], 10);
+      $pagebar = $p->show(10);
       $data=model('food_goods')->query('select * from hd_food_goods where shop_id='.$this->mid.$where.' order by goods_sort desc limit '.$p->firstRow.','.$p->listRows);
 
       $this->displays('do_goods_list',array('data'=>$data,'pagebar'=>$pagebar,'data2'=>$data2));
@@ -426,14 +426,20 @@ class index extends plugin{
     //员工列表
     public function do_employee_list()
     {
-
-         $employees = model('employee')->where(array('shop_id'=>$this->mid,'status'=>array(' in','0,1'),'role_id'=>array('neq',0)))->select();
-         //dump($this->mid);die;
+      $_count=model('employee')->where(array('shop_id'=>$this->mid,'status'=>array(' in','0,1'),'role_id'=>array('neq',0)))->count();
+      // echo $_count;
+      // die;
+      require_once(UPLOAD_PATH.'common_page.class.php');
+      $p = new Page($_count, 10);
+      $pagebar = $p->show(10);
+         $employees = model('employee')->where(array('shop_id'=>$this->mid,'status'=>array(' in','0,1'),'role_id'=>array('neq',0)))->limit($p->firstRow,$p->listRows)->select();
+         // dump($employees);
+         // die;
          foreach ($employees as $key => &$v) {
              $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
              $v['role_name'] = $roles['role_name'];
          }
-        $this->displays('employee_list',array('employees'=>$employees));
+        $this->displays('employee_list',array('employees'=>$employees,'pagebar'=>$pagebar));
     }
    //删除员工
     public function do_empolyee_del()
@@ -544,8 +550,12 @@ class index extends plugin{
      //角色列表
      public function do_employee_role()
      {
-        $role = model('store_role')->where(array('store_id'=>$this->mid))->select();
-        $this->displays('employee_role',array('role'=>$role));
+      $_count=model('store_role')->where(array('store_id'=>$this->mid))->count();
+      require_once(UPLOAD_PATH.'common_page.class.php');
+      $p = new Page($_count, 10);
+      $pagebar = $p->show(10);
+        $role = model('store_role')->where(array('store_id'=>$this->mid))->limit($p->firstRow,$p->listRows)->select();
+        $this->displays('employee_role',array('role'=>$role,'pagebar'=>$pagebar));
      }
     //删除角色
      public function do_empolyee_role_del()

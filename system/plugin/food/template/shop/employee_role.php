@@ -15,14 +15,14 @@
 
 	<!-- main container -->
    <div class="content">
-        
-        <!-- settings changer -->  
+
+        <!-- settings changer -->
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
                 <h3>角色列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
                     <!-- <input type="text" class="col-md-5 search" placeholder="输入姓名查询"> -->
-                    
+
                     <!-- custom popup filter -->
                     <!-- styles are located in css/elements.css -->
                     <!-- script that enables this dropdown is located in js/theme.js -->
@@ -66,7 +66,7 @@
                             <td>
                                 <?php echo $v['role_name']?>
                             </td>
-                            <td>  
+                            <td>
                                <?php echo substr($v['role_auth_ids'],0,8)?>
                             </td>
                             <td >
@@ -80,22 +80,13 @@
                         </tr>
                         <!-- row -->
                        <?php }?>
-                       
-                        
+
+
                         </tbody>
                     </table>
-                </div>                
+                </div>
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#">&#8249;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&#8250;</a></li>
-            </ul>
-            <!-- end users table -->
+            <?php echo $pagebar;?>
         </div>
     </div>
     <!-- end main container -->

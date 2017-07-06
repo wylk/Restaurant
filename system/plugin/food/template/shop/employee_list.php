@@ -15,14 +15,14 @@
 
 	<!-- main container -->
    <div class="content">
-        
-        <!-- settings changer -->  
+
+        <!-- settings changer -->
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
                 <h3>员工列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-                    <input type="text" class="col-md-5 search" placeholder="输入姓名查询">
-                    
+
+
                     <!-- custom popup filter -->
                     <!-- styles are located in css/elements.css -->
                     <!-- script that enables this dropdown is located in js/theme.js -->
@@ -86,22 +86,13 @@
                         </tr>
                         <!-- row -->
                        <?php }?>
-                       
-                        
+
+
                         </tbody>
                     </table>
-                </div>                
+                </div>
             </div>
-            <ul class="pagination pull-right">
-                <li><a href="#">&#8249;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&#8250;</a></li>
-            </ul>
-            <!-- end users table -->
+           <td colspan="12"><?php echo $pagebar;?></td>
         </div>
     </div>
     <!-- end main container -->

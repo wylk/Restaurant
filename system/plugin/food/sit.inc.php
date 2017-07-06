@@ -6,8 +6,9 @@ if (!defined('IN_PLUGIN')) { exit('Access Denied');}
     require_once $file_plugin_url;
 
     $file_url = PLUGIN_PATH.$id.'/controller/'.$a.DIRECTORY_SEPARATOR.$b.'.class.php';
-     // echo $file_url;die;
+    // echo $file_url;die;
     require_once $file_url;
+
     if (class_exists($b)) {
          call_user_func_array(array(new $b, $c),array());
 
