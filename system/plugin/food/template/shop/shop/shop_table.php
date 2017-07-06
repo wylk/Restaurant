@@ -15,20 +15,20 @@
 
 	<!-- main container -->
    <div class="content">
-
-        <!-- settings changer -->
+        
+        <!-- settings changer -->  
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
-                <h3>员工列表</h3>
+                <h3>餐桌管理</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
-
-
+                    <!-- <input type="text" class="col-md-5 search" placeholder="输入姓名查询"> -->
+                    
                     <!-- custom popup filter -->
                     <!-- styles are located in css/elements.css -->
                     <!-- script that enables this dropdown is located in js/theme.js -->
-                    <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_employee_add" class="btn-flat success pull-right">
+                    <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_add" class="btn-flat success pull-right">
                         <span>&#43;</span>
-                       添加员工
+                       添加餐桌
                     </a>
                 </div>
             </div>
@@ -86,15 +86,12 @@
                         </tr>
                         <!-- row -->
                        <?php }?>
-
-
+                       
+                        
                         </tbody>
                     </table>
-                </div>
+                </div>                
             </div>
-<<<<<<< HEAD
-           <td colspan="12"><?php echo $pagebar;?></td>
-=======
             <ul class="pagination pull-right">
                 <li><a href="#">&#8249;</a></li>
                 <li class="active"><a href="#">1</a></li>
@@ -107,7 +104,6 @@
                 <button class="btn btn-default daterange daterange-time active">33</button>
             </ul>
             <!-- end users table -->
->>>>>>> 2c3ff431d322998ef4f03f768adb13064f03cb68
         </div>
     </div>
     <!-- end main container -->

@@ -182,7 +182,63 @@ key hd_food_cat_addtime(addtime),
 key hd_food_cat_sort(sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment '商品分类表';
+<<<<<<< HEAD
 
+=======
+=======
+------------------------------------------------------------
+<<<<<<< HEAD
+-----------商品分类表---------------------------------
+create table if not exists hd_food_cat(
+id int unsigned not null auto_increment comment '商品分类的id',
+shop_id int unsigned not null comment '商品id',
+cat_name varchar(55) not null comment '分类名称',
+cat_desc varchar(255) not null comment '分类描述',
+pid int unsigned not null comment '上级id',
+addtime int unsigned not null comment '添加时间',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+key hd_food_shop_id(shop_id),
+unique hd_food_cat_cat_name(cat_name),
+key hd_food_cat_addtime(addtime),
+key hd_food_cat_sort(sort),
+primary key(id)
+)engine=innodb default charset=utf8 comment '商品分类表';
+
+-------------------------------------------------------
+-------------------规格表-----------------------------------
+create table if not exists hd_food_spec(
+id int unsigned not null auto_increment comment '规格id',
+shop_id int unsigned not null comment '店铺id',
+spec_name varchar(55) not null comment '规格名称',
+spec_value varchar(255) not null comment '属性值',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+addtime int unsigned not null comment '添加时间',
+key hd_food_spec_shop_id(shop_id),
+unique hd_food_spec_spec_name(spec_name),
+key hd_food_spec_sort(sort),
+key hd_food_spec_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '规格表';
+
+------------ 餐桌类型----------------------------------
+CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `limit_price` int(10) unsigned NOT NULL DEFAULT '0',
+  `reservation_price` int(10) unsigned NOT NULL DEFAULT '0',
+  `table_count` int(10) NOT NULL DEFAULT '0' COMMENT '餐桌数量',
+  `service_rate` decimal(10,2) DEFAULT '0.00',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+=======
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
+>>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
+>>>>>>> 2c3ff431d322998ef4f03f768adb13064f03cb68
 
 create table if not exists hd_food_spec(
 id int unsigned not null auto_increment comment '规格id',
