@@ -161,6 +161,30 @@ key hd_food_goods_addtime(addtime),
 key hd_food_goods_goods_sort(goods_sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment='商品表';
+<<<<<<< HEAD
+=======
+
+
+create table if not exists hd_food_cat(
+id int unsigned not null auto_increment comment '商品分类的id',
+shop_id int unsigned not null comment '商品id',
+cat_name varchar(55) not null comment '分类名称',
+cat_desc varchar(255) not null comment '分类描述',
+pid int unsigned not null comment '上级id',
+addtime int unsigned not null comment '添加时间',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+key hd_food_shop_id(shop_id),
+unique hd_food_cat_cat_name(cat_name),
+key hd_food_cat_addtime(addtime),
+key hd_food_cat_sort(sort),
+primary key(id)
+)engine=innodb default charset=utf8 comment '商品分类表';
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> b4d3c2f81a7c81e70382d987834b338ac171a6a6
 ------------------------------------------------------------
 -----------商品分类表---------------------------------
 create table if not exists hd_food_cat(
@@ -209,6 +233,7 @@ CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+<<<<<<< HEAD
 
 -----------餐桌------------------------
 CREATE TABLE IF NOT EXISTS `hd_food_shop_tables` (
@@ -250,3 +275,114 @@ CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=9 ;
 
+=======
+=======
+>>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
+>>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
+>>>>>>> 2c3ff431d322998ef4f03f768adb13064f03cb68
+
+create table if not exists hd_food_spec(
+id int unsigned not null auto_increment comment '规格id',
+shop_id int unsigned not null comment '店铺id',
+spec_name varchar(55) not null comment '规格名称',
+spec_value varchar(255) not null comment '属性值',
+basic_price float(10,2) not null comment '中间价基价',
+proportion int unsigned not null comment '比例',
+status int unsigned not null comment '状态',
+sort int unsigned not null comment '排序',
+addtime int unsigned not null comment '添加时间',
+key hd_food_spec_shop_id(shop_id),
+key hd_food_spec_sort(sort),
+key hd_food_spec_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '规格表';
+
+-- 购物车表
+create table if not exists hd_food_cart(
+id int unsigned not null auto_increment comment 'id',
+shop_id int unsigned not null comment '店铺id',
+goods_id int unsigned not null comment '商品id',
+uid int unsigned not null comment '会员id',
+table_id int unsigned not null comment '餐桌id',
+goods_price float(10,2) not null comment '商品价格',
+pack_price float(10,2) not null comment '打包费',
+num int unsigned not null comment '数量',
+total float(10,2) not null comment '总价',
+addtime int not null comment '添加时间',
+key hd_food_cart_shop_id(shop_id),
+key hd_food_cart_goods_id(goods_id),
+key hd_food_cart_uid(uid),
+key hd_food_cart_addtime(addtime),
+key hd_food_cart_table_id(table_id),
+primary key(id)
+)engine=innodb default charset=utf8 comment '购物车表';
+
+-- 订单表
+create table if not exists hd_food_order(
+id int unsigned not null auto_increment comment '订单id',
+shop_id int unsigned not null comment '店铺id',
+uid int unsigned not null comment '会员id',
+table_id int unsigned not null comment '桌号id',
+order_no varchar(255) not null comment '订单号',
+trade_no varchar(255) not null comment '交易号',
+pay_type varchar(55) not null comment '支付方式',
+third_id varchar(255) not null comment '第三方id',
+postage float(10,2) not null comment '配送费',
+goods_total float(10,2) not null comment '订单商品价格不含邮费',
+total float(10,2) not null comment '订单金额含邮费',
+goods_num int unsigned not null comment '商品数量',
+address varchar(255) not null comment '配送地址',
+address_user varchar(55) not null comment '收货人',
+address_tel varchar(11) not null comment '收货人电话',
+status int unsigned not null comment '-1取消0普通1确认付款方式2成功',
+meal_time int unsigned not null comment '就餐时间',
+counts int unsigned not null comment '预定人数',
+seat_type int unsigned not null comment '座位类型，1大厅，2包间',
+eat_type int unsigned not null comment '用餐类型1到店，2外卖',
+is_append int unsigned not null comment '是否加单1加0不加',
+append_dish varchar(55) not null comment '加菜',
+remark varchar(255) not null comment '备注',
+paydetail text not null comment '消费详情',
+print_status int unsigned  not null comment '打印状态 0未打印1已打印',
+sign int unsigned not null comment '处理状态1已处理0未处理',
+is_finish int unsigned not null comment '是否完成0未完成1已完成',
+is_meal int unsigned not null comment '是否已经吃过 0未吃1已吃',
+is_vip int unsigned not null comment '是否是会员0不是1是',
+addtime int unsigned not null comment '下单时间',
+confirm_time int unsigned not null comment '确认时间',
+paid_time int unsigned not null comment '付款时间',
+finish_time int unsigned not null comment '完成时间',
+key hd_food_order_shop_id(shop_id),
+key hd_food_order_uid(uid),
+key hd_food_order_table_id(table_id),
+key hd_food_order_addtime(addtime),
+key hd_food_finish_time(finish_time),
+primary key(id)
+)engine=innodb default charset=utf8 comment '订单表';
+
+-- 粉丝表
+create table if not exists hd_food_user(
+id int unsigned not null auto_increment comment '用户id',
+shop_id int  unsigned not null comment '店铺id',
+openid varchar(255) not null comment '微信openid',
+nickname varchar(55) not null comment '昵称',
+headimgurl varchar(500) not null comment '头像',
+username varchar(55) not null comment '用户名',
+tel char(11) not null comment '电话号码',
+address varchar(255) not null comment '地址',
+sex int unsigned not null comment '性别0男1女',
+country varchar(55) not null comment '城市',
+province varchar(55) not null comment '省',
+city varchar(55) not null comment '区',
+total float(10,2) not null comment '交易总金额',
+avgtotal float(10,2) not null comment '平均金额',
+total_count int unsigned not null comment '交易次数',
+paytime int unsigned not null comment '上次交易的时间',
+status int unsigned not null comment '用户状态0禁用1正常用户',
+lasttime int unsigned not null comment '最新登录的时间',
+key hd_food_user_shop_id(shop_id),
+key hd_food_user_nickname(nickname),
+key hd_food_user_tel(tel),
+primary key(id)
+)engine=innodb default charset=utf8 comment '用户表';
+>>>>>>> b4d3c2f81a7c81e70382d987834b338ac171a6a6
