@@ -132,11 +132,7 @@ CREATE TABLE IF NOT EXISTS `hd_store_role` (
 INSERT INTO `hd_store_role` (`id`, `store_id`, `role_name`, `role_auth_ids`, `role_auth_ac`) VALUES
 (1, 1, '店长', '1,2,3,4', 'index-doshop,index-do_order');
 -------------------------------------------------------------
-<<<<<<< HEAD
--- 商品表
-=======
 ---------菜单表----------------------------------------------
->>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
 create table if not exists hd_food_goods(
 id int unsigned not null auto_increment comment '商品id',
 shop_id int unsigned not null comment '门店id',
@@ -165,6 +161,8 @@ key hd_food_goods_addtime(addtime),
 key hd_food_goods_goods_sort(goods_sort),
 primary key(id)
 )engine=innodb default charset=utf8 comment='商品表';
+<<<<<<< HEAD
+=======
 
 
 create table if not exists hd_food_cat(
@@ -186,8 +184,8 @@ primary key(id)
 
 =======
 =======
+>>>>>>> b4d3c2f81a7c81e70382d987834b338ac171a6a6
 ------------------------------------------------------------
-<<<<<<< HEAD
 -----------商品分类表---------------------------------
 create table if not exists hd_food_cat(
 id int unsigned not null auto_increment comment '商品分类的id',
@@ -235,6 +233,49 @@ CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
+<<<<<<< HEAD
+
+-----------餐桌------------------------
+CREATE TABLE IF NOT EXISTS `hd_food_shop_tables` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `table_label_id` int(4) NOT NULL DEFAULT '0',
+  `tablezonesid` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '名字(桌台号)',
+  `url` varchar(500) NOT NULL DEFAULT '',
+  `user_count` int(10) NOT NULL DEFAULT '0' COMMENT '可供就餐人数',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=7 ;
+
+
+---------------餐桌标签-------------------------------
+CREATE TABLE IF NOT EXISTS `hd_food_shop_print_label` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '门店id',
+  `title` varchar(50) NOT NULL COMMENT '标签名称',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否开启',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
+
+---------------餐桌类型-------------------------
+CREATE TABLE IF NOT EXISTS `hd_food_shop_tablezones` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `limit_price` int(10) unsigned NOT NULL DEFAULT '0',
+  `reservation_price` int(10) unsigned NOT NULL DEFAULT '0',
+  `table_count` int(10) NOT NULL DEFAULT '0' COMMENT '餐桌数量',
+  `service_rate` decimal(10,2) DEFAULT '0.00',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=9 ;
+
+=======
 =======
 >>>>>>> 72e2463025c177320ba6d0389f186343039f2c17
 >>>>>>> 93baac3a5edcf0f8b4839e8a446c5b9320ffd492
@@ -344,3 +385,4 @@ key hd_food_user_nickname(nickname),
 key hd_food_user_tel(tel),
 primary key(id)
 )engine=innodb default charset=utf8 comment '用户表';
+>>>>>>> b4d3c2f81a7c81e70382d987834b338ac171a6a6

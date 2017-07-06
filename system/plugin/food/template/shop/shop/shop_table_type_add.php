@@ -15,11 +15,7 @@
         
         
         <div id="pad-wrapper" class="new-user">
-            <div class="row header">
-                <div class="col-md-12">
-                    <h3 style="    margin-left: 95px;">新建餐桌类型</h3>
-                </div>                
-            </div>
+          
 
             <div class="row form-wrapper">
                 <!-- left column -->
@@ -37,7 +33,7 @@
         <input type="hidden" name="id" value="" />
         <div class="panel panel-default">
             <div class="panel-heading">
-                桌台类型 详情
+                新建餐桌类型
             </div>
             <div class="panel-body">
                 <div class="form-group">

@@ -219,7 +219,7 @@
         }else
         {
           $where='';
-          unset($_SESSION['cat_name']);
+            unset($_SESSION['cat_name']);
         }
       }
       $shop_id=$this->mid;
@@ -436,8 +436,8 @@
          // dump($employees);
          // die;
          foreach ($employees as $key => &$v) {
-             $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
-             $v['role_name'] = $roles['role_name'];
+            $roles = model('store_role')->where(array('store_id'=>$this->mid,'id'=>$v['role_id']))->find();
+            $v['role_name'] = $roles['role_name'];
          }
         $this->displays('employee_list',array('employees'=>$employees,'pagebar'=>$pagebar));
     }
@@ -633,8 +633,57 @@
 
     //餐桌管理
     public function do_shop_table()
+    {   
+        $sql = 'select a.*,b.title as b_title,c.title as c_title  from hd_food_shop_tables as a Left Join hd_food_shop_tablezones as b on a.tablezonesid=b.id Left Join hd_food_shop_print_label as c on a.table_label_id=c.id where a.store_id='.$this->mid.' order by displayorder asc';
+        $datas = model('food_shop_tables')->query($sql);
+        $this->displays('shop/shop_table',['datas'=>$datas]);
+
+    }
+
+    //餐桌详情
+    public function do_shop_table_info()
     {
-        $this->displays('shop/shop_table');
+        $id = $_GET['table_id'];
+        $sql = 'select a.*,b.title as b_title,c.title as c_title  from hd_food_shop_tables as a Left Join hd_food_shop_tablezones as b on a.tablezonesid=b.id Left Join hd_food_shop_print_label as c on a.table_label_id=c.id where a.id='.$id.' and a.store_id='.$this->mid;
+        $datas = model('food_shop_tables')->query($sql);
+        $this->displays('shop/shop_table_info',['datas'=>$datas]);
+
+    }
+
+    //修改餐桌状态
+    public function do_shop_table_status()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            if (model('food_shop_tables')->data(['status'=>$data['status']])->where(array('id'=>$data['status_id'],'store_id'=>$this->mid))->save()) {
+               
+                $this->dexit(['error'=>0,'msg'=>'修改成功']);  
+            }else{
+
+                $this->dexit(['error'=>1,'msg'=>'修改失败']);  
+            }
+        }
+    }
+    //一键清台
+    public function do_shop_table_allstatus()
+    {
+       $store_id = $_GET['ids'];
+        if ($store_id == 'all') {
+            if (model('food_shop_tables')->data(['status'=>0])->where(array('store_id'=>$this->mid))->save()) {
+                   
+                $this->dexit(['error'=>0,'msg'=>'操作成功']);  
+            }else{
+
+                $this->dexit(['error'=>1,'msg'=>'操作失败']);  
+            }
+        }
+    }
+
+    //修改餐桌
+
+    public function do_shop_table_edit()
+    {
+        $this->displays('shop/shop_table_edit',['datas'=>$datas]);
 
     }
 
@@ -643,15 +692,26 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
+<<<<<<< HEAD
             $data['store_id'] = $this->mid;
              $this->dexit(['error'=>0,'msg'=>$data]);
+=======
+            $data['store_id'] = $this->mid; 
+            $data['dateline'] = time(); 
+            if (model('food_shop_tables')->data($data)->add()) {
+                $this->dexit(['error'=>0,'msg'=>'添加成功']);
+            }else{
+
+                $this->dexit(['error'=>1,'msg'=>'添加失败']);
+            }
+>>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
         }
 
         $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
         $printlabel = model('food_shop_print_label')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
         $this->displays('shop/shop_table_add',array('datas'=>$datas,'printlabel'=>$printlabel));
     }
-
+    //添加餐桌标签
     public function do_shop_table_printlabel_add()
     {
         if (IS_POST) {
@@ -764,12 +824,17 @@
     {
         $this->displays('shop/shop_reserve');
     }
+<<<<<<< HEAD
 
     // public function displays($c,$data=array())
     // {
     //     foreach($data as $key =>$value){}
 
     // }
+=======
+     
+   
+>>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
      public function displays($c,$data=array())
      {
          foreach($data as $key =>$value){
@@ -779,7 +844,11 @@
 
         $this->left_menu();
 
+<<<<<<< HEAD
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
+=======
+        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
+>>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
     }
 
      public function file_upload($phone)
@@ -833,7 +902,7 @@
 
           }
     }
-//无限极分类
+
     public function GetTree($arr,$pid,$step){
       global $tree;
       foreach($arr as $key=>$val) {
@@ -847,6 +916,9 @@
       return $tree;
    }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
 
 }

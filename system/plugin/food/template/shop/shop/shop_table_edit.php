@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="form-group col-sm-12" style="margin-top: 20px;">
                                         <a href="javascript:;" id="add" class="btn btn-primary col-lg-3">
-                                            提交
+                                           保存
                                         </a>
                                     </div>
                                 </div>

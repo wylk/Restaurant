@@ -34,6 +34,9 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
+                                        <div class="list-group-item">
+                                                List header
+                                        </div>
                                             <label class="col-xs-12 col-sm-3 col-md-2 control-label">
                                                 名字(桌台号)
                                             </label>
@@ -119,8 +122,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-12" style="margin-top: 20px;">
-                                        <a href="javascript:;" id="add" class="btn btn-primary col-lg-3">
-                                            提交
+                                        <a href="./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_edit&table_id=<?php echo $datas[0]['id'];?>" id="add1" class="btn btn-default col-lg-3">
+                                            修改
                                         </a>
                                     </div>
                                 </div>

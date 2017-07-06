@@ -15,11 +15,6 @@
         
         
         <div id="pad-wrapper" class="new-user">
-            <div class="row header">
-                <div class="col-md-12">
-                    <h3 style="    margin-left: 95px;">添加餐桌标签</h3>
-                </div>                
-            </div>
 
             <div class="row form-wrapper">
                 <!-- left column -->

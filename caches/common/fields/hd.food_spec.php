@@ -1,3 +1,3 @@
 <?php
-//000000000000a:10:{i:0;s:2:"id";i:1;s:7:"shop_id";i:2;s:9:"spec_name";i:3;s:10:"spec_value";i:4;s:6:"status";i:5;s:4:"sort";i:6;s:7:"addtime";s:8:"_autoinc";b:1;s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:16:"int(10) unsigned";s:7:"shop_id";s:16:"int(10) unsigned";s:9:"spec_name";s:11:"varchar(55)";s:10:"spec_value";s:12:"varchar(355)";s:6:"status";s:16:"int(10) unsigned";s:4:"sort";s:16:"int(10) unsigned";s:7:"addtime";s:16:"int(10) unsigned";}}
+//000000000000a:10:{i:0;s:2:"id";i:1;s:7:"shop_id";i:2;s:9:"spec_name";i:3;s:10:"spec_value";i:4;s:6:"status";i:5;s:4:"sort";i:6;s:7:"addtime";s:8:"_autoinc";b:1;s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:16:"int(10) unsigned";s:7:"shop_id";s:16:"int(10) unsigned";s:9:"spec_name";s:11:"varchar(55)";s:10:"spec_value";s:12:"varchar(255)";s:6:"status";s:16:"int(10) unsigned";s:4:"sort";s:16:"int(10) unsigned";s:7:"addtime";s:16:"int(10) unsigned";}}
 ?>
