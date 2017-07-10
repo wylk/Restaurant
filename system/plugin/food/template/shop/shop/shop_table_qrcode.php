@@ -88,31 +88,21 @@
         <style type="text/css">
         	.state-table{
         		float: left;
-        		height: 155px;
-        		width: 100px;
-        		margin-right:2.52%;
+        		height: 250px;
+        		width: 180px;
+        		margin-right:2%;
         	}
         	.state{
-        		
-        		height: 80px;
-        		width: 80px;
-        		border-radius: 50%;
+        		border:1px solid #dddddd;
+        		height: 170px;
+        		width: 100%;
 			    text-align: center;
 			    line-height: 80px;
-			    margin:1px auto;
 			    color: white;
 			    font-size: 16px;
-			    background-color: #000;
+			    
         	}
-        	#state1{
-        		background-color: red;	
-        	}
-        	#state2{
-        		background-color: #428bca;	
-        	}
-        	#state3{
-        		background-color: #5cb85c;	
-        	}
+        	
 	    	.table_title{
 	    		
 	    	}
@@ -122,6 +112,18 @@
 	    		padding-top: 8px;
 
 	    	}
+
+            #qr-code-autopay{
+                /* border: 1px dashed #dddddd; */
+                width: 90%;
+                height:90%;
+                margin: 5% 5%;
+
+            }
+            img{
+                width: 100%;
+                height:100%;
+            }
 
         </style>
         <div id="queue-setting-index-body">
@@ -135,40 +137,27 @@
                         <a class="idle round" href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_info&table_id=<?php echo $v['id'];?>"
                         data-remote="" title="点击查看订单详情">
                             <div class="state" id="state<?php echo $v['status']?>">
-                            <?php if($v['status'] == 1){?>
-                                	已开台
-                                <?php }else if($v['status'] == 2 ){ ?>
-                                 	已下单
-                                <?php }else if($v['status'] == 3 ){ ?>
-                                	已支付
-                                <?php }else{?>
-                                	空闲
-                                <?php } ?>
+                                <div id="qr-code-autopay">
+                                   <img src="<?php echo FOOD_PATH;?>img/test.png"/>
+                                </div>
                             </div>
                         </a>
-                        <div style="color:green;font-size:12px;text-align:center" class="table_title">
-                            标签：<?php echo $v['c_title']?>
-                        </div>
+                       
                         <div class="name overflow-ellipsis">
+                        <a download href="<?php echo FOOD_PATH;?>img/test.png" target="_blank" ><span class="glyphicon glyphicon-download-alt" style="float: left;margin-left:6px; " ></span></a>
                             <span>
                                 <a href="">
                                     <?php echo $v['title']?>
                                 </a>
                             </span>
-                            <form accept-charset="UTF-8" action=""
-                            data-remote="true" method="post" style="display:inline-block;">
-                                <div style="margin:0;padding:0;display:inline">
-                                    <input name="_method" type="hidden" value="PUT">
-                                </div>
-                                <select id="workflow_state" name="workflow_state" data-id="<?php echo $v['id'];?>">
-                                    <option value="0" <?php if($v['status'] == 0){echo 'selected="selected"';}?>>
-                                    空闲</option>
-                                    <option value="1" <?php if($v['status'] == 1){echo 'selected="selected"';}?>>已开台</option>
-                                    <option value="2" <?php if($v['status'] == 2){echo 'selected="selected"';}?>>已下单</option>
-                                    <option value="3" <?php if($v['status'] == 3){echo 'selected="selected"';}?>>已支付</option>
-
-                                </select>
-                            </form>
+                           <a href="javascript:;" id="del" data-id="<?php echo $v['id'];?>"> <span class='glyphicon glyphicon-trash'  
+                             style="float:right;margin-right: 6px;"></span></a>
+                        </div> 
+                        <div style="color:green;font-size:12px;text-align:center" class="table_title">
+                            标签：<?php echo $v['c_title']?> 
+                        </div>
+                        <div style="font-size:12px;text-align:center" class="table_title">
+                            餐桌类型：<?php echo $v['b_title']?> 
                         </div>
                     </div>
 
@@ -200,25 +189,28 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js"></script>
     <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
+    <script src="<?php echo FOOD_PATH;?>js/jquery.qrcode.min.js"></script>
+        
 </body>
 </html>
 
 <script type="text/javascript">
     $(function(){
-       $('[id=workflow_state]').change(function(){
+        var qheight = qwidth = 170;
+                $("#qr-code-autopay1").html('').css('background-color','#FFF').qrcode({
+                    //render: "table", //table方式
+                    width: qwidth, //宽度
+                    height: qheight, //高度
+                    text:'https://www.baidu.com/' //任意内容
+                });
+
+       $('[id=del]').click(function(){
            var id = $(this).data('id');
-           var status = $(this).val();
-           if (!status) {
-           		 swal("友情提示！", '餐桌状态已经是你选中的不能修改', "error");return false;
-           }
-           var data = {}
-           data.status_id = id;
-           data.status = status
-           console.log(data);
-           $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_status',data,function(re){
-            console.log(re);
-               if (re.error == 0) {
-                    swal({
+            if (confirm('你确定要删除吗')) {
+                $.get('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_del',{del_id:id},function(re){
+                    console.log(re);
+                    if (re.error == 0) {
+                        swal({
                             title: "友情提示！",
                             text: re.msg,
                             type: "success"
@@ -226,10 +218,11 @@
                             function() {
                                 window.location.reload();
                             });
-               }else{
-                    alert(re.msg);
-               }
-           },'json');
+                    }else{
+                        alert(re.msg);
+                   }
+                },'json');
+            }
      
        });
 
@@ -251,4 +244,15 @@
             },'json');
        });
     });
+
+    function   SaveAs5(imgURL) 
+    { 
+      var   oPop   =   window.open(imgURL,"","width=1,   height=1,   top=5000,   left=5000");   
+      for(;   oPop.document.readyState   !=   "complete";   )   
+      { 
+        if   (oPop.document.readyState   ==   "complete")break; 
+      } 
+      oPop.document.execCommand("SaveAs"); 
+      oPop.close();   
+    } 
 </script>

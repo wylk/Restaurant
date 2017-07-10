@@ -25,101 +25,73 @@
                                     </a>
                                 </div>
                             </div>
+                            <style type="text/css">
+                                .span-left{
+                                    width: 100px;
+
+                                }
+                                .span-right{
+                                    float:right;
+                                    color: red;
+                                }
+                            </style>
                             <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
                                 <input type="hidden" name="storeid" value="2" />
                                 <input type="hidden" name="id" value="" />
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        桌台 详情
+                                             桌台 详情
                                     </div>
                                     <div class="panel-body">
-                                        <div class="form-group">
+                                        
                                         <div class="list-group-item">
-                                                List header
+                                                <span class="span-left">名字(桌台号) :</span>
+                                                <span class="span-right"><?php echo $datas[0]['title']?></span>
                                         </div>
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">
-                                                名字(桌台号)
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="title" class="form-control" value="" placeholder=""
-                                                />
-                                                <span class="help-block">
-                                                    例如：C001
+                                           
+                                       <div class="list-group-item">
+                                                <span class="span-left">标签：</span>
+                                                <span class="span-right"><?php echo $datas[0]['c_title']?></span>
+                                        </div>
+                                        <div class="list-group-item">
+                                                桌台类型 :
+                                                <span class="span-right"><?php echo $datas[0]['b_title']?></span>
+                                        </div>
+                                        <div class="list-group-item">
+                                               可供就餐人数 :
+                                               <span class="span-right"><?php echo $datas[0]['user_count']?></span>
+                                        </div>
+                                        <div class="list-group-item">
+                                                当前状态 :
+                                                <span class="span-right">
+                                                <?php if($datas[0]['status'] == 1){?>
+                                                    已开台
+                                                <else if($datas[0]['status'] == 2){>
+                                                    已下单
+                                                <else if($datas[0]['status'] == 3){>
+                                                    已支付
+                                                <?php }else{?>
+                                                    空闲
+                                                <?php }?>
                                                 </span>
-                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">
-                                                可供就餐人数
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="number" name="user_count" class="form-control" value="" placeholder=""
-                                                />
-                                                <span class="help-block">
-                                                    设置为自动排号时，当排号客户的用餐人数少于等于此人数时，系统将自动为排号客户分配此队列
-                                                </span>
-                                            </div>
+                                        <div class="list-group-item">
+                                                扫描次数 : 
+                                                <span class="span-right"><?php echo $datas[0]['displayorder'];?></span>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">
-                                                桌台类型
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" style="margin-right:15px;" id="tablezonesid"
-                                                autocomplete="off" class="form-control">
-                                                    <?php foreach ($datas as $key=>
-                                                        $v) {?>
-                                                        <option value="<?php echo $v['id'];?>">
-                                                            <?php echo $v[ 'title'];?>
-                                                        </option>
-                                                        <?php } ?>
-                                                </select>
-                                                <div class="help-block">
-                                                    还没有分类，点我
-                                                    <a href="?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_type_add">
-                                                        <i class="fa fa-plus-circle">
-                                                        </i>
-                                                        添加分类
-                                                    </a>
+                                        <div class="list-group-item">
+                                                排序 :
+                                                <span class="span-right"><?php echo $datas[0]['displayorder'];?></span>
+                                        </div>
+                                        <div class="list-group-item">
+                                                二维码图片 :
+                                                <div style="width:200px;height:200px;border:1px dashed #dddddd;    margin-left: 13%; " id="qr-code-autopay">
+                                                    
                                                 </div>
-                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">
-                                                标签
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <select class="form-control" style="margin-right:15px;" id="table_label_id"
-                                                autocomplete="off" class="form-control">
-                                                    <option value="0" selected="selected">
-                                                        无
-                                                    </option>
-                                                    <?php foreach ($printlabel as $key=>
-                                                        $value) {?>
-                                                        <option value="<?php echo $value['id'] ?>">
-                                                            <?php echo $value[ 'title']?>
-                                                        </option>
-                                                        <?php } ?>
-                                                </select>
-                                                <div class="help-block">
-                                                    还没有标签，点我
-                                                    <a href="?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_printlabel_add">
-                                                        <i class="fa fa-plus-circle">
-                                                        </i>
-                                                        添加标签
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">
-                                                排序
-                                            </label>
-                                            <div class="col-sm-9">
-                                                <input type="number" name="displayorder" class="form-control" value=""
-                                                />
-                                            </div>
-                                        </div>
+                                       
+                                       
+                                      
                                     </div>
                                     <div class="form-group col-sm-12" style="margin-top: 20px;">
                                         <a href="./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_edit&table_id=<?php echo $datas[0]['id'];?>" id="add1" class="btn btn-default col-lg-3">
@@ -139,53 +111,17 @@
         </script>
         <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js">
         </script>
-        <script src="<?php echo FOOD_PATH;?>js/theme.js">
+        <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
+        <script src="<?php echo FOOD_PATH;?>js/jquery.qrcode.min.js">
         </script>
         <script type="text/javascript">
             $(function() {
-                $('#add').click(function() {
-                    var title = $("input[name='title']").val();
-                    var user_count = $("input[name='user_count']").val();
-                    var tablezonesid = $("#tablezonesid").val();
-                    var table_label_id = $("#table_label_id").val();
-                    var displayorder = $('input[name="displayorder"]').val();
-                    if (title.length < 4) {
-                        swal("友情提示！", '名字(桌台号)格式不对', "error");
-                        return false;
-                    }
-                    if (!/^[0-9]*$/.test(user_count)) {
-                        swal("友情提示！", '可供就餐人数格式不对', "error");
-                        return false;
-                    }
-                    if (user_count.length < 1) {
-                        swal("友情提示！", '可供就餐人数格式不对', "error");
-                        return false;
-                    }
-                    var data = {}
-                    data.title = title;
-                    data.user_count = user_count;
-                    data.tablezonesid = tablezonesid;
-                    data.table_label_id = table_label_id;
-                    data.displayorder = displayorder;
-
-                    $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_add', data,
-                    function(re) {
-                        console.log(re);
-                        if (re.error == 0) {
-                            swal({
-                                title: "友情提示！",
-                                text: re.msg,
-                                type: "success"
-                            },
-                            function() {
-                                window.location.href = '?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table'
-                            });
-                        } else {
-                            swal("友情提示！", re.msg, "error")
-                        }
-
-                    },
-                    'json');
+                var qheight = qwidth = 200;
+                $("#qr-code-autopay").html('').css('background-color','#FFF').qrcode({
+                    //render: "table", //table方式
+                    width: qwidth, //宽度
+                    height: qheight, //高度
+                    text:'https://www.baidu.com/' //任意内容
                 });
 
             });

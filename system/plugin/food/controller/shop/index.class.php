@@ -650,6 +650,31 @@
 
     }
 
+    //餐桌二维码管理
+    public function do_shop_table_qrcode()
+    {
+        $sql = 'select a.*,b.title as b_title,c.title as c_title  from hd_food_shop_tables as a Left Join hd_food_shop_tablezones as b on a.tablezonesid=b.id Left Join hd_food_shop_print_label as c on a.table_label_id=c.id where a.store_id='.$this->mid.' order by displayorder asc';
+
+        $datas = model('food_shop_tables')->query($sql);
+        $this->displays('shop/shop_table_qrcode',['datas'=>$datas]);   
+    }
+    //餐桌二维码下载
+    public function do_shop_table_qrcode_dow()
+    {
+        
+    }
+    //删除餐桌
+    public function do_shop_table_del()
+    {
+        $id = $this->clear_html($_GET['del_id']);
+        if (model('food_shop_tables')->where(['store_id'=>$this->mid,'id'=>$id])->delete()) {
+            $this->dexit(['error'=>0,'msg'=>'删除成功']);
+        }else{
+            $this->dexit(['error'=>1,'msg'=>'删除失败']);
+        }
+
+    }
+
     //修改餐桌状态
     public function do_shop_table_status()
     {
@@ -683,7 +708,25 @@
 
     public function do_shop_table_edit()
     {
-        $this->displays('shop/shop_table_edit',['datas'=>$datas]);
+        if (IS_POST) {
+            if (IS_POST) {
+                $edata = $this->clear_html($_POST);
+                $id = $edata['table_id'];
+                unset($edata['table_id']);
+                if (model('food_shop_tables')->data($edata)->where(['store_id'=>$this->mid,'id'=>$id])->save()) {
+                    $this->dexit(['error'=>0,'msg'=>'修改成功']);
+                }else{
+
+                    $this->dexit(['error'=>1,'msg'=>'修改失败']);
+                }
+            }    
+        }
+
+        $id = $_GET['table_id'];
+        $data = model('food_shop_tables')->where(array('store_id'=>$this->mid,'id'=>$id))->find();
+        $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        $printlabel = model('food_shop_print_label')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        $this->displays('shop/shop_table_edit',['data'=>$data,'datas'=>$datas,'printlabel'=>$printlabel]);
 
     }
 
