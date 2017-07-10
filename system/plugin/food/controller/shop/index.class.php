@@ -735,10 +735,10 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
-<<<<<<< HEAD
+
             $data['store_id'] = $this->mid;
              $this->dexit(['error'=>0,'msg'=>$data]);
-=======
+
             $data['store_id'] = $this->mid; 
             $data['dateline'] = time(); 
             if (model('food_shop_tables')->data($data)->add()) {
@@ -747,7 +747,7 @@
 
                 $this->dexit(['error'=>1,'msg'=>'添加失败']);
             }
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
+
         }
 
         $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
@@ -867,18 +867,9 @@
     {
         $this->displays('shop/shop_reserve');
     }
-<<<<<<< HEAD
 
-    // public function displays($c,$data=array())
-    // {
-    //     foreach($data as $key =>$value){}
 
-    // }
-=======
-     
-   
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
-     public function displays($c,$data=array())
+    public function displays($c,$data=array())
      {
          foreach($data as $key =>$value){
 
@@ -887,11 +878,8 @@
 
         $this->left_menu();
 
-<<<<<<< HEAD
+
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
-=======
-        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
     }
 
      public function file_upload($phone)
@@ -947,21 +935,18 @@
     }
 
     public function GetTree($arr,$pid,$step){
-      global $tree;
-      foreach($arr as $key=>$val) {
-          if($val['pid'] == $pid) {
-              $flg = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----',$step);
-              $val['name'] = $flg.$val['name'];
-              $tree[] = $val;
-              $this->GetTree($arr , $val['id'] ,$step+1);
+        global $tree;
+        foreach($arr as $key=>$val) {
+              if($val['pid'] == $pid) {
+                  $flg = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-----',$step);
+                  $val['name'] = $flg.$val['name'];
+                  $tree[] = $val;
+                  $this->GetTree($arr , $val['id'] ,$step+1);
+              }
           }
-      }
-      return $tree;
-   }
+          return $tree;
+    }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
 
 }
