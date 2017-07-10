@@ -1,0 +1,3 @@
+<?php
+//000000000000a:10:{i:0;s:2:"id";i:1;s:7:"shop_id";i:2;s:8:"order_id";i:3;s:8:"goods_id";i:4;s:11:"goods_price";i:5;s:9:"goods_num";i:6;s:7:"addtime";s:8:"_autoinc";b:1;s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:16:"int(10) unsigned";s:7:"shop_id";s:16:"int(10) unsigned";s:8:"order_id";s:16:"int(10) unsigned";s:8:"goods_id";s:16:"int(10) unsigned";s:11:"goods_price";s:11:"float(10,2)";s:9:"goods_num";s:16:"int(10) unsigned";s:7:"addtime";s:16:"int(10) unsigned";}}
+?>

@@ -84,11 +84,11 @@ class index1 extends plugin
         if($data1)
         {
             echo "<script>alert('删除成功');history.go(-1);</script>";
-                   die;
+                die;
         }else
         {
             echo "<script>alert('删除失败，请稍后再试');history.go(-1);</script>";
-                   die;
+                die;
         }
     }
     public function create_shop()

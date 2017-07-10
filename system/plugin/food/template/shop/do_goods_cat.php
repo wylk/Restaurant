@@ -54,10 +54,10 @@
                        <!--  <?php var_dump($data4);?> -->
                      <?php
 
-                     if(!empty($data4))
+                     if(!empty($data))
                      {
 
-                        foreach ($data4 as $key => $v):
+                        foreach ($data as $key => $v):
 
 
                       ?>
