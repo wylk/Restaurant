@@ -38,7 +38,7 @@
                                                 名字(桌台号)
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="text" name="title" class="form-control" value="" placeholder=""
+                                                <input type="text" name="title" class="form-control" value="<?php echo $data['title'];?>" placeholder=""
                                                 />
                                                 <span class="help-block">
                                                     例如：C001
@@ -50,7 +50,7 @@
                                                 可供就餐人数
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="number" name="user_count" class="form-control" value="" placeholder=""
+                                                <input type="number" name="user_count" class="form-control" value="<?php echo $data['user_count'];?>" placeholder=""
                                                 />
                                                 <span class="help-block">
                                                     设置为自动排号时，当排号客户的用餐人数少于等于此人数时，系统将自动为排号客户分配此队列
@@ -66,7 +66,7 @@
                                                 autocomplete="off" class="form-control">
                                                     <?php foreach ($datas as $key=>
                                                         $v) {?>
-                                                        <option value="<?php echo $v['id'];?>">
+                                                        <option value="<?php echo $v['id'];?>" <?php if($v['id'] == $data['tablezonesid']){ echo 'selected';}?>>
                                                             <?php echo $v[ 'title'];?>
                                                         </option>
                                                         <?php } ?>
@@ -93,7 +93,7 @@
                                                     </option>
                                                     <?php foreach ($printlabel as $key=>
                                                         $value) {?>
-                                                        <option value="<?php echo $value['id'] ?>">
+                                                        <option value="<?php echo $value['id'] ?>" <?php if($value['id'] == $data['table_label_id']){ echo 'selected';}?>>
                                                             <?php echo $value[ 'title']?>
                                                         </option>
                                                         <?php } ?>
@@ -113,12 +113,13 @@
                                                 排序
                                             </label>
                                             <div class="col-sm-9">
-                                                <input type="number" name="displayorder" class="form-control" value=""
+                                                <input type="number" name="displayorder" class="form-control" value="<?php echo $data['displayorder'];?>"
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-12" style="margin-top: 20px;">
+                                    <input type="hidden" id="hidden"  value="<?php echo $data['id'];?>">
                                         <a href="javascript:;" id="add" class="btn btn-primary col-lg-3">
                                            保存
                                         </a>
@@ -164,8 +165,9 @@
                     data.tablezonesid = tablezonesid;
                     data.table_label_id = table_label_id;
                     data.displayorder = displayorder;
-
-                    $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_add', data,
+                    data.table_id = $('#hidden').val();
+                     console.log(data);
+                    $.post('./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_edit', data,
                     function(re) {
                         console.log(re);
                         if (re.error == 0) {

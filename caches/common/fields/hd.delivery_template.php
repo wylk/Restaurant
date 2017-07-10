@@ -1,0 +1,3 @@
+<?php
+//000000000000a:10:{i:0;s:2:"id";i:1;s:4:"name";i:2;s:4:"type";i:3;s:13:"delivery_info";i:4;s:7:"enabled";i:5;s:4:"sort";i:6;s:9:"isdefault";s:8:"_autoinc";b:1;s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:21:"mediumint(8) unsigned";s:4:"name";s:11:"varchar(20)";s:4:"type";s:11:"varchar(20)";s:13:"delivery_info";s:4:"text";s:7:"enabled";s:10:"tinyint(1)";s:4:"sort";s:6:"int(8)";s:9:"isdefault";s:10:"tinyint(1)";}}
+?>
