@@ -385,4 +385,35 @@ key hd_food_user_nickname(nickname),
 key hd_food_user_tel(tel),
 primary key(id)
 )engine=innodb default charset=utf8 comment '用户表';
->>>>>>> b4d3c2f81a7c81e70382d987834b338ac171a6a6
+
+create table if not exists hd_food_order_goods(
+id int unsigned not null  auto_increment comment 'id',
+shop_id int unsigned not null comment '店铺id',
+order_id int unsigned not null comment '订单id',
+goods_id int unsigned not null comment '商品id',
+goods_price float(10,2) not null comment '商品价格',
+goods_num int unsigned not null comment '商品数量',
+addtime int unsigned not null comment '添加时间',
+key hd_food_order_goods_shop_id(shop_id),
+key hd_food_order_goods_order_id(order_id),
+key hd_food_order_goods_goods_id(goods_id),
+key hd_food_order_goods_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '订单商品表';
+
+
+
+create table if not exists hd_food_comment(
+id int unsigned not null auto_increment comment 'id',
+uid int unsigned not null comment '用户id',
+shop_id int unsigned not null comment '店铺id',
+order_id int unsigned not null comment '订单id',
+content varchar(555) not null comment '评论1内容',
+status int unsigned not null comment '状态',
+addtime int unsigned not null comment '添加时间',
+key hd_food_comment_uid(uid),
+key hd_food_comment_shop_id(shop_id),
+key hd_food_comment_order_id(order_id),
+key hd_food_comkment_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '评论表';

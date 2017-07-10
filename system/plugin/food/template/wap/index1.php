@@ -54,426 +54,104 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 <div class="main">
 	<div class="left-menu">
 		<ul>
-           <li class="active">营养套餐<span class="num-price"></span></li>
-           <li>芝士奶盖系列</li>
-	    		<li class="current">精选奶茶</li>
-	    		<li>部落奶盐</li>
-	    		<li>正宗可可奶盖</li>
-	    		<li>清新果茶</li>
-	    		<li>招牌榴莲奶盖</li>
-	    		<li>部落奶盖系列</li>
-	    		<li>鲜榨果汁</li>
-	    		<li>创意特饮</li>
-	    		<li>纯吃茶</li>
-	    		<li>沙冰系列</li>
-	    		<li>热饮系列</li>
-	    		<li>小吃系列</li>
+		<?php if(!empty($data))
+		{
+			foreach($data as $v):
+				if($v['default']==1)
+				{
+					$class="class='active'";
+				}else
+				{
+					$class='';
+				}
+		?>
+           <li <?php echo $class;?>><?php echo $v['cat_name']?><span class="num-price"></span></li>
+
+	    	<?php endforeach;}else{?>
+	    		暂无数据
+	    	<?php };?>
         </ul>
 	</div>
 	<div class="con">
 
 <!-- 第一个菜单 -->
-		<div class="right-con con-active">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/1.png"/></div>
-					<div class="menu-txt">
-						<h4>宫保鸡丁</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥30</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">30</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/2.png" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥35</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">35</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/7.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>鱼香肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/6.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/8.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/5.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/6.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/7.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/8.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-			</ul>
-		</div>
-<!-- 第一个菜单结束 -->
-<!-- 第二个菜单-->
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/2.png" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
+	<?php if(!empty($data)){
 
 
-			</ul>
-		</div>
-<!-- 第二个菜单结束 -->
-		<div class="right-con">
-			<ul>
+		foreach($data as $kk => $vv){?>
+
+
+		<div <?php if(($kk+1) == 1){ echo 'class="right-con con-active"';}else{ echo 'class="right-con"';}?>>
+		<ul>
+		<?php foreach ($data1 as $key => $v1) {?>
+
+             <?php if($vv['id'] == $v1['cat_id']){?>
+
 				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/3.jpg" width="55" height="55" /></div>
+					<div class="menu-img"><img src="<?php echo $v1['goods_img']?>"/></div>
 					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
+
+						<h4><?php echo $v1['goods_name']?></h4>
+						<p class="list1"><?php echo $v1['cat_name']?></p>
 						<p class="list2">
-							<b>￥25</b>
+							<b>￥<?php echo $v1['goods_price'];?></b>
 							<div class="btn">
-								 <button class="minus">
+								 <button class="minus" data-id="<?php echo $v1['id']?>">
 									 <span></span>
 								 </button>
-								 <i>0</i>
-								  <button class="add">
+								 <i id="number">0</i>
+								  <button class="add" data-id="<?php echo $v1['id']?>">
 									 <span></span>
 								 </button>
-								 <i class="price">25</i>
+								 <i class="price"><?php echo $v1['goods_price']?></i>
 							 </div>
 						</p>
 					</div>
 				</li>
-
-			</ul>
+          <?php } } ?>
+          </ul>
 		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/4.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
+		<?php }}else{?>
+			暂无数据
+		<?php };?>
 
-			</ul>
-		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/5.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-
-			</ul>
-		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/6.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-
-			</ul>
-		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/7.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-
-			</ul>
-		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>/wap/img/8.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-
-			</ul>
-		</div>
-		<div class="right-con">
-			<ul>
-				<li>
-					<div class="menu-img"><img src="<?php echo FOOD_PATH;?>wap/img/8.jpg" width="55" height="55" /></div>
-					<div class="menu-txt">
-						<h4>京酱肉丝</h4>
-						<p class="list1">家常菜</p>
-						<p class="list2">
-							<b>￥25</b>
-							<div class="btn">
-								 <button class="minus">
-									 <span></span>
-								 </button>
-								 <i>0</i>
-								  <button class="add">
-									 <span></span>
-								 </button>
-								 <i class="price">25</i>
-							 </div>
-						</p>
-					</div>
-				</li>
-
-			</ul>
-		</div>
 	</div>
 	<div class="footer">
 		<div class="left">已选：
 		<span id="cartN">
 			<span id="totalcountshow">0</span>份　总计：￥<span id="totalpriceshow">0</span></span>元
 		</div>
+		<span  id=aa></span>
 		<div class="right">
-			<a id="btnselect" class="xhlbtn  disable" href="javascript:void(0)">选好了</a>
+			<a id="btnselect" class="xhlbtn" href="?m=plugin&p=wap&cn=index&id=food:sit:cart_index&table_id=1&shop_id=7">选好了</a>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript" src="<?php echo FOOD_PATH;?>/wap/js/jquery.min.js"></script>
+<!-- <script>
+	$(function(){
+		$('#btnselect').click(function(){
+			var total=$("#totalpriceshow").html();
+			var gid=$('#aa').html();
+			var num=$("#totalcountshow").html();
+			var postData={total:total};
+			postData.gid=gid;
+			postData.num=num;
+			console.log(postData);
+			// $.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7',postData,function(re){
+			// 	if(re.error==0)
+			// 	{
+			// 		console.log(re.msg);
+			// 		window.location.href='?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7';
+			// 	}else
+			// 	{
+			// 		console.log(re.msg);
+			// 	}
+			// },'json');
+		});
+	});
+</script> -->
 <script type="text/javascript">
 $(function () {
 	//加的效果
@@ -483,14 +161,38 @@ $(function () {
 		var num = parseInt(n) + 1;
 		if (num == 0) { return; }
 		$(this).prev().text(num);
+
 		var danjia = $(this).next().text();//获取单价
+
+		// console.log(danjia);
 		var a = $("#totalpriceshow").html();//获取当前所选总价
+
 		$("#totalpriceshow").html((a * 1 + danjia * 1).toFixed(2));//计算当前所选总价
 
 		var nm = $("#totalcountshow").html();//获取数量
-		$("#totalcountshow").html(nm*1+1);
+
+		var c=$("#totalcountshow").html(nm*1+1);
+		var gid=$(this).data('id');
+		// alert(gid);
+
+		var postData={goods_id:gid};
+		postData.goods_price=danjia;
+		postData.num=num;
+		console.log(postData);
+		// return false;
+		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7',postData,function(re){
+			if(re.error==0)
+			{
+				console.log(re.msg);
+				// window.location.href='?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7';
+			}else
+			{
+				console.log(re.msg);
+			}
+		},'json');
 		jss();//<span style='font-family: Arial, Helvetica, sans-serif;'></span>   改变按钮样式
 	});
+
 	//减的效果
 	$(".minus").click(function () {
 		var n = $(this).next().text();
@@ -511,6 +213,22 @@ $(function () {
 			jss();//改变按钮样式
 			 return
 		}
+		var gid=$(this).data('id');
+		var postData={goods_id:gid};
+		postData.goods_price=danjia;
+		postData.num=num;
+		console.log(postData);
+		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7',postData,function(re){
+			if(re.error==0)
+			{
+				console.log(re.msg);
+				// window.location.href='?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7';
+			}else
+			{
+				console.log(re.msg);
+			}
+		},'json');
+
 	});
 	function jss() {
 		var m = $("#totalcountshow").html();

@@ -231,22 +231,22 @@
       $data=model('food_cat')->query('select * from hd_food_cat where shop_id='.$shop_id.$where.' order by sort desc limit '.$p->firstRow.','.$p->listRows);
       // $sql='select * from hd_food_cat where shop_id='.$shop_id.$where.' order by sort desc limit '.$p->firstRow.','.$p->listRows;
       // echo $sql;
-      $data4=[];
-      foreach($data as $v1)
-      {
-        if($v1['pid']==0)
-        {
-          $data4=$this->GetTree($data,0,0);
-        }else
-        {
-          $data4=$this->GetTree($data,$v1['pid'],0);
-        }
+      // $data4=[];
+      // foreach($data as $v1)
+      // {
+      //   if($v1['pid']==0)
+      //   {
+      //     $data4=$this->GetTree($data,0,0);
+      //   }else
+      //   {
+      //     $data4=$this->GetTree($data,$v1['pid'],0);
+      //   }
 
-      }
+      // }
 
        // dump($data4);
       // die;
-      $this->displays('do_goods_cat',array('data4'=>$data4,'data1'=>$data1,'pagebar'=>$pagebar,'data3'=>$data3));
+      $this->displays('do_goods_cat',array('data'=>$data,'data1'=>$data1,'pagebar'=>$pagebar,'data3'=>$data3));
     }
 
     public function cat_add()
@@ -633,7 +633,7 @@
 
     //餐桌管理
     public function do_shop_table()
-    {   
+    {
         $sql = 'select a.*,b.title as b_title,c.title as c_title  from hd_food_shop_tables as a Left Join hd_food_shop_tablezones as b on a.tablezonesid=b.id Left Join hd_food_shop_print_label as c on a.table_label_id=c.id where a.store_id='.$this->mid.' order by displayorder asc';
         $datas = model('food_shop_tables')->query($sql);
         $this->displays('shop/shop_table',['datas'=>$datas]);
@@ -656,11 +656,11 @@
         if (IS_POST) {
             $data = $this->clear_html($_POST);
             if (model('food_shop_tables')->data(['status'=>$data['status']])->where(array('id'=>$data['status_id'],'store_id'=>$this->mid))->save()) {
-               
-                $this->dexit(['error'=>0,'msg'=>'修改成功']);  
+
+                $this->dexit(['error'=>0,'msg'=>'修改成功']);
             }else{
 
-                $this->dexit(['error'=>1,'msg'=>'修改失败']);  
+                $this->dexit(['error'=>1,'msg'=>'修改失败']);
             }
         }
     }
@@ -670,11 +670,11 @@
        $store_id = $_GET['ids'];
         if ($store_id == 'all') {
             if (model('food_shop_tables')->data(['status'=>0])->where(array('store_id'=>$this->mid))->save()) {
-                   
-                $this->dexit(['error'=>0,'msg'=>'操作成功']);  
+
+                $this->dexit(['error'=>0,'msg'=>'操作成功']);
             }else{
 
-                $this->dexit(['error'=>1,'msg'=>'操作失败']);  
+                $this->dexit(['error'=>1,'msg'=>'操作失败']);
             }
         }
     }
@@ -692,19 +692,19 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
-<<<<<<< HEAD
+
             $data['store_id'] = $this->mid;
              $this->dexit(['error'=>0,'msg'=>$data]);
-=======
-            $data['store_id'] = $this->mid; 
-            $data['dateline'] = time(); 
+
+            $data['store_id'] = $this->mid;
+            $data['dateline'] = time();
             if (model('food_shop_tables')->data($data)->add()) {
                 $this->dexit(['error'=>0,'msg'=>'添加成功']);
             }else{
 
                 $this->dexit(['error'=>1,'msg'=>'添加失败']);
             }
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
+
         }
 
         $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
@@ -824,17 +824,17 @@
     {
         $this->displays('shop/shop_reserve');
     }
-<<<<<<< HEAD
+
 
     // public function displays($c,$data=array())
     // {
     //     foreach($data as $key =>$value){}
 
     // }
-=======
-     
-   
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
+
+
+
+
      public function displays($c,$data=array())
      {
          foreach($data as $key =>$value){
@@ -844,11 +844,8 @@
 
         $this->left_menu();
 
-<<<<<<< HEAD
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
-=======
-        include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php'; 
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
+
     }
 
      public function file_upload($phone)
@@ -916,9 +913,6 @@
       return $tree;
    }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> cd27e99cf02c365c814c621530556b310d71a6dc
 
 }
