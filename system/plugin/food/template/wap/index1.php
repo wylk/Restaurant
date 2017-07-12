@@ -123,7 +123,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 		</div>
 		<span  id=aa></span>
 		<div class="right">
-			<a id="btnselect" class="xhlbtn" href="?m=plugin&p=wap&cn=index&id=food:sit:cart_index&table_id=1&shop_id=7">选好了</a>
+			<a id="btnselect" class="xhlbtn" href="?m=plugin&p=wap&cn=index&id=food:sit:cart_index">选好了</a>
 		</div>
 	</div>
 </div>
@@ -180,7 +180,7 @@ $(function () {
 		postData.num=num;
 		console.log(postData);
 		// return false;
-		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7',postData,function(re){
+		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=7&shop_id=7',postData,function(re){
 			if(re.error==0)
 			{
 				console.log(re.msg);
@@ -218,7 +218,7 @@ $(function () {
 		postData.goods_price=danjia;
 		postData.num=num;
 		console.log(postData);
-		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=1&shop_id=7',postData,function(re){
+		$.get('?m=plugin&p=wap&cn=index&id=food:sit:cart&table_id=7&shop_id=7',postData,function(re){
 			if(re.error==0)
 			{
 				console.log(re.msg);

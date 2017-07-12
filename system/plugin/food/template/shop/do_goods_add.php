@@ -129,6 +129,10 @@
                                 <label>商品口味:</label>
                                 <input class="form-control" type="text" name="goods_taste" placeholder="例如：麻辣/清淡/酸辣" />
                             </div>
+                             <div class="col-md-12 field-box">
+                                <label>掌勺厨师:</label>
+                                <input class="form-control" type="text" name="cook" placeholder="掌勺厨师名字" />
+                            </div>
                             <div class="col-md-12 field-box">
                                 <label>是否上架:</label>
                                  <label>
@@ -238,6 +242,7 @@
         var a13=$("#se").val();
         var a14=$("#se1").val();
         var a15=$("input[name='goods_img']").val();
+        var a16=$("input[name='cook']").val();
         if(a1=='')
         {
             alert('商品名称不能为空');
@@ -301,6 +306,11 @@
         if(a10=='')
         {
             alert('商品口味不能为空');
+            return false;
+        }
+        if(a16=='')
+        {
+            alert('掌勺厨师不能为空');
             return false;
         }
         if(a12=='')

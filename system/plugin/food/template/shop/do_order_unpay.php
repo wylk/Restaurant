@@ -5,19 +5,15 @@
         <!-- settings changer -->
         <div id="pad-wrapper" class="users-list">
             <div class="row header">
-                <h3>商品列表</h3>
+                <h3>订单列表</h3>
                 <div class="col-md-10 col-sm-12 col-xs-12 pull-right">
                     <form method="post">
-                    <input type="text" class="col-md-5 search" placeholder="输入商品名称" name="goods_name" value="<?php echo $data2['goods_name']?>">
+                    <input type="text" class="col-md-5 search" placeholder="输入订单号" name="goods_name" value="<?php echo $data2['goods_name']?>">
                     <input type="submit" value="搜索" style="
                         position: relative;
                         top: 10px;
                         left: 0px;" id="search">
                     </form>
-                    <a href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_goods_add" class="btn-flat success pull-right">
-                        <span>&#43;</span>
-                       添加商品
-                    </a>
                 </div>
             </div>
 
@@ -28,40 +24,40 @@
                         <thead >
                             <tr>
                                 <th class="col-md-1 sortable">
-                                    编号
+                                    订单号
                                 </th>
 
 
                                 <th class="col-md-1 sortable ">
-                                    <span class="line"></span>商品图片
+                                    <span class="line"></span>用户名
                                 </th>
                                 <th class="col-md-1 sortable ">
-                                    <span class="line"></span>商品价格
-                                </th>
-
-                                <th class="col-md-1 sortable ">
-                                    <span class="line"></span>总销量
-                                </th>
-                                <th class="col-md-1 sortable ">
-                                    <span class="line"></span>每日库存
-                                </th>
-                                <th class="col-md-1 sortable ">
-                                    <span class="line"></span>今日销量
+                                    <span class="line"></span>桌号
                                 </th>
 
                                 <th class="col-md-1 sortable ">
-                                    <span class="line"></span>商品描述
+                                    <span class="line"></span>商品数量
+                                </th>
+                                <th class="col-md-1 sortable ">
+                                    <span class="line"></span>订单金额
+                                </th>
+                                <th class="col-md-1 sortable ">
+                                    <span class="line"></span>订单状态
                                 </th>
 
                                 <th class="col-md-1 sortable ">
-                                    <span class="line"></span>是否上架
+                                    <span class="line"></span>座位类型
+                                </th>
+
+                                <th class="col-md-1 sortable ">
+                                    <span class="line"></span>备注
                                 </th>
                                  <th class="col-md-1 sortable ">
-                                    <span class="line"></span>是否推荐
+                                    <span class="line"></span>后厨状态
                                 </th>
 
                                 <th class="col-md-1 sortable ">
-                                    <span class="line"></span>添加时间
+                                    <span class="line"></span>创建时间
                                 </th>
                                 <th class="col-md-2 sortable ">
                                     <span class="line"></span>操作
@@ -82,56 +78,63 @@
                         <!-- row -->
                         <tr>
                             <td>
-                                <?php echo $v['id']?>
-                            </td>
-
-                            <td>
-                                <img src="<?php echo $v['goods_img']?>" style="width:35px;height:35px;">
-                                <p><?php echo $v['goods_name'];?></p>
+                                <?php echo $v['order_no']?>
                             </td>
                             <td>
-                                <?php echo $v['goods_price'];?>
-                                <a class="btn btn-success">会员<?php echo $v['goods_member_price']?></a>
+                                <?php echo $v['uid']?>
                             </td>
-
-                             <td>
-                                <?php echo $v['goods_sales'];?>
+                            <td>
+                                <?php echo $v['title']?>
+                            </td>
+                            <td>
+                               <?php echo $v['goods_num']?>
                             </td>
 
                              <td>
-                                <?php echo $v['goods_per_stock'];?>
-                            </td>
-                            <td>
-                                <?php echo $v['goods_today_sales'];?>
+                                <?php echo $v['total'];?>
                             </td>
 
-                            <td>
-                                <?php echo $v['goods_desc'];?>
-                                <a class="btn btn-primary"><?php echo $v['goods_taste']?></a>
-
-                            <td>
+                             <td>
                                 <?php
-                                if($v['is_onsale']==1)
+                                if($v['status']==1)
                                 {
 
-                                    echo '是';
+                                    echo '未付款';
 
-                                }else
+                                }elseif($v['status']==2)
                                 {
-                                    echo '否';
+                                    echo '确认付款';
+                                }elseif($v['status']==3)
+                                {
+                                    echo '付款成功';
                                 }
                                 ?>
                             </td>
                             <td>
+                              <?php echo $v['seat_type']?>
+                            </td>
+
+                            <td>
+                                <?php echo $v['remark'];?>
+                            <td>
                                 <?php
-                                if($v['is_recommend']==1)
+                                if($v['print_status']==0)
                                 {
 
-                                    echo '是';
+                                    echo '未打印';
 
-                                }else
+                                }elseif($v['print_status']==1)
                                 {
-                                    echo '否';
+                                    echo '已打印';
+                                }elseif($v['print_status']==2)
+                                {
+                                    echo '已接单';
+                                }elseif($v['print_status']==3)
+                                {
+                                    echo '已出单';
+                                }elseif($v['print_status']==4)
+                                {
+                                    echo '已清台';
                                 }
                                 ?>
                             </td>
@@ -143,9 +146,7 @@
 
 
                             <td>
-                              <a href="javascript:;" id="del"  data-id="<?php echo $v['id']?>">删除</a>
-                              |
-                              <a href="/index.php?m=plugin&p=shop&cn=index&id=food:sit:do_goods_edit&cid=<?php echo $v['id']?>" onclick="if(confirm('是否确定编辑？')==false)return false;">编辑</a>
+                              <a href="/index.php?m=plugin&p=shop&cn=index&id=food:sit:do_order_edit&order_id=<?php echo $v['id']?>">点击查看详细</a>
                             </td>
                         </tr>
                         <!-- row -->
