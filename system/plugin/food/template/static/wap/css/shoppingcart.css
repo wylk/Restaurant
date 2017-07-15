@@ -1,0 +1,123 @@
+*{margin:0; padding:0; font-weight: normal;list-style:none;}
+body{font-family:SimHei,'Helvetica Neue',Arial,'Droid Sans',sans-serif;font-size:14px;color:#333;background:#f2f2f2;}
+a, a.link{color:#666;text-decoration:none;font-weight:500;}
+a, a.link:hover{color:#666;}
+
+/*头部开始*/
+.header{position:relative;width:100%;height:44px;background:#fff;border-bottom:1px solid #e0e0e0;}
+.header h1{font-size:16px;color:#333;height:44px;line-height:44px;display:block;text-align:center;}
+.header a{position: absolute;top:0;display:block;height:44px;line-height:44px;}
+.header a.back{left:0px;}
+.header a.back span{display:inline-block;width:25px;height:25px;margin:10px 5px;background: url("../../img/icon/icon-back.png") no-repeat;background-size:100%;}
+.header .home{}
+/*头部结束*/
+
+input[type="checkbox"]{-webkit-appearance:none;outline: none;}
+input.check{
+	position: absolute;
+	top: 75%;
+	left: 10px;
+	margin-top: -18px;
+	width: 20px;
+	height: 20px;
+	background-image: url(../../img/icon/shop-icon.png);
+	background-repeat: no-repeat;
+	background-size: 250%;
+	background-position: 0 0;
+	}
+/*input.check{background:url(../images/icon/icon_radio3.png) no-repeat center left;background-size:20px 20px;position:absolute;top:50%;left:10px;margin-top:-18px;width:20px;height:35px;}*/
+
+input.check:checked{background:url(url(../../img/icon/shop-icon.png)) no-repeat;background-size:20px 20px;background-size: 250%;background-position: -25px 0px;}
+
+/*尾部开始*/
+.footer .copyright{height:44px;line-height:44px;text-align:center;color:#848689;font-size:12px;}
+/*尾部结束*/
+	/*购物车*/
+.shopping{clear:both;overflow:hidden;height:auto;padding-bottom: 60px;}
+.shop-group-item{margin-bottom:5px;}
+.shop-group-item ul li{border-bottom:1px solid #fff;}
+.shop-group-item ul li:last-child{border-bottom:none;}
+
+.shop-name{background:#fff;height:35px;line-height:35px;padding:0 15px;position:relative;}
+.shop-name h4{float:left;font-size:14px;background:url(<?php echo FOOD_PATH?>wap/img/icon/icon-kin.png) no-repeat left center;background-size:20px 20px;padding-left:25px;margin-left: 28px;}
+.shop-name .coupons{float:right;}
+.shop-name .coupons span{display:inline-block;padding:0 5px;}
+.shop-name .coupons em{color:#e0e0e0;}
+
+.shop-info{background:#f5f5f5;height:120px;padding:0 15px;position:relative;}
+.shop-info .shop-info-img{position:absolute;top:15px;left:45px;width:90px;height:90px;}
+.shop-info .shop-info-img img{width:100%;height:100%;}
+.shop-info .shop-info-text{margin-left:130px;padding:15px 0;}
+.shop-info .shop-info-text h4{font-size:14px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow: hidden;}
+.shop-info .shop-info-text .shop-brief{height:25px;line-height:25px;font-size:12px;color:#81838e;white-space:nowrap;}
+.shop-info .shop-info-text .shop-brief span{display:inline-block;margin-right:8px;}
+.shop-info .shop-info-text .shop-price{height:24px;line-height:24px;position:relative;}
+.shop-info .shop-info-text .shop-price .shop-pices {color:red;font-size:14px;}
+.shop-info .shop-info-text .shop-arithmetic{position:absolute;right:-5px;top:0;width:99px;box-sizing:border-box;white-space:nowrap;height:100%;}
+.shop-info .shop-info-text .shop-arithmetic a{display:inline-block;width:20px;height:20px;background:url(<?php echo FOOD_PATH?>wap/img/icon/shop-icon.png) no-repeat;background-size:20px 20px; background-color: #FFF; background-size: 250%;}
+.shop-info .shop-info-text .shop-arithmetic .minus{background-position: 3px -19px; border:1px solid #e0e0e0;}
+.shop-info .shop-info-text .shop-arithmetic .failed{color:#d1d1d1;}
+.shop-info .shop-info-text .shop-arithmetic .plus{border:1px solid #e0e0e0; background-position: -19px -19px;}
+.shop-info .shop-info-text .shop-arithmetic .num{width:25px;text-align:center;border:none;display: inline-block;height:100%;box-sizing:border-box;vertical-align:top;margin:0 -6px;}
+.shopPrice{background:#fff;height:35px;line-height:35px;padding:0 15px;text-align:right;}
+.shopPrice span{color:#f00;}
+
+.payment-bar{clear:both;overflow:hidden;width:100%;height:49px;position:fixed;bottom:0;border-top:1px solid #e0e0e0;background:#fff;}
+.payment-bar .all-checkbox{float:left;line-height:49px;padding-left:40px;}
+.payment-bar .shop-total{float:left;-webkit-box-flex:1.0;box-flex:1.0;margin:15px 10px 9px 20px;}
+.payment-bar .shop-total strong{display:block;font-size:16px;}
+.payment-bar .shop-total span{display:block;font-size:12px;}
+.payment-bar .settlement{display:inline-block;float:right;width:100px;height:49px;line-height:49px;text-align:center;color:#fff;font-size:16px;background:#f23030;}
+
+*,::before,::after{margin: 0;padding: 0;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;-webkit-tap-highlight-color: transparent;
+}
+
+a{text-decoration: none;color: #333333;}
+a:hover{color: #333333;}
+
+
+.f_left{float: left;}
+.f_right{float: right;}
+.clearfix::before,
+.clearfix::after{content: "";display: block;line-height: 0;visibility: hidden;clear:both;height: 0;}
+.delete_box .delete_up{width: 20px;height: 5px;display: block;background: url("<?php echo FOOD_PATH?>wap/img/icon/delete_up.png");background-size: 20px 5px;margin-left: -1px;
+
+}
+
+.delete_box .delete_down{margin-top: -2px;width: 18px;height: 18px;display: block;background: url("<?php echo FOOD_PATH?>wap/img/icon/delete_down.png");background-size: 18px 18px;
+}
+
+/*弹出框*/
+
+.jd_win{width: 100%;height: 100%;position: fixed;top:0;left:0;background: rgba(0, 0, 0, 0.6);z-index: 9999;display:none;
+
+}
+.jd_win_box{width: 80%;padding: 0 10px;border-radius: 4px;background-color: #fff;position: absolute;top:50%;left:50%;transform:translate(-50%, -50%);-webkit-transform:translate(-50%, -50%);
+}
+
+.jd_win .jd_win_tit{border-bottom:1px solid #ccc;line-height: 75px;text-align: center;font-size: 18px;
+}
+.jd_btn{width: 100%;padding: 10px 0;
+}
+
+.jd_btn  a{line-height: 36px;width: 45%;text-align: center;border-radius: 4px;
+}
+.jd_win .cancle{margin-right: 10%;border: 1px solid #ccc;
+}
+.jd_win .submit{background: #d8505c;color: #fff;
+}
+
+.move{animation: mymove 1s;
+}
+@keyframes mymove {0%{    opacity: 0;    transform:translate3d(-50%,-500%,0);    -webkit-transform:translate3d(-50%,-500%,0);}60%{    opacity: 1;    transform:translate3d(-50%,-50%,0);    -webkit-transform:translate3d(-50%,-50%,0);}75%{    opacity: 1;    transform:translate3d(-50%,-45%,0);    -webkit-transform:translate3d(-50%,-45%,0);}90%{opacity: 1;transform:translate3d(-50%,-54%,0);-webkit-transform:translate3d(-50%,-54%,0)
+}100%{    opacity: 1;    transform:translate3d(-50%,-50%,0);    -webkit-transform:translate3d(-50%,-50%,0);}
+}
+
+
+
+
+
+
+
+
+

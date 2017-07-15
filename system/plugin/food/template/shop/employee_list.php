@@ -92,10 +92,10 @@
                     </table>
                 </div>
             </div>
-<<<<<<< HEAD
+
            <td colspan="12"><?php echo $pagebar;?></td>
-=======
-            <ul class="pagination pull-right">
+
+            <!-- <ul class="pagination pull-right">
                 <li><a href="#">&#8249;</a></li>
                 <li class="active"><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
@@ -105,9 +105,9 @@
                 <li><a href="#">&#8250;</a></li>
                 <a href="javascript:;" id="test"> test</a>
                 <button class="btn btn-default daterange daterange-time active">33</button>
-            </ul>
+            </ul> -->
             <!-- end users table -->
->>>>>>> 2c3ff431d322998ef4f03f768adb13064f03cb68
+
         </div>
     </div>
     <!-- end main container -->

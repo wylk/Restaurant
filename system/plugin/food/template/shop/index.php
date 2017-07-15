@@ -55,7 +55,7 @@
             </div>
         </div>
         <!-- end upper main stats -->
-    <a href="?m=plugin&p=wap&cn=index&id=food:sit:test&table_id=1&shop_id=7">进入手机端</a>
+    <a href="?m=plugin&p=wap&cn=index&id=food:sit:test&table_id=7&shop_id=7">进入手机端</a>
         <div id="pad-wrapper">
 
             <!-- statistics chart built with jQuery Flot -->

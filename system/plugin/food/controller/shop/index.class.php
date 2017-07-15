@@ -44,6 +44,24 @@
     }
 
     }
+    public function do_order_paid()
+    {
+      $data=model('food_order')->query('select a.*,b.title from hd_food_order as a left join hd_food_shop_tables as b on a.table_id=b.id where a.shop_id='.$this->mid.' and a.status=3');
+      $this->displays('do_order_paid',array('data'=>$data));
+    }
+    public function do_order_edit()
+    {
+      $data=$this->clear_html($_GET);
+      $data2=model('food_order')->where(array('id'=>$data['order_id']))->find();
+      $data1=model('food_order_goods')->query('select a.*,b.goods_name,b.goods_img,c.cook from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id left join hd_food_goods as c on c.id=a.goods_id where order_id='.$data['order_id']);
+      $this->displays('do_order_edit',array('data1'=>$data1,'data2'=>$data2));
+    }
+    public function do_order_unpay()
+    {
+      //订单列表
+      $data=model('food_order')->query('select a.*,b.title from hd_food_order as a left join hd_food_shop_tables as b on a.table_id=b.id where a.shop_id='.$this->mid.' and a.status between 1 and 2');
+      $this->displays('do_order_unpay',array('data'=>$data));
+    }
     public function do_spec_del()
     {
       $data=$this->clear_html($_GET);
@@ -369,7 +387,8 @@
       if(IS_POST)
       {
         $data2=$this->clear_html($_POST);
-
+        // dump($data2);
+        // die;
         $data2['shop_id']=$this->mid;
         $data2['addtime']=time();
         $result=$this->file_upload($phone[0]['phone']);
@@ -656,12 +675,12 @@
         $sql = 'select a.*,b.title as b_title,c.title as c_title  from hd_food_shop_tables as a Left Join hd_food_shop_tablezones as b on a.tablezonesid=b.id Left Join hd_food_shop_print_label as c on a.table_label_id=c.id where a.store_id='.$this->mid.' order by displayorder asc';
 
         $datas = model('food_shop_tables')->query($sql);
-        $this->displays('shop/shop_table_qrcode',['datas'=>$datas]);   
+        $this->displays('shop/shop_table_qrcode',['datas'=>$datas]);
     }
     //餐桌二维码下载
     public function do_shop_table_qrcode_dow()
     {
-        
+
     }
     //删除餐桌
     public function do_shop_table_del()
@@ -719,7 +738,7 @@
 
                     $this->dexit(['error'=>1,'msg'=>'修改失败']);
                 }
-            }    
+            }
         }
 
         $id = $_GET['table_id'];
@@ -737,7 +756,7 @@
             $data = $this->clear_html($_POST);
 
             $data['store_id'] = $this->mid;
-             $this->dexit(['error'=>0,'msg'=>$data]);
+             //$this->dexit(['error'=>0,'msg'=>$data]);
 
 
             $data['store_id'] = $this->mid; 
