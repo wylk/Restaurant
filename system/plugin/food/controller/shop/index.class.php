@@ -763,6 +763,7 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
+<<<<<<< HEAD
             $data['store_id'] = $this->mid;
             $data['dateline'] = time();
             $return=model('food_shop_tables')->data($data)->add();
@@ -776,6 +777,20 @@
                 {
                   $this->dexit(['error'=>1,'msg'=>'fail']);
                 }
+=======
+
+            $data['store_id'] = $this->mid;
+             //$this->dexit(['error'=>0,'msg'=>$data]);
+
+
+            $data['store_id'] = $this->mid; 
+            $data['dateline'] = time(); 
+
+            $data['store_id'] = $this->mid;
+            $data['dateline'] = time();
+
+            if (model('food_shop_tables')->data($data)->add()) {
+>>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
                 $this->dexit(['error'=>0,'msg'=>'添加成功']);
             }
             else{
@@ -902,6 +917,14 @@
     {
         $this->displays('shop/shop_reserve');
     }
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
 
 
 
@@ -915,8 +938,11 @@
 
         $this->left_menu();
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
     }
 
