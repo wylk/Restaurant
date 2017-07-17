@@ -175,7 +175,8 @@
                                 type: "success"
                             },
                             function() {
-                                window.location.href = '?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table'
+                                window.location.href="?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table";
+                                // window.location.href = '?m=plugin&p=shop&cn=index&id=food:sit:test11&table_id='+re.msg
                             });
                         } else {
                             swal("友情提示！", re.msg, "error")

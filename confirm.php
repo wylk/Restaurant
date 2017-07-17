@@ -59,6 +59,7 @@ a, a.link:hover{color:#666;}
 <script type="text/javascript" src="<?php echo FOOD_PATH?>wap/js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
+
 <!--头部开始-->
 <div class="header">
 	<h1>未付款订单</h1>
@@ -101,20 +102,6 @@ a, a.link:hover{color:#666;}
          添加备注
 
         </textarea> -->
-        <?php if($_SESSION['not_shop'] && $return1==''):?>
-        <div style="text-align:center">
-           <a href="?m=plugin&p=wap&cn=index&id=food:sit:add_address"><img src="<?php echo FOOD_PATH?>wap/img/up.png" alt=""><span style="color:red;position: relative;
-                top: -7px;
-                left: 0px;
-    ">你还没有添加收货地址，点击添加</span></a>
-        </div>
-    <?php elseif($_SESSION['not_shop'] && $return1):?>
-        <div style="text-align:center;    background-color: #ccc;
-    color: blue;">
-            收货人：<?php echo $return1['consignee']?>,手机号：<?php echo $return1['phone']?><br>
-            收货地址：<?php echo $return1['province']?><?php echo $return1['city']?><?php echo $return1['town']?><?php echo $return1['detail']?>&nbsp;&nbsp;&nbsp;<a href="?m=plugin&p=wap&cn=index&id=food:sit:address_list"><img src="<?php echo FOOD_PATH?>/wap/img/edit.png" alt=""></a>
-        </div>
-    <?php endif;?>
         <textarea name="remark" id="remark" cols="" rows="" onfocus="if ($.trim(value) =='添加备注'){value =''}" onblur="if ($.trim(value) ==''){value='添加备注'}">
         添加备注
         </textarea>
@@ -122,9 +109,10 @@ a, a.link:hover{color:#666;}
 
 
 		<div class="shopPrice">总计：￥<span class="shop-total-amount ShopTotal"><?php echo $data2['total']?></span></div>
-        <div class="shopPay">
-            <a class="weixinPay">微信支付</a>
-        </div>
+	</div>
+	<div class="shopPay">
+		<a class="weixinPay">微信支付</a>
+
 	</div>
 </div>
 </body>
@@ -133,27 +121,20 @@ a, a.link:hover{color:#666;}
 <script>
     $(function(){
         $('.weixinPay').click(function(){
-            var address="<?php echo $return1?>";
-            if(address=='')
-            {
-                alert('你还没有添加收货地址，请添加');
-                window.location.href='?m=plugin&p=wap&cn=index&id=food:sit:add_address';
-                return false;
-            }
             var a1=$.trim($("#remark").val());
+            var order_id="<?php echo $data2['id']?>";
             var total="<?php echo $data2['total']?>";
             var shop_name="<?php echo $shop['shop_name']?>";
-            var openid="oIXPDwlynsqQuIXTFA9LAKC1fC_E";
-            var order_id=<?php echo $data2['id']?>;
+            var openid="oIXPDwozTo_z-QNATZWhDGEWpwU0";
             var postData={remark:a1};
             postData.order_id=order_id;
-            console.log(postData);
+            // console.log(postData);
             $.post('?m=plugin&p=wap&cn=index&id=food:sit:confirmPay',postData,function(re){
                 if(re.error==0)
                 {
                     console.log(re.msg);
                     var postdata={};
-                    postdata.total=total
+                    postdata.total=total;
                     postdata.shop_name=shop_name;
                     postdata.openid=openid;
                     console.log(postdata);
@@ -165,12 +146,12 @@ a, a.link:hover{color:#666;}
                         jsonp: 'callback', //jsonp回调参数，必需
                         async: false,
                         success: function(re) {//返回的json数据
-                            console.log(re.param);
+                            console.log(re);
                             WeixinJSBridge.invoke("getBrandWCPayRequest",re.param,function(res){
                                 WeixinJSBridge.log(res.err_msg);
                                 if(res.err_msg=="get_brand_wcpay_request:ok"){
 
-                                    setTimeout("window.location.href = 'www.baidu.com'",2000);
+                                    setTimeout("window.location.href = '?m=plugin&p=wap&cn=index&id=food:sit:test&table_id=7&shop_id=7'",2);
 
                                 }else{
                                     if(res.err_msg == "get_brand_wcpay_request:cancel"){
@@ -186,7 +167,6 @@ a, a.link:hover{color:#666;}
                     },
 
                     })
-
                 }else
                 {
                     console.log(re.msg);

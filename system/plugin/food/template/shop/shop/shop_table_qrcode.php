@@ -15,8 +15,8 @@
 
 	<!-- main container -->
    <div class="content">
-        
-        <!-- settings changer -->  
+
+        <!-- settings changer -->
         <div id="pad-wrapper" class="users-list">
 
             <!-- Users table -->
@@ -100,11 +100,11 @@
 			    line-height: 80px;
 			    color: white;
 			    font-size: 16px;
-			    
+
         	}
-        	
+
 	    	.table_title{
-	    		
+
 	    	}
 	    	.overflow-ellipsis{
 	    		background-color: #eeeeee;
@@ -132,32 +132,32 @@
             <!--  餐桌 -->
             <?php foreach ($datas as $key => $v) {  ?>
 
-          
+
                     <div class="state-table" data-id="<?php echo $v['id']?>">
                         <a class="idle round" href="index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_info&table_id=<?php echo $v['id'];?>"
                         data-remote="" title="点击查看订单详情">
                             <div class="state" id="state<?php echo $v['status']?>">
                                 <div id="qr-code-autopay">
-                                   <img src="<?php echo FOOD_PATH;?>img/test.png"/>
+                                   <img src="<?php echo $v['url']?>"/>
                                 </div>
                             </div>
                         </a>
-                       
+
                         <div class="name overflow-ellipsis">
-                        <a download href="<?php echo FOOD_PATH;?>img/test.png" target="_blank" ><span class="glyphicon glyphicon-download-alt" style="float: left;margin-left:6px; " ></span></a>
+                        <a download href="<?php echo $v['url']?>" target="_blank" ><span class="glyphicon glyphicon-download-alt" style="float: left;margin-left:6px; " ></span></a>
                             <span>
                                 <a href="">
                                     <?php echo $v['title']?>
                                 </a>
                             </span>
-                           <a href="javascript:;" id="del" data-id="<?php echo $v['id'];?>"> <span class='glyphicon glyphicon-trash'  
+                           <a href="javascript:;" id="del" data-id="<?php echo $v['id'];?>"> <span class='glyphicon glyphicon-trash'
                              style="float:right;margin-right: 6px;"></span></a>
-                        </div> 
+                        </div>
                         <div style="color:green;font-size:12px;text-align:center" class="table_title">
-                            标签：<?php echo $v['c_title']?> 
+                            标签：<?php echo $v['c_title']?>
                         </div>
                         <div style="font-size:12px;text-align:center" class="table_title">
-                            餐桌类型：<?php echo $v['b_title']?> 
+                            餐桌类型：<?php echo $v['b_title']?>
                         </div>
                     </div>
 
@@ -177,7 +177,7 @@
         </div>
     </div>
 </div>
-                
+
             </div>
             <!-- end users table -->
         </div>
@@ -190,7 +190,7 @@
     <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js"></script>
     <script src="<?php echo FOOD_PATH;?>js/theme.js"></script>
     <script src="<?php echo FOOD_PATH;?>js/jquery.qrcode.min.js"></script>
-        
+
 </body>
 </html>
 
@@ -223,7 +223,7 @@
                    }
                 },'json');
             }
-     
+
        });
 
        $('#allsataus').click(function(){
@@ -245,14 +245,14 @@
        });
     });
 
-    function   SaveAs5(imgURL) 
-    { 
-      var   oPop   =   window.open(imgURL,"","width=1,   height=1,   top=5000,   left=5000");   
-      for(;   oPop.document.readyState   !=   "complete";   )   
-      { 
-        if   (oPop.document.readyState   ==   "complete")break; 
-      } 
-      oPop.document.execCommand("SaveAs"); 
-      oPop.close();   
-    } 
+    function   SaveAs5(imgURL)
+    {
+      var   oPop   =   window.open(imgURL,"","width=1,   height=1,   top=5000,   left=5000");
+      for(;   oPop.document.readyState   !=   "complete";   )
+      {
+        if   (oPop.document.readyState   ==   "complete")break;
+      }
+      oPop.document.execCommand("SaveAs");
+      oPop.close();
+    }
 </script>

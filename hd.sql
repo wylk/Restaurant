@@ -360,5 +360,29 @@ key hd_food_comment_order_id(order_id),
 key hd_food_comkment_addtime(addtime),
 primary key(id)
 )engine=innodb default charset=utf8 comment '评论表';
-=======
->>>>>>> 39e637bbb73755c1fcfa0d3ee91dd75cc58e4a13
+
+-- 用户地址表
+create table if not exists hd_food_user_address(
+id int unsigned not null auto_increment comment '地址id',
+uid int unsigned not null comment '用户id',
+consignee varchar(55) not null comment '收货人',
+phone char(11) not null comment '手机号码',
+province varchar(55) not null comment '省',
+city varchar(55) not null comment '市',
+town varchar(55) not null comment '县区',
+addtime int unsigned not null comment '添加时间',
+key hd_food_user_address_uid(uid),
+key hd_food_user_address_addtime(addtime),
+primary key(id)
+)engine=innodb default charset=utf8 comment '用户地址表';
+
+-- 支付配置表
+create table if not exists hd_food_payment(
+id int unsigned not null auto_increment comment 'id',
+cid int unsigned not null comment '公司id',
+appid varchar(55) not null comment '支付appid',
+appsecret varchar(255) not null comment '支付秘钥',
+mch_id varchar(55) not null comment '支付的商户号',
+key hd_food_payment_cid(cid),
+primary key(id)
+)engine=innodb default charset=utf8 comment '支付配置表';

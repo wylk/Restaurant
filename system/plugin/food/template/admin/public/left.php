@@ -81,6 +81,13 @@
                     <span>店长管理</span>
                 </a>
             </li>
+            <li>
+                <a href="?m=plugin&p=admin&cn=index1&id=food:sit:payment">
+                    <!-- <i class="icon-cog"></i> -->
+                     <i class="icon-group"></i>
+                    <span>支付配置</span>
+                </a>
+            </li>
           <!--   <li>
                 <a class="dropdown-toggle" href="#">
                     <i class="icon-share-alt"></i>
