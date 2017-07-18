@@ -8,7 +8,8 @@ class index extends plugin
 	public function _initialize()
 	{
 		parent::_initialize();
-        $mid=isset($_SESSION['employee']['shop_id'])?$_SESSION['employee']['shop_id']:$GET['shop_id'];
+        // $mid=isset($_SESSION['employee']['shop_id'])?$_SESSION['employee']['shop_id']:$GET['shop_id'];
+        $mid=isset($_SESSION['shop_id'])?$_SESSION['shop_id']:'';
         $this->mid=$mid;
         // $table_id=$_GET['table_id'];
         // $_SESSION['table_id']=$table_id;
@@ -23,11 +24,183 @@ class index extends plugin
         //     die;
         // }
     }
+    public function all_order()
+    {
+        $data=model('food_order')->query('SELECT a . * , b.shop_name
+        FROM  `hd_food_order` AS a
+        LEFT JOIN hd_shop AS b ON a.shop_id = b.id
+        WHERE a.status in(1,2,3)
+        AND a.uid ='.$this->uid);
+        $data1=[];
+        foreach($data as $v)
+        {
+            $data1[]=model('food_order_goods')->query('select a.*,b.goods_img,b.goods_name from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id where a.order_id='.$v['id']);
+        }
+        $this->assign(array('data'=>$data,'data1'=>$data1));
+        $this->display('all_order');
+    }
+    public function cart_list()
+    {
+        //购物车
+        $data=model('food_cart')->query('select a.* from hd_shop as a left join hd_food_cart as b on a.id=b.shop_id where b.uid='.$this->uid.' group by a.id');
+        $data1=model('food_cart')->query('select a.*,b.goods_name,b.goods_img,c.cat_name from hd_food_cart as a left join hd_food_goods as b on a.goods_id=b.id left join hd_food_cat as c on b.cat_id=c.id where a.uid='.$this->uid);
+        $this->assign(array('data'=>$data,'data1'=>$data1));
+        $this->display('cart_list');
+    }
+    public function done()
+    {
+        $data=model('food_order')->query('SELECT a . * , b.shop_name
+        FROM  `hd_food_order` AS a
+        LEFT JOIN hd_shop AS b ON a.shop_id = b.id
+        WHERE a.status =3
+        AND a.uid ='.$this->uid);
+        $data1=[];
+        foreach($data as $v)
+        {
+            $data1[]=model('food_order_goods')->query('select a.*,b.goods_img,b.goods_name from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id where a.order_id='.$v['id']);
+        }
+        $this->assign(array('data'=>$data,'data1'=>$data1));
+        $this->display('done');
+    }
+    public function paid()
+    {
+        $data=model('food_order')->query('SELECT a . * , b.shop_name
+        FROM  `hd_food_order` AS a
+        LEFT JOIN hd_shop AS b ON a.shop_id = b.id
+        WHERE a.status =2
+        AND a.uid ='.$this->uid);
+        $data1=[];
+        foreach($data as $v)
+        {
+            $data1[]=model('food_order_goods')->query('select a.*,b.goods_img,b.goods_name from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id where a.order_id='.$v['id']);
+        }
+        $this->assign(array('data'=>$data,'data1'=>$data1));
+        $this->display('paid');
+    }
+    public function unpay()
+    {
+        $data=model('food_order')->query('SELECT a . * , b.shop_name
+        FROM  `hd_food_order` AS a
+        LEFT JOIN hd_shop AS b ON a.shop_id = b.id
+        WHERE a.status =1
+        AND a.uid ='.$this->uid);
+        $str='';
+        $data1=[];
+        foreach($data as $v)
+        {
+            $data1[]=model('food_order_goods')->query('select a.*,b.goods_img,b.goods_name from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id where a.order_id='.$v['id']);
+        }
+        $this->assign(array('data'=>$data,'data1'=>$data1));
+        $this->display('unpay');
+    }
+    //我的订单页面
+    public function myindex()
+    {
+        // select a.*,b.*,c.goods_name,c.goods_img from hd_food_order as a left join hd_food_order_goods as b on a.id=b.order_id left join hd_food_goods as c on c.id=b.goods_id where a.status=1 and a.uid=6        //未支付
+
+        $this->display('myindex');
+    }
+    public function dc()
+    {
+
+        $this->display('dc');
+    }
+    public function edit_default()
+    {
+        $data=$this->clear_html($_GET);
+        $return=model('food_user_address')->data(array('is_default'=>0))->where(array('uid'=>$this->uid))->save();
+        if($return)
+        {
+            $return1=model('food_user_address')->data(array('is_default'=>1))->where(array('uid'=>$this->uid,'id'=>$data['aid']))->save();
+            if($return1)
+            {
+                echo "<script>alert('应用新地址成功');history.go(-1);</script>";
+                die;
+            }else
+            {
+                echo "<script>alert('网络错误，请稍后再试');history.go(-1);</script>";
+                die;
+            }
+        }
+    }
+    public function del_address()
+    {
+
+        $data=$this->clear_html($_POST);
+        $return=model('food_user_address')->where(array('id'=>$data['aid']))->delete();
+        if($return)
+        {
+            $this->dexit(array('error'=>0,'msg'=>'删除成功'));
+        }else
+        {
+            $this->dexit(array('error'=>1,'msg'=>'删除失败'));
+        }
+
+
+
+    }
+    public function edit_address()
+    {
+        $data=$this->clear_html($_GET);
+        $data1=model('food_user_address')->where(array('id'=>$data['aid']))->find();
+        if(IS_POST)
+        {
+            $data3=$this->clear_html($_POST);
+            $return=model('food_user_address')->data($data3)->where(array('id'=>$data['aid']))->save();
+            if($return)
+            {
+                $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+            }else
+            {
+                $this->dexit(array('error'=>1,'msg'=>'修改失败'));
+            }
+        }
+        $this->assign(array('data1'=>$data1));
+        $this->display('edit_address');
+    }
+    public function address_list()
+    {
+        $data=model('food_user_address')->where(array('uid'=>$this->uid))->order('is_default desc')->select();
+        // var_dump($data);
+        // die;
+        $this->assign(array('data'=>$data));
+        $this->display('address_list');
+    }
     public function weixinPay()
     {
-        // dump($_SESSION);
-        // die;
-        echo '微信支付';
+        // // $data=$this->clear_html($_GET);
+        // // $this->display()
+        // echo $_SESSION['cid'];
+        // file_put_contents('./1.txt','hello');
+        // echo '微信支付';
+        $xml = file_get_contents('php://input');
+        $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        var_dump($array_data);
+
+    }
+    public function add_address()
+    {
+        $return1=model('food_user_address')->where(array('uid'=>$this->uid))->count('id');
+        if(IS_POST)
+        {
+            $data=$this->clear_html($_POST);
+            // $this->dexit(array('error'=>0,'msg'=>$data['detail']));
+            $data['uid']=$this->uid;
+            $data['addtime']=time();
+            if($return1==0)
+            {
+                $data['is_default']=1;
+            }
+            $return=model('food_user_address')->data($data)->add();
+            if($return)
+            {
+                $this->dexit(array('error'=>0,'msg'=>'添加成功'));
+            }else
+            {
+                $this->dexit(array('error'=>1,'msg'=>'添加失败'));
+            }
+        }
+        $this->display('add_address');
     }
     public function confirmPay()
     {
@@ -35,6 +208,14 @@ class index extends plugin
         $shop=model('shop')->where(array('id'=>$this->mid))->find();
         $data1=model('food_order_goods')->query('select a.*,b.goods_img,b.goods_name from hd_food_order_goods as a left join hd_food_goods as b on a.goods_id=b.id where a.order_id='.$data['order_id']);
         $data2=model('food_order')->where(array('id'=>$data['order_id']))->find();
+        // echo $this->uid;
+        // die;
+        $uid=$this->uid;
+        if($_SESSION['not_shop'])
+        {
+            $return1=model('food_user_address')->where(array('uid'=>$uid,'is_default'=>1))->find();
+
+        }
         if(IS_POST)
         {
             $data3=$this->clear_html($_POST);
@@ -50,6 +231,7 @@ class index extends plugin
             }
             // $this->dexit(array('error'=>0,'msg'=>$data3));
             $return=model('food_order')->data($data3)->where(array('id'=>$data3['order_id']))->save();
+
             if($return)
             {
                 $this->dexit(array('error'=>0,'msg'=>'修改成功'));
@@ -58,7 +240,7 @@ class index extends plugin
                 $this->dexit(array('error'=>1,'msg'=>'修改失败'));
             }
         }
-        $this->assign(array('data1'=>$data1,'shop'=>$shop,'data2'=>$data2));
+        $this->assign(array('data1'=>$data1,'shop'=>$shop,'data2'=>$data2,'return1'=>$return1));
         $this->display('confirm');
     }
     public function delete_cart()
@@ -75,13 +257,27 @@ class index extends plugin
     }
     public function test()
     {
-        $shop_id=$this->mid;
+
         $data2=$this->clear_html($_GET);
+        // echo $data2['table_id'];
+        // die;
+        $mid=$_SESSION['shop_id']=$data2['shop_id'];
+        $this->mid=$mid;
+        $shop_id=$this->mid;
         if($data2['table_id'])
         {
             $table_id=$_SESSION['table_id']=$data2['table_id'];
             $this->table_id=$table_id;
+        }else
+        {
+            $_SESSION['not_shop']=true;
         }
+
+        if (!$_SESSION['not_shop']) {
+            $_SESSION['not_shop'] = false;
+        }
+        //unset($_SESSION['not_shop']);
+        // dump($_SESSION['not_shop']);
         $data=model('food_cat')->where(array('shop_id'=>$shop_id,'pid'=>0,'status'=>1))->order('sort desc')->select();
         $data[0]['default']=1;
         $sql = 'select distinct a.cat_id,a.*,b.cat_name from hd_food_goods as a left join hd_food_cat as b on a.cat_id=b.id where  a.shop_id='.$shop_id.' and a.is_onsale=1   order by b.sort desc';
@@ -138,6 +334,7 @@ class index extends plugin
     }
     public function add_order_goods()
     {
+
         if(IS_POST)
         {
             $data=$this->clear_html($_POST);
@@ -147,9 +344,11 @@ class index extends plugin
             $data['status']=1;
             if($this->table_id)
             {
+
                 $data1=model('food_shop_tables')->where(array('id'=>$this->table_id))->find();
                 $data2=model('food_shop_tablezones')->where(array('id'=>$data1['tablezonesid']))->find();
                 $data['seat_type']=$data2['title'];
+
                 $data['eat_type']=1;
                 $data['table_id']=$this->table_id;
             }else
@@ -157,7 +356,9 @@ class index extends plugin
                 $data['eat_type']=2;
             }
             $data['addtime']=time();
+            // $this->dexit(array('error'=>1,'msg'=>$data));
             $return=model('food_order')->data($data)->add();
+             // $this->dexit(array('error'=>1,'msg'=>$return));
             //添加到订单商品表
             $ids = rtrim($data['cat_id'],',');
             $where['id'] = array('in',$ids);

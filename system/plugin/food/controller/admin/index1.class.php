@@ -12,7 +12,67 @@ class index1 extends plugin
         }
 
     }
-
+    public function del_payment()
+    {
+        $data=$this->clear_html($_GET);
+        $return=model('food_payment')->where(array('id'=>$data['pid']))->delete();
+        if($return)
+        {
+            echo "<script>alert('删除成功');location.href='?m=plugin&p=admin&cn=index1&id=food:sit:payment'</script>";
+            die;
+        }else
+        {
+            echo "<script>alert('删除失败，请稍后再试');location.href='?m=plugin&p=admin&cn=index1&id=food:sit:payment'</script>";
+            die;
+        }
+    }
+    public function edit_payment()
+    {
+        $data=$this->clear_html($_GET);
+        $data1=model('food_payment')->where(array('id'=>$data['pid']))->find();
+        if(IS_POST)
+        {
+            $data3=$this->clear_html($_POST);
+            $return=model('food_payment')->data($data3)->where(array('id'=>$data3['pid']))->save();
+            if($return)
+            {
+                $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+            }else
+            {
+                $this->dexit(array('error'=>1,'msg'=>'修改失败'));
+            }
+        }
+        $this->assign(array('data1'=>$data1));
+        $this->display('edit_payment');
+    }
+    public function add_payment()
+    {
+        //添加支付配置
+        $cid=$_SESSION['cid'];
+        if(IS_POST)
+        {
+            $data=$this->clear_html($_POST);
+            $data['cid']=$cid;
+            $data['addtime']=time();
+            $return=model('food_payment')->data($data)->add();
+            if($return)
+            {
+                $this->dexit(array('error'=>0,'msg'=>'添加成功'));
+            }else
+            {
+                $this->dexit(array('error'=>1,'msg'=>'添加失败'));
+            }
+        }
+        $this->display('add_payment');
+    }
+    public function payment()
+    {
+        //支付配置
+        $cid=$_SESSION['cid'];
+        $data=model('food_payment')->where(array('cid'=>$cid))->select();
+        $this->assign(array('data'=>$data));
+        $this->display('payment');
+    }
     public function logout()
     {
         $_SESSION=[];

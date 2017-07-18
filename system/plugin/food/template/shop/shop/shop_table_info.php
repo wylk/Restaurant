@@ -43,12 +43,12 @@
                                              桌台 详情
                                     </div>
                                     <div class="panel-body">
-                                        
+
                                         <div class="list-group-item">
                                                 <span class="span-left">名字(桌台号) :</span>
                                                 <span class="span-right"><?php echo $datas[0]['title']?></span>
                                         </div>
-                                           
+
                                        <div class="list-group-item">
                                                 <span class="span-left">标签：</span>
                                                 <span class="span-right"><?php echo $datas[0]['c_title']?></span>
@@ -76,7 +76,7 @@
                                                 </span>
                                         </div>
                                         <div class="list-group-item">
-                                                扫描次数 : 
+                                                扫描次数 :
                                                 <span class="span-right"><?php echo $datas[0]['displayorder'];?></span>
                                         </div>
                                         <div class="list-group-item">
@@ -86,12 +86,12 @@
                                         <div class="list-group-item">
                                                 二维码图片 :
                                                 <div style="width:200px;height:200px;border:1px dashed #dddddd;    margin-left: 13%; " id="qr-code-autopay">
-                                                    
+                                                <img src="<?php echo $datas[0]['url']?>" alt="">
                                                 </div>
                                         </div>
-                                       
-                                       
-                                      
+
+
+
                                     </div>
                                     <div class="form-group col-sm-12" style="margin-top: 20px;">
                                         <a href="./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_table_edit&table_id=<?php echo $datas[0]['id'];?>" id="add1" class="btn btn-default col-lg-3">
@@ -107,7 +107,7 @@
         </div>
         <!-- end main container -->
         <!-- scripts -->
-        <script src="http://code.jquery.com/jquery-latest.js">
+        <script src="https://code.jquery.com/jquery-latest.js">
         </script>
         <script src="<?php echo FOOD_PATH;?>js/bootstrap.min.js">
         </script>
@@ -127,5 +127,5 @@
             });
         </script>
         </body>
-        
+
         </html>
