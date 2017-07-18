@@ -413,6 +413,8 @@
     }
     public function doindex()
     {
+      // echo $_SESSION['employee']['id'];
+      // die;
          $this->displays('index');
     }
 
@@ -763,7 +765,7 @@
     {
         if (IS_POST) {
             $data = $this->clear_html($_POST);
-<<<<<<< HEAD
+
             $data['store_id'] = $this->mid;
             $data['dateline'] = time();
             $return=model('food_shop_tables')->data($data)->add();
@@ -777,20 +779,20 @@
                 {
                   $this->dexit(['error'=>1,'msg'=>'fail']);
                 }
-=======
+
 
             $data['store_id'] = $this->mid;
              //$this->dexit(['error'=>0,'msg'=>$data]);
 
 
-            $data['store_id'] = $this->mid; 
-            $data['dateline'] = time(); 
+            $data['store_id'] = $this->mid;
+            $data['dateline'] = time();
 
             $data['store_id'] = $this->mid;
             $data['dateline'] = time();
 
             if (model('food_shop_tables')->data($data)->add()) {
->>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
+
                 $this->dexit(['error'=>0,'msg'=>'添加成功']);
             }
             else{
@@ -800,10 +802,11 @@
 
         }
 
+    }
         $datas = model('food_shop_tablezones')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
         $printlabel = model('food_shop_print_label')->field('id,title')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
         $this->displays('shop/shop_table_add',array('datas'=>$datas,'printlabel'=>$printlabel));
-    }
+  }
     //添加餐桌标签
     public function do_shop_table_printlabel_add()
     {
@@ -917,14 +920,7 @@
     {
         $this->displays('shop/shop_reserve');
     }
-<<<<<<< HEAD
-=======
 
-
-
-
-
->>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
 
 
 
@@ -938,11 +934,6 @@
 
         $this->left_menu();
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3880a39feaf9789490b668f4c5d9b5ff8419055c
         include PLUGIN_PATH.PLUGIN_ID.'/template/shop/'.$c.'.php';
     }
 
