@@ -1,0 +1,3 @@
+<?php
+//000000000000a:12:{i:0;s:2:"id";i:1;s:8:"store_id";i:2;s:5:"title";i:3;s:11:"limit_price";i:4;s:17:"reservation_price";i:5;s:11:"table_count";i:6;s:12:"service_rate";i:7;s:12:"displayorder";i:8;s:6:"status";s:8:"_autoinc";b:1;s:3:"_pk";s:2:"id";s:5:"_type";a:9:{s:2:"id";s:16:"int(10) unsigned";s:8:"store_id";s:16:"int(10) unsigned";s:5:"title";s:12:"varchar(200)";s:11:"limit_price";s:16:"int(10) unsigned";s:17:"reservation_price";s:16:"int(10) unsigned";s:11:"table_count";s:7:"int(10)";s:12:"service_rate";s:13:"decimal(10,2)";s:12:"displayorder";s:19:"tinyint(3) unsigned";s:6:"status";s:19:"tinyint(1) unsigned";}}
+?>

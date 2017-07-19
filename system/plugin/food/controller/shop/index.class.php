@@ -957,6 +957,17 @@
         $data = model('food_queue_add_lin')->where(array('store_id'=>$this->mid,'id'=>$id))->find();
         $this->displays('shop/shop_queue_edit',['data'=>$data]);
     }
+    //修改队列删除
+    public function do_shop_queue_del()
+    {
+        $id = $this->clear_html($_GET['del_id']);
+        if (model('food_queue_add_lin')->where(array('id'=>$id))->delete()) {
+            $this->dexit(array('error'=>0,'msg'=>'删除成功'));
+        }else{
+            $this->dexit(array('error'=>1,'msg'=>'删除失败'));
+        }
+
+    }
 
     //客人队列
     public function do_shop_queue_buyer()

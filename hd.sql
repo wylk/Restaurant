@@ -386,3 +386,35 @@ mch_id varchar(55) not null comment '支付的商户号',
 key hd_food_payment_cid(cid),
 primary key(id)
 )engine=innodb default charset=utf8 comment '支付配置表';
+
+
+--排队
+CREATE TABLE IF NOT EXISTS `hd_food_queue_buyer` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `buyer_id` int(11) NOT NULL,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `u_id` int(10) NOT NULL DEFAULT '0',
+  `queue_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `table_id` int(10) NOT NULL DEFAULT '0' COMMENT '桌号id',
+  `buyer_num` int(20) NOT NULL DEFAULT '0',
+  `add_time` int(11) NOT NULL DEFAULT '0',
+  `is_notice` int(11) NOT NULL COMMENT '是否已通知',
+  `tel` varchar(20) NOT NULL COMMENT '电话号码',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=17 ;
+
+--排队设置
+CREATE TABLE IF NOT EXISTS `hd_food_queue_add_lin` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `store_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `limit_num` int(10) unsigned NOT NULL DEFAULT '0',
+  `starttime` varchar(20) NOT NULL DEFAULT '0',
+  `endtime` varchar(20) NOT NULL DEFAULT '0',
+  `prefixs` varchar(20) NOT NULL DEFAULT '0',
+  `notify_number` int(10) DEFAULT '0',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=11 ;

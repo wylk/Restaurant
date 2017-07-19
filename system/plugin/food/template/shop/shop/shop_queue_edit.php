@@ -30,7 +30,8 @@
                                 <input type="hidden" name="id" value="" />
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        队列设置 详情
+                                        队列设置 详情  <a href="javascript:;" id="del" data-id="<?php echo $data['id'];?>"> <span class='glyphicon glyphicon-trash'
+                             style="float:right;margin-right: 6px;"></span></a>
                                     </div>
                                     <div class="panel-body">
                                         <div class="form-group">
@@ -177,6 +178,27 @@
 
                     },'json');
                 });
+
+                $('#del').click(function(){
+                    var del_id = $(this).data('id');
+                    var data  = {}
+                    data.del_id = del_id;
+                    console.log(data);
+
+                    $.get('?m=plugin&p=shop&cn=index&id=food:sit:do_shop_queue_del',data,function(re){
+                        console.log(re);
+                        if (re.error == 1) {
+                            swal("友情提示！", re.msg, "success");
+                            sitTimeout(function(){
+                               window.location.href = '?m=plugin&p=shop&cn=index&id=food:sit:do_shop_queue'
+                            },1000);
+                            
+                        }else{
+                            swal("友情提示！", re.msg, "error")
+                        }
+
+                    },'json');
+                })
 
             });
         </script>
