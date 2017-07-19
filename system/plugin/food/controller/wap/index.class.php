@@ -382,4 +382,127 @@ class index extends plugin
             }
         }
     }
+    
+    //排队 hd_food_queue_buyer
+    public function do_queue_buyer()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $data['store_id'] = $this->mid;
+            $data['u_id'] = 3;
+            $status = model('food_queue_buyer')->where(array('u_id'=>$data['u_id'],'status'=>1))->find();
+            if ($status) {
+               $this->dexit(array('error'=>1,'msg'=>'你已经排号成功了，不可再排号，取消可重新排号。。'));
+            }
+            $datas = model('food_queue_add_lin')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+            $a = 100000000000;
+            $id = 0;
+            foreach ($datas as $v) {
+                if ($data['buyer_num'] >=  $v['limit_num']) {
+                    $b = abs($v['limit_num']-$data['buyer_num']);
+                    if ($a > $b) {
+                        $a  = $b;
+                        $id = $v[id];
+                    }
+                      
+                }
+            }
+            $data['queue_id'] = $id;
+            $data['add_time'] = time();
+            $todey = strtotime(date('Ymd'));
+            $buyer = model('food_queue_buyer')->where(array('status'=>1,'add_time'=>array('gt',$todey)))->order('buyer_id desc')->select();
+            if ($buyer) {
+               $data['buyer_id'] = $buyer[0]['buyer_id']+1;
+            }else{
+                $data['buyer_id'] = 10001;
+            }
+            $num = model('food_queue_buyer')->data($data)->add();
+            if ($num) {
+                $this->dexit(array('error'=>0,'msg'=>'你已经排号成功。。'));
+              
+            }else{
+                $this->dexit(array('error'=>1,'msg'=>'你排号失败。。'));
+            
+            }
+        }
+        $this->display('queue_buyer');
+    }
+
+     //显示排队位置
+    public function do_queue_buyer_show()
+    {
+        $u_id = 1;
+        $buyer = model('food_queue_buyer')->where(array('u_id'=>$u_id,))->find();
+        $queue = model('food_queue_add_lin')->where(array('id'=>$buyer['queue_id']))->find();
+        //
+        $buyers = model('food_queue_buyer')->where(array('queue_id'=>$buyer['queue_id'],'status'=>1))->order('add_time asc')->limit(0,$queue['notify_number'])->select();
+        //我这一组我排第几
+        $num = model('food_queue_buyer')->field('count(*) as num')->where(array('add_time'=>array('lt',$buyer['add_time'])))->find();
+        //dump($buyers);
+        //dump($num);
+        $this->assign(array('num'=>$num['num'],'buyers'=>$buyers,'buyer'=>$buyer));
+        $this->display('queue_buyer_show');
+    }
+    //排队定时任务
+    public function do_queue_buyer_times()
+    {
+        $bl = 2;
+         $this->do_queue_buyer_time($bl);
+        
+        for ($i=0; $i < 3; $i++) { 
+            $table = model('food_shop_tables')->where(array('status'=>0))->select();
+            if ($table) {
+                $this->do_queue_buyer_time($bl+1+$i);
+            }
+        }
+        
+    }
+    public function do_queue_buyer_time($bl)
+    {
+        $queues = model('food_queue_add_lin')->where(array('status'=>1))->select();
+        $tables = model('food_shop_tables')->where(array('status'=>0))->select();
+        //limit_num user_count
+        $aa = [];
+        if ($tables) {
+            foreach ($queues as $key => $vv) {
+                $sm = 100000000000;
+                $a = [];
+                
+                foreach ($tables as $k=> $v) {
+                    if ($v['store_id'] == $vv['store_id']) { 
+                        if ($v['user_count'] >= $vv['limit_num'] ) {
+                            $n = abs($v['user_count']-$vv['limit_num']); 
+                            if ($sm > $n & $n < $bl) {
+                                $sm = $n;
+                                $a['table'] = $v;
+                                $a['queue'] = $vv; 
+                            }       
+                        } 
+                    } 
+                }
+                if (isset($a)) {
+                    $aa[]=$a;
+                }
+               
+            }
+                    
+        } 
+
+        foreach ($aa as $kk => $vv) {
+            $table_id = $vv['table']['id'];
+            $queue_id = $vv['queue']['id'];
+            $buyer = model('food_queue_buyer')->where(array('status'=>1,'queue_id'=>$queue_id))->find(); 
+            //echo $table_id;
+            $data['status'] = 2;
+            $data['table_id'] = $table_id;
+            if (model('food_queue_buyer')->data($data)->where(array('id'=>$buyer['id']))->save()) {
+                model('food_shop_tables')->data(array('status'=>1))->where(array('id'=>$table_id))->save(); 
+            }
+
+
+        }  
+        
+    }
+
+
 }

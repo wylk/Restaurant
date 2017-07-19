@@ -907,12 +907,77 @@
 
     }
 
+
     //排队管理
     public function do_shop_queue()
     {
-        $this->displays('shop/shop_queue');
+        $datas = model('food_queue_add_lin')->where(array('store_id'=>$this->mid))->order('displayorder asc')->select();
+        $this->displays('shop/shop_queue',['datas'=>$datas]);
 
+    }
 
+    //新建队列设置
+    public function do_shop_queue_add()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $data['store_id'] = $this->mid;
+            if (model('food_queue_add_lin')->data($data)->add()) {
+                $this->dexit(array('error'=>0,'msg'=>'添加成功'));
+                
+            }else{
+                $this->dexit(array('error'=>1,'msg'=>'添加失败'));
+                
+            }
+
+        }
+        $this->displays('shop/shop_queue_add');
+    }
+
+     //修改队列设置
+    public function do_shop_queue_edit()
+    {
+        if (IS_POST) {
+            $data = $this->clear_html($_POST);
+            $id = $data['edit_id'];
+            unset($data['edit_id']);
+            $data['store_id'] = $this->mid;
+            
+            if (model('food_queue_add_lin')->data($data)->where(array('id'=>$id,'store_id'=>$this->mid))->save()) {
+                $this->dexit(array('error'=>0,'msg'=>'修改成功'));
+                
+            }else{
+                $this->dexit(array('error'=>1,'msg'=>'修改失败'));
+                
+            }
+
+        }
+
+        $id = $this->clear_html($_GET['edit_id']);
+        $data = model('food_queue_add_lin')->where(array('store_id'=>$this->mid,'id'=>$id))->find();
+        $this->displays('shop/shop_queue_edit',['data'=>$data]);
+    }
+    //修改队列删除
+    public function do_shop_queue_del()
+    {
+        $id = $this->clear_html($_GET['del_id']);
+        if (model('food_queue_add_lin')->where(array('id'=>$id))->delete()) {
+            $this->dexit(array('error'=>0,'msg'=>'删除成功'));
+        }else{
+            $this->dexit(array('error'=>1,'msg'=>'删除失败'));
+        }
+
+    }
+
+    //客人队列
+    public function do_shop_queue_buyer()
+    {
+        $datas = model('food_queue_add_lin')->where(array('status'=>1,'store_id'=>$this->mid))->order('displayorder asc')->select();
+        foreach ($datas as $key => &$v) {
+            $num = model('food_queue_buyer')->field('count(*) as num')->where(array('queue_id'=>$v['id'],'status'=>1))->find();
+            $v['num'] = $num['num'];
+        }
+        $this->displays('shop/shop_queue_buyer',['datas'=>$datas]);
     }
 
     //预定管理

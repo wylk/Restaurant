@@ -52,12 +52,12 @@
         #queue-setting-index-body .queue_setting {
             width: 150px;
             height: 150px;
-            border-radius: 1000px;
+            border-radius: 20%;
             margin-right: 20px
         }
         #guest-queue-index-body .queue_setting .name, #queue-setting-index-body .queue_setting .name{
             display: table-cell;
-            font-size: 20px;
+            font-size: 13px;
             font-weight: bold;
             line-height: 30px;
             vertical-align: middle;
@@ -92,7 +92,7 @@
                     </a>-->
                 </div>
             </div>
-             <a href="?m=plugin&p=wap&cn=index&id=food:sit:do_queue_buyer&shop_id=7">排队</a>
+
             <!-- Users table -->
             <div class="row">
                 <div class="col-md-12">
@@ -100,12 +100,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <ul class="nav nav-pills" role="tablist">
-                                    <li>
+                                    <li class="active">
                                         <a href="?m=plugin&p=shop&cn=index&id=food:sit:do_shop_queue_buyer">
                                             客人队列
                                         </a>
                                     </li>
-                                    <li class="active">
+                                    <li >
                                         <a href="?m=plugin&p=shop&cn=index&id=food:sit:do_shop_queue">
                                             队列设置
                                         </a>
@@ -137,16 +137,12 @@
                                 <a <?php if($v['status'] == 1){echo 'class="block-success queue_setting"';}else{echo 'class="block-gray queue_setting"';}?> href="./index.php?m=plugin&p=shop&cn=index&id=food:sit:do_shop_queue_edit&edit_id=<?php echo $v['id'];?>">
                                     <div class="table-display">
                                         <div class="name">
-                                            <?php echo $v['title'];?>
+                                           当前排队人数：<?php if($v['num']){echo $v['num'];}else{ echo '0';};?> 人
                                         </div>
                                     </div>
                                     <div class="table-display">
                                         <div class="queue-enabled">
-                                        <?php if($v['status'] == 1){?>
-                                            开放中
-                                            <?php }else{?>
-                                            未开放
-                                            <?php }?>
+                                        <?php echo $v['title'];?>
                                         </div>
                                     </div>
                                 </a>
